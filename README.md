@@ -1,4 +1,4 @@
-#Open Financial Management
+#Open Portfolio
 
 Open source django project for portfolio management.  Aims to open up asset management tools used by professional fund managers.
 
