@@ -1,0 +1,17 @@
+media/*
+sphinx/*
+docs/doctrees/*
+docs/latex/*
+datafiles/*
+financemanager/fixtures/*
+initial_data.yaml
+!.gitignore
+!media/admin/*
+build
+dist
+MANIFEST
+*.egg-info
+distribute-*
+*.db
+*.pyc
+*.swp

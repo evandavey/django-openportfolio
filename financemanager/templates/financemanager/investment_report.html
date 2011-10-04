@@ -1,0 +1,67 @@
+{% extends "financemanager/base.html" %}
+{% load financemanager_extras %}
+
+{% block title %}Investment Analysis{% endblock %}
+{% block content %}
+
+<h3>Summary</h3>
+<table>
+	<thead>
+	
+	</thead>
+	<tbody>
+	<tr>
+		<th>Name</th>
+		<td>{{ object.name }}</td>
+	</tr>
+	<tr>
+		<th>Asset Class</th>
+		<td>{{ object.asset_class.name }}</td>
+	</tr>
+	<tr>
+		<th>Currency</th>
+		<td>{{ object.currency.code }}</td>
+	</tr>
+	<tr>
+		<th>Company</th>
+		<td>{{ object.company.name }}</td>
+	</tr>
+	<tr>
+		<th>Sector</th>
+		<td>{{ object.company.gics_sector.name }}</td>
+	</tr>
+	<tr>
+		<th>Last Price</th>
+		<td>{{ object.latest_price|currency:object.currency.locale_code}}</td>
+	</tr>
+	<tr>
+		<th>Daily Return</th>
+		<td>{{ object.latest_return|formatdata:'percentage' }}</td>
+	</tr>
+	<tr>
+		<th>Monthly Return</th>
+		<td>{{ object.latest_return_m|formatdata:'percentage' }}</td>
+	</tr>
+	<tr>
+		<th>Yearly Return</th>
+		<td>{{ object.latest_return_y|formatdata:'percentage' }}</td>
+	</tr>
+	<tr>
+		<th>Mean</th>
+		<td>{{ object.mean|currency:object.currency.locale_code }}</td>
+	</tr>
+	</tbody>
+</table>
+
+{% if object.content_type.model == 'listedequity' %}
+
+<h3>Detailed Chart</h3>
+<img src="investmentchart.png">
+
+
+{% endif %}
+
+<h3>Returns Table</h3>
+{{returns}}
+
+{% endblock %}

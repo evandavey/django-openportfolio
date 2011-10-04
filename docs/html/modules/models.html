@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Models &mdash; Open Financial Management v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open Financial Management v1.0 documentation" href="../index.html" />
+    <link rel="up" title="API Documentation" href="../api.html" />
+    <link rel="prev" title="API Documentation" href="../api.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Open Financial Management v1.0 documentation</a> &raquo;</li>
+          <li><a href="../api.html" accesskey="U">API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api.html"
+                        title="previous chapter">API Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/modules/models.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-financemanager.models">
+<span id="models"></span><h1>Models<a class="headerlink" href="#module-financemanager.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="financemanager.models.AccountingAllocation">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">AccountingAllocation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.AccountingAllocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object defining an allocation category for assigning investment transactions</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.AssetClass">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">AssetClass</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.AssetClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent an investment AssetClass
+Each Investment will belong to a single AssetClass</p>
+<dl class="method">
+<dt id="financemanager.models.AssetClass.full_name">
+<tt class="descname">full_name</tt><big>(</big><big>)</big><a class="headerlink" href="#financemanager.models.AssetClass.full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a parent/child representation of this object
+eg: parent::child1::child_of_child1</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.BankAccount">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">BankAccount</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.BankAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Bank Account Investment object</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.CSVDataDefinition">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">CSVDataDefinition</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.CSVDataDefinition" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to define the structure of a csv download</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.Company">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">Company</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.Company" title="Permalink to this definition">¶</a></dt>
+<dd><p>A high level object to represent a company 
+Companies can issue multiple Investments</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.Currency">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">Currency</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.Currency" title="Permalink to this definition">¶</a></dt>
+<dd><p>Currency(id, code, locale_code)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.GICSSector">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">GICSSector</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.GICSSector" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent the S&amp;P GICS sector structure
+Each Company will belong to a single GICS sector
+The GICS sectors hieracy defines levels of Sector,IndustryGroup,Industry and SubIndustry
+GICS data will be populated from a (manipulated) csv file downloaded from S&amp;P
+Note that the ASX company data populates GICS sectors at the IndustryGroup level 
+S&amp;P use an id scheme that allows the parent/child relationship to be determined from the id
+For example, an Industry of id 102030 will belong to IndustryGroup id 1020 and Sector 10</p>
+<dl class="method">
+<dt id="financemanager.models.GICSSector.full_name">
+<tt class="descname">full_name</tt><big>(</big><big>)</big><a class="headerlink" href="#financemanager.models.GICSSector.full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a parent/child representation of this object
+eg: parent::child1::child_of_child1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="financemanager.models.GICSSector.industry">
+<tt class="descname">industry</tt><a class="headerlink" href="#financemanager.models.GICSSector.industry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the linked Industry level name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="financemanager.models.GICSSector.industry_group">
+<tt class="descname">industry_group</tt><a class="headerlink" href="#financemanager.models.GICSSector.industry_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the linked Industry Group level name</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="financemanager.models.GICSSector.sector">
+<tt class="descname">sector</tt><a class="headerlink" href="#financemanager.models.GICSSector.sector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the linked Sector level name</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.HistoricalPortfolioInvestment">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">HistoricalPortfolioInvestment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.HistoricalPortfolioInvestment" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent historical Portfolio holdings of Investments</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.InterestRate">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">InterestRate</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.InterestRate" title="Permalink to this definition">¶</a></dt>
+<dd><p>InterestRate(id, date, rate, investment_id)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.Investment">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">Investment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.Investment" title="Permalink to this definition">¶</a></dt>
+<dd><p>A base Investment object
+Investments are issued by Companies
+Investments are held by Portfolios
+Investments are traded by Portfolios
+Investments can be Bank Accounts,Savings Accounts,Listed Equity
+Investments belong to an Asset Class</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.InvestmentDividend">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">InvestmentDividend</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.InvestmentDividend" title="Permalink to this definition">¶</a></dt>
+<dd><p>InvestmentDividend(id, date, dividend, investment_id)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.InvestmentPrice">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">InvestmentPrice</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.InvestmentPrice" title="Permalink to this definition">¶</a></dt>
+<dd><p>InvestmentPrice(id, date, price, investment_id)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.InvestmentTransaction">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">InvestmentTransaction</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.InvestmentTransaction" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent a Portfolio trade of an Investment</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.InvestmentTransactionDownload">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">InvestmentTransactionDownload</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.InvestmentTransactionDownload" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent a download file of InvestmentTransactions
+1 file per portfolio</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.ListedEquity">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">ListedEquity</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity" title="Permalink to this definition">¶</a></dt>
+<dd><p>A listed Equity Investment object</p>
+<dl class="attribute">
+<dt id="financemanager.models.ListedEquity.dividend_yield">
+<tt class="descname">dividend_yield</tt><a class="headerlink" href="#financemanager.models.ListedEquity.dividend_yield" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the ystockquote module to download the current dividend yield from yahoo finance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.ListedEquity.download_dividend_data">
+<tt class="descname">download_dividend_data</tt><big>(</big><em>start_dt</em>, <em>end_dt</em><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity.download_dividend_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the ystockquote module to download dividend data from yahoo finance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.ListedEquity.download_price_data">
+<tt class="descname">download_price_data</tt><big>(</big><em>start_dt</em>, <em>end_dt</em><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity.download_price_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the ystockquote module to download price data from yahoo finance</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.ListedEquity.full_ticker">
+<tt class="descname">full_ticker</tt><big>(</big><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity.full_ticker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns ticker.exchange_code eg: TLS.AX</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.ListedEquity.get_dividend">
+<tt class="descname">get_dividend</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity.get_dividend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a dividend as at a given date, otherwise returns -1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.ListedEquity.get_price">
+<tt class="descname">get_price</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#financemanager.models.ListedEquity.get_price" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a price as at a given date, otherwise returns -1</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="financemanager.models.ListedEquity.pe">
+<tt class="descname">pe</tt><a class="headerlink" href="#financemanager.models.ListedEquity.pe" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls the ystockquote module to download the current price earnings yield from yahoo finance</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.Portfolio">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">Portfolio</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.Portfolio" title="Permalink to this definition">¶</a></dt>
+<dd><p>A portfolio object</p>
+<dl class="method">
+<dt id="financemanager.models.Portfolio.full_name">
+<tt class="descname">full_name</tt><big>(</big><big>)</big><a class="headerlink" href="#financemanager.models.Portfolio.full_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a parent/child representation of this object
+eg: parent::child1::child_of_child1</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="financemanager.models.Portfolio.holdings_as_at">
+<tt class="descname">holdings_as_at</tt><big>(</big><em>dt</em><big>)</big><a class="headerlink" href="#financemanager.models.Portfolio.holdings_as_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns portfolio holdings as at dt</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.PortfolioInvestment">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">PortfolioInvestment</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.PortfolioInvestment" title="Permalink to this definition">¶</a></dt>
+<dd><p>An object to represent Portfolio holdings of Investments</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.SavingsAccount">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">SavingsAccount</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.SavingsAccount" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Savings Account Investment object</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="financemanager.models.TransactionAllocation">
+<em class="property">class </em><tt class="descclassname">financemanager.models.</tt><tt class="descname">TransactionAllocation</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#financemanager.models.TransactionAllocation" title="Permalink to this definition">¶</a></dt>
+<dd><p>TransactionAllocation(id, percentage_allocation, memo, allocation_id, transaction_id)</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../api.html" title="API Documentation"
+             >previous</a> |</li>
+        <li><a href="../index.html">Open Financial Management v1.0 documentation</a> &raquo;</li>
+          <li><a href="../api.html" >API Documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Evan Davey.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
