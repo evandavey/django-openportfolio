@@ -20,7 +20,7 @@ RSYNC_EXCLUDE = (
     'bootstrap.py',
 )
 env.home = '/usr/local/web/django'
-env.project = 'financedb'
+env.project = 'openportfolio'
 env.deploy_user='evandavey'
 
 
@@ -41,6 +41,7 @@ def staging():
     env.user = 'evandavey'
     env.environment = 'staging'
     env.hosts = ['192.168.0.21']
+	env.servername = ['openportfolio.getoutsideandlive.com']
     _setup_path()
 
 
@@ -142,6 +143,33 @@ def shell():
     """ runs the local shell """
     require('environment',provided_by=('development'))
     local('./manage.py shell --settings=%s.settings_local' % (env.project))
+
+
+def update_conf_files():
+	""" updates conf files to relect fabfile environment settings """
+
+	require('environment', provided_by=('staging', 'production'))
+	require('project', provided_by=('staging', 'production'))
+	require('servername', provided_by=('staging', 'production'))
+
+	f=open('apache/template.conf','r')
+	o=open('apache/%s.conf' % (env.environment),'w')
+
+	for line in f.readlines():
+		line=line.replace('<project>',env.project)
+		line=line.replace('<environment>',env.environment)
+		line=line.replace('<servername>',env.servername)
+		o.write(line+"\n")
+		
+	f=open('apache/template.wsgi','r')
+	o=open('apache/%s.wsgi' % (env.environment),'w')
+
+	for line in f.readlines():
+		line=line.replace('<project>',env.project)
+		line=line.replace('<environment>',env.environment)
+		line=line.replace('<servername>',env.servername)
+		o.write(line+"\n")
+
 
 
 def update_requirements():
