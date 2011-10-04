@@ -37,12 +37,12 @@ def development():
 
 
 def staging():
-    """ use staging environment on remote host"""
-    env.user = 'evandavey'
-    env.environment = 'staging'
-    env.hosts = ['192.168.0.21']
-	env.servername = ['openportfolio.getoutsideandlive.com']
-    _setup_path()
+	""" use staging environment on remote host"""
+	env.user = 'evandavey'
+	env.environment = 'staging'
+	env.hosts = ['192.168.0.21']
+	env.servername = 'openportfolio.getoutsideandlive.com'
+	_setup_path()
 
 
 def production():
