@@ -151,6 +151,7 @@ def update_conf_files():
 	require('environment', provided_by=('staging', 'production'))
 	require('project', provided_by=('staging', 'production'))
 	require('servername', provided_by=('staging', 'production'))
+	require('home', provided_by=('staging', 'production'))
 
 	f=open('apache/template.conf','r')
 	o=open('apache/%s.conf' % (env.environment),'w')
@@ -159,6 +160,7 @@ def update_conf_files():
 		line=line.replace('<project>',env.project)
 		line=line.replace('<environment>',env.environment)
 		line=line.replace('<servername>',env.servername)
+		line=line.replace('<home>',env.home)
 		o.write(line+"\n")
 		
 	f=open('apache/template.wsgi','r')
@@ -168,6 +170,7 @@ def update_conf_files():
 		line=line.replace('<project>',env.project)
 		line=line.replace('<environment>',env.environment)
 		line=line.replace('<servername>',env.servername)
+		line=line.replace('<home>',env.home)
 		o.write(line+"\n")
 
 
