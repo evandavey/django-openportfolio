@@ -15,3 +15,5 @@ distribute-*
 *.db
 *.pyc
 *.swp
+apache/staging.*
+apache/production.*
