@@ -22,19 +22,19 @@ except:
     README = None
 
 try:
-    REQUIREMENTS = open('requirements.txt').read()
+    REQUIREMENTS = open('requirements/apps.txt').read()
 except:
     REQUIREMENTS = None
 
 setup(
-    name = 'django-financemanager',
-    version = "0.3.0",
+    name = 'django-openportfolio',
+    version = "0.1.0",
     description = 'Django app for managing personal finances',
     long_description = README,
     install_requires=REQUIREMENTS,
     author = 'Evan Davey',
     author_email = 'evan.j.davey@gmail.com',
-    url = 'http://github.com/evandavey/OpenFinancialManagement/',
+    url = 'http://github.com/evandavey/OpenPortfolio/',
     packages = find_packages(),
     include_package_data = True,
     classifiers = ['Development Status :: 1 - Planning',
