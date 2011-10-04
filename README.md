@@ -34,13 +34,16 @@ The easy option is to install fabric and utitilse the included fabfile.  A virtu
 Otherwise:
 
 - install requirements
-    pip install -e requirements/apps.txt
+
+   pip install -e requirements/apps.txt
 
 - sync the database
-    pip ./manage.py syncdb --settings=financedb.settings_local
+    
+  ./manage.py syncdb --settings=financedb.settings_local
 
 - run the development server
-	pip ./manage.py runserver 0.0.0.0:8080 --settings=financedb.settings_local
+
+   ./manage.py runserver 0.0.0.0:8080 --settings=financedb.settings_local
 	
 	
 The fabfile includes scripts to deploy within a production environment using Apache2 and Passenger.
