@@ -1,9 +1,9 @@
-from financedb.settings import *
+from openportfolio.settings import *
 
 DEBUG = True
 
 
-STATIC_ROOT = '/usr/local/web/django/www/staging/financedb/static'
+STATIC_ROOT = '/usr/local/web/django/www/staging/openportfolio/static'
 
 DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = '/usr/local/web/django/db/financedb.db'
+DATABASE_NAME = '/usr/local/web/django/db/openportfolio.db'

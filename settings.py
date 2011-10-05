@@ -101,7 +101,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 )
 
-ROOT_URLCONF = 'financedb.urls'
+ROOT_URLCONF = 'openportfolio.urls'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -116,6 +116,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.staticfiles',
-    'financedb.financemanager',
+    'openportfolio.financemanager',
     'south',
 )
