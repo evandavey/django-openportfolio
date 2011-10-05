@@ -5,7 +5,7 @@ docs/latex/*
 datafiles/*
 financemanager/fixtures/*
 initial_data.yaml
-!.gitignore
+.gitignore
 !media/admin/*
 build
 dist
