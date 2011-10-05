@@ -6,11 +6,13 @@ from financemanager.utils import full_name
 from financemanager.models.trade import Trade
 from financemanager.models.investment import Investment
 from decimal import *
-from pandas.core.datetools import DateOffset
+from pandas.core.datetools import DateOffset,MonthEnd,YearEnd
 from financemanager.models.prices import PortfolioPrice
 from datetime import *
 from financemanager.utils.returns import returns_dmy
 from financemanager.utils.returns import geometric_return
+from financemanager.models.returns import PortfolioReturn
+
 
 DEFAULT_CURRENCY='AUD'
 
@@ -119,7 +121,7 @@ class Portfolio(models.Model):
 			data['Hb'].append(h)
 	
 			ipdf=i.load_price_frame(dt,dt,curr)
-				
+
 			#get data from the price frame according to mapping
 			for key,val in ipdf_mappings.iteritems():
 				try:
@@ -223,39 +225,125 @@ class Portfolio(models.Model):
 			return None
 
 
-	def load_returns_frame(self,freq=None):
+
+	def load_returns_frame(self,freq='d'):
+		
+		qs=PortfolioReturn.objects.filter(portfolio=self,freq=freq)
+		
+
+		if len(qs)==0:
+			print "No returns found: %s" % self
+			return None
+		
+	
+		
+		names=['date','P','PP','TR','CR']
+		vlqs=[]
+		for q in qs:
+			
+			tr=q.total_return
+			cr=q.capital_return
+			
+			if tr is None:
+				tr=Decimal('NaN')
+			
+			if cr is None:
+				cr=Decimal('NaN')
+			
+			vlqs.append((q.date,q.price,q.prev_price,tr,cr))
+		
+		returns = np.core.records.fromrecords(vlqs, names=names)
+
+		dates = [datetime.combine(d,time()) for d in returns.date]
+	
+
+		data={
+			'P': returns.P,
+			'PP': returns.PP,
+			'TR': returns.TR,
+			'CR': returns.CR,
+
+		}
+
+		pdf=ps.DataFrame(data,index=dates)	
+
+		return pdf
+		
+		
+	def save_returns_frame(self,df):
+
+		if df is None:
+			return
+
+		for dt in df.index:
+
+			print '...saving returns frame %s' % dt
+			xs=df.xs(dt)
+		
+			try:
+				p=PortfolioReturn.objects.get(date=dt,portfolio=self,freq=xs['freq'])
+			except:
+				p=PortfolioReturn()
+
+			
+
+			p.date=dt
+			p.price=xs['P']
+			p.prev_price=xs['PP']
+			#p.xr=xs['XR']
+			#p.prev_xr=xs['PXR']
+			#p.dividend=xs['D']
+			p.portfolio=self
+			p.freq=xs['freq']
+			
+			
+			p.save()
+
+
+		return
+		
+		
+	def create_and_save_returns_frame(self):
 
 		enddate=datetime.today()
 
+		#load prices
 		pdf=self.load_price_frame(None,enddate)
-		bmpdf=self.bm.load_price_frame(None,enddate)
+		#bmpdf=self.bm.load_price_frame(None,enddate)
 
 		if pdf is None:
 			return None
 		
-		r,rm,ry=returns_dmy(pdf)
-		bmr,bmrm,bmry=returns_dmy(bmpdf)
+		freqs=['d','m','y']
+		for f in freqs:
+			
+			print 'generating returns for freq %s' % f
+	
+			try:
+				if f=='m':
+					cdf=pdf.asfreq(MonthEnd(),method='pad')
+			
+				elif f=='y':
+					cdf=pdf.asfreq(YearEnd(),method='pad')
+				
+				else:
+					cdf=pdf
+	
 		
+				data={
+					'P':cdf['price'],
+					'PP':cdf['price'].shift(1),
+					#'D':pdf['dividend'],
+					'freq': f,
+				}
 		
-		if bmry is not None:
-			ry['bm_price_return']=bmry['price_return']
-			ry['bm_price_fc_return']=bmry['price_fc_return']
-		if bmr is not None:
-			r['bm_price_return']=bmr['price_return']
-			r['bm_price_fc_return']=bmry['price_fc_return']
-		if bmrm is not None:
-			rm['bm_price_return']=bmrm['price_return']
-			rm['bm_price_fc_return']=bmry['price_fc_return']
+				df=ps.DataFrame(data,index=cdf.index)
 		
-		
-		
-		
-		if freq=='m':
-			return rm
-		elif freq=='y':
-			return ry
-		else:
-			return r
+				self.save_returns_frame(df)
+			except:
+				print 'Insufficient data for freq %s' % f
+				
+		return 
 	
 
 	def return_as_at(self,date,freq=None):
@@ -382,6 +470,10 @@ class Portfolio(models.Model):
 			return None
 				
 		vlqs = qs.values_list()
+		
+	
+			
+		
 		prices = np.core.records.fromrecords(vlqs, names=[f.name for f in PortfolioPrice._meta.fields])
 		
 		dates = [datetime.combine(d,time()) for d in prices.date]

@@ -28,14 +28,14 @@ def returns_table(request,pk,ctpk,date_format=None):
 
 
 	if model == Portfolio:
-		df=rdf.filter(['price_return','bm_price_return'])
+		#df=rdf.filter(['TR','bm_price_return'])
+		df=rdf.filter(['CR','TR'])
 	else:
-		df=rdf.filter(['price_return'])
+		df=rdf.filter(['IR','CR','TR'])
 
 	
-	agg={'Return':geometric_return,
-	
-	}
+	print df
+
 	
 	if date_format=='m':
 		grouped=df.applymap(float).groupby(lambda x: datetime(x.year,x.month,1)+MonthEnd())
@@ -50,31 +50,37 @@ def returns_table(request,pk,ctpk,date_format=None):
 	idx=grouped.index
 	
 	
-	fields=[{'key':'return','format':'{0:.2%}','label':'Return'}]
+	fields=[
+		{'key':'CR','format':'{0:.2%}','label':'Cap Return'},
+		{'key':'IR','format':'{0:.2%}','label':'Inc Return'},
+		{'key':'TR','format':'{0:.2%}','label':'Total Return'},
+	]
 	
-	if model==Portfolio:
-		data={'return':grouped['price_return'],'bm_return':grouped['bm_price_return']}
+	data={}
+	avail_fields=[]
+	for f in fields:	
+		try:
+			data[f['key']]=grouped[f['key']]
+			avail_fields.append(f)
+		except:
+			pass
 	
-		df=ps.DataFrame(data,index=idx)
+	df=ps.DataFrame(data,index=idx)
 	
-		df['a_return']=df['return']-df['bm_return']
-		
-		fields.append({'key':'bm_return','format':'{0:.2%}','label':'Benchmark'})
-		fields.append({'key':'a_return','format':'{0:.2%}','label':'Active Return'})
-		
 
-	else:
-		data={'return':grouped['price_return']}
-
-		df=ps.DataFrame(data,index=idx)
 	
-		
+	try:
+		df['TRa']=df['TR']-df['bm_TR']
+		avail_fields.append({'key':'TRa','format':'{0:.2%}','label':'Active Return'})
+	
+	except:
+		pass	
 		
 	ct={'df': df,
 		'table_id': 'returns_table',
 		'index_id': 'Date',
 		'index_format': index_format,
-		'fields': fields,
+		'fields': avail_fields,
 	}
 
 	t = loader.get_template('financemanager/dataframe_table.html')

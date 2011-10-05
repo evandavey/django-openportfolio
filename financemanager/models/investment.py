@@ -7,6 +7,10 @@ from financemanager.utils.returns import returns_dmy
 from pandas.core.datetools import MonthEnd,YearEnd
 from financemanager.utils.returns import returns
 from financemanager.utils.returns import geometric_return
+from financemanager.models.returns.investmentreturn import InvestmentReturn
+import pandas as ps
+from decimal import *
+import numpy as np
 
 class SubclassingQuerySet(QuerySet):
     def __getitem__(self, k):
@@ -122,27 +126,124 @@ class Investment(models.Model):
 		return pdf['price'].applymap(float).mean()
 		
 	
-	def load_returns_frame(self,freq=None,curr=None):
+	def load_returns_frame(self,freq='d'):
+
+		qs=InvestmentReturn.objects.filter(investment=self,freq=freq)
+
+
+		if len(qs)==0:
+			print "No returns found: %s" % self
+			return None
+
+
+
+		names=['date','P','PP','TR','CR']
+		vlqs=[]
+		for q in qs:
+
+			tr=q.total_return
+			cr=q.capital_return
+
+			if tr is None:
+				tr=Decimal('NaN')
+
+			if cr is None:
+				cr=Decimal('NaN')
+
+			vlqs.append((q.date,q.price,q.prev_price,tr,cr))
+
+		returns = np.core.records.fromrecords(vlqs, names=names)
+
+		dates = [datetime.combine(d,time()) for d in returns.date]
+
+
+		data={
+			'P': returns.P,
+			'PP': returns.PP,
+			'TR': returns.TR,
+			'CR': returns.CR,
+
+		}
+
+		pdf=ps.DataFrame(data,index=dates)	
+
+		return pdf
+
+
+	def save_returns_frame(self,df):
+
+		if df is None:
+			return
+
+		for dt in df.index:
+
+
+			xs=df.xs(dt)
+
+			try:
+				p=InvestmentReturn.objects.get(date=dt,investment=self,freq=xs['freq'])
+			except:
+				p=InvestmentReturn()
+
+
+
+			p.date=dt
+			p.price=xs['P']
+			p.prev_price=xs['PP']
+			#p.xr=xs['XR']
+			#p.prev_xr=xs['PXR']
+			#p.dividend=xs['D']
+			p.investment=self
+			p.freq=xs['freq']
+
+			
+
+			p.save()
+
+
+		return
+
+
+	def create_and_save_returns_frame(self):
 
 		enddate=datetime.today()
 
-		if curr is None:
-			curr='USD'
+		#load prices
+		pdf=self.load_price_frame(None,enddate)
+		#bmpdf=self.bm.load_price_frame(None,enddate)
 
-		pdf=self.load_price_frame(None,enddate,curr)
-
+		
 		if pdf is None:
 			return None
-			
-		#fc return col
-		r,rm,ry=returns_dmy(pdf)
 
-		if freq=='m':
-			return rm
-		elif freq=='y':
-			return ry
-		else:
-			return r
+		freqs=['d','m','y']
+		for f in freqs:
+			print 'generating returns for freq %s' % f
+			try:
+				if f=='m':
+					cdf=pdf.asfreq(MonthEnd(),method='pad')
+
+				elif f=='y':
+					cdf=pdf.asfreq(YearEnd(),method='pad')
+
+				else:
+					cdf=pdf
+
+
+				data={
+					'P':cdf['price'],
+					'PP':cdf['price'].shift(1),
+					#'D':pdf['dividend'],
+					'freq': f,
+				}
+
+				df=ps.DataFrame(data,index=cdf.index)
+
+				self.save_returns_frame(df)
+			except:
+				print 'Insufficient data for freq %s' % f
+
+		return
 
 
 	def return_as_at(self,date,freq=None):
@@ -158,12 +259,13 @@ class Investment(models.Model):
 		else:
 			pass
 
-		r=df['price_return']
+	
 
-		if r is None:
+		if df is None:
 			return None
 
 		try:
+			r=df['TR']
 			return round(r[date],4)
 		except:
 			print 'could not find return as at %s' % date

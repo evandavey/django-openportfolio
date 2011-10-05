@@ -32,43 +32,91 @@ def geometric_return(x):
 	
 def returns_dmy(df):
 	"""
-	compute daily,monthly,yearly returns
+	compute daily,monthly,yearly returns 
 	
 	"""
 
-	g_m=df.applymap(float).groupby(lambda x: datetime(x.year,x.month,1)+MonthEnd())
-	g_y=df.applymap(float).groupby(lambda x: datetime(x.year,12,1)+MonthEnd())
+
+	r=returns(df)
+	r_m=returns(df)
+	r_y=returns(df)
 	
 	
-	for idx,group in g_m:
-		print geometric_return(group['price'])
-	
+	return r,r_m,r_y
 	
 	
 
-def returns(df,idx,idx2=None):
+def returns(df,idx={'P':'price','XR':'crossrate','D':'dividend'}):
 	"""
-    compute the daily return of idx in x
+    compute the return from a given dataframe
 
-	x is a pandas dateframe object
+	idx is a dictionary mapping price,xrates and dividends
 	
-	idx2 can be used instead to calculate
-	a return on idx1 eg: for dividends
+	sets TR,CR then CR_fc,IR,IR_fc if data available
+	
+	returns None if price data can not be found
 
     """
 
-	prices=df[idx].applymap(float)
-	prev_prices=df[idx].shift(1).applymap(float)
+	try:
+		prices=df[idx['P']].applymap(float)
+		prev_prices=prices.shift(1)
+	except:
+		print 'Could not find price in dataframe'
+		return None
 	
-	if idx2 is not None:
-		prices2=df[idx2].applymap(float)
-		r=prices2/prev_prices
-		idx=idx2
-	else:
-		r=(prices-prev_prices)/prev_prices
+	try:
+		xr=df[idx['XR']].applymap(float)
+		prices_fc=prices*xr
+		prev_prices_fc=prices_fc.shift(1)
+	except:
+		prices_fc=None
+		print 'Could not find price fc in dataframe'
+		
+	try:
+		dividends=df[idx['D']].applymap(float)
+	except:
+		dividends=None
+		print 'Could not find dividends in dataframe'	
+		
 	
-	r=r.applymap(Decimal)
-	df[idx+ '_return']=r
+	
+	
+	cap_return=((prices-prev_prices)/prev_prices).applymap(Decimal)
+	df['CR']=cap_return
+	
+
+	
+	
+	if prices_fc is not None:
+		cap_return_fc=((prices_fc-prev_prices_fc)/prev_prices_fc).applymap(Decimal)
+		df['CR_fc']=cap_return_fc
+	
+	if dividends is not None:
+		inc_return=(dividends/prev_prices).applymap(Decimal)
+		df['IR']=inc_return
+		
+		if prices_fc is not None:
+			dividends_fc=dividends*xr
+			inc_return_fc=(dividends_fc/prev_prices_fc).applymap(Decimal)
+			df['IR_fc']=inc_return_fc
+			
+	
+	try:
+		df['TR']=df['CR']+df['IR']
+	except:
+		df['TR']=df['CR']
+		
+	
+	try:
+		df['TR_fc']=df['CR_fc']+df['IR_fc']
+	except:
+		try:
+			df['TR_fc']=df['CR_fc']
+		except:
+			pass
+
+	
 	return df
 	
 

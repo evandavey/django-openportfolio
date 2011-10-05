@@ -10,6 +10,7 @@ import pandas as ps
 from pandas.core.datetools import DateOffset
 import sys
 from datetime import *
+from decimal import *
 
 
 class ListedEquity(Investment):
@@ -75,9 +76,9 @@ class ListedEquity(Investment):
 		
 		if startdate==None:
 			#all data up to enddate
-			qs=ListedEquityPrice.objects.filter(date__lte=enddate,investment=self).order_by('date')
+			qs=ListedEquityPrice.objects.filter(date__lte=enddate,investment=self).order_by('date')[:1]
 		else:
-			qs=ListedEquityPrice.objects.filter(date__lte=enddate,date__gte=startdate,investment=self).order_by('date')
+			qs=ListedEquityPrice.objects.filter(date__lte=enddate,date__gte=startdate,investment=self).order_by('date')[:1]
 	
 		if len(qs)==0:
 			print "No prices found: %s" % self

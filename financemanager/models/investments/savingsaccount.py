@@ -63,9 +63,9 @@ class SavingsAccount(Investment):
 			startdate=startdate-timedelta(days=5)
 		
 		if startdate==None:
-			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,investment=self).order_by('date')
+			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,investment=self).order_by('date')[:1]
 		else:
-			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,date__gte=startdate,investment=self).order_by('date')
+			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,date__gte=startdate,investment=self).order_by('date')[:1]
 
 		if len(qs)==0:
 			print "No prices found"

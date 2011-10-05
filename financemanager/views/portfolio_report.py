@@ -92,18 +92,19 @@ def holdings_table(request,portfolio_id,currency='AUD',dt=None,portfolio=None):
 		
 		df=portfolio.load_holdings_frame_as_at(dt,currency)
 	
+		print df['P']
 		
 		fields=[
 			{'label':'Market Value','key':'MVp_fc','total':'sum','format':'rc'},
 			{'label':'Price','key':'P_fc','total':None,'format':'rc'},
 			{'label':'Price','key':'P','total':None,'format':'lc'},
-			{'label':'Hp','key':'Hp','total':'sum','format':''},
-			{'label':'Hb','key':'Hb','total':'sum','format':''},
-			{'label':'Wp','key':'Wp','total':'sum','format':'percentage'},
-			{'label':'Wb','key':'Wb','total':'sum','format':'percentage'},
+			{'label':'Hp','key':'Hp','total':'sum','format':'{0:.2f}'},
+			{'label':'Hb','key':'Hb','total':'sum','format':'{0:.2f}'},
+			{'label':'Wp','key':'Wp','total':'sum','format':'{0:.2%}'},
+			{'label':'Wb','key':'Wb','total':'sum','format':'{0:.2%}'},
 			{'label':'Purchase Price','key':'PP','total':None,'format':'lc'},
 			{'label':'P&L','key':'PL','total':'sum','format':'rc'},
-			{'label':'Rp','key':'Rp','total':'sum','format':'percentage'},
+			{'label':'Rp','key':'Rp','total':'sum','format':'{0:.2%}'},
 			]
 
 		ct={'report_currency': Currency.objects.get(pk=currency),

@@ -1,4 +1,5 @@
 {% load financemanager_extras %}
+{% load pyformat %}
 
 <table id="holdings_table">
 	<thead>
@@ -26,7 +27,7 @@
 			{% if f.format == 'rc' %}
 			<td>{{xs|hash:f.key|currency:report_currency.locale_code}}</td>
 			{%else%}
-			<td>{{xs|hash:f.key|formatdata:f.format}}</td>
+			<td>{% pyformat xs|hash:f.key f.format %}</td>
 			{%endif%}
 		{%endif%}
 		{% endfor %}
@@ -46,7 +47,7 @@
 		{% if f.format == 'rc' %}
 		<td>{{df|hash:f.key|call:f.total|currency:report_currency.locale_code}}</td>
 		{%else%}
-		<td>{{df|hash:f.key|call:f.total|formatdata:f.format}}</td>
+		<td>{% pyformat df|hash:f.key|call:f.total f.format %}</td>
 		{%endif%}
 		{%endif%}
 		{% endfor %}
