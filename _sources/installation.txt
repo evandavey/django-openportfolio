@@ -11,16 +11,11 @@ The easy way...
 
 2. Modify the fabfile development settings to suit your requirements
 
-3. Bootstrap your system to create a new virtual environment, download the latest stable version and install dependencies::
+3. Bootstrap your system to create a new virtual environment, download the latest stable version, install dependencies and sync the database::
 
 	$ fab development bootstrap
 
-4. Sync then migrate the database::
-
-	$ fab development syncdb
-	$ fab development migratedb
-
-5. Run the development server::
+4. Run the development server::
 
 	$ fab development runserver
 

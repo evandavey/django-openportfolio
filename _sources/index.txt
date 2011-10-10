@@ -9,7 +9,7 @@
 Open Portfolio
 ==============
 
-|project-name| is a django-based portfolio management tool, based on tools used by professional fund managers.  It can be used to manage and monitor the returns and risks of a portfolio of investments such as listed equities and fixed income securities.  Version 1.0 aims to be as user friendly as possible.  Nevertheless, experience in Python and django would be beneficial to the user.  Please contact the project authors if you would like to contribute to this project.  See :doc:`finance-concepts` for a user-friendly overview of financial concepts relevant to portfolio management. 
+|project-name| is a django-based portfolio management tool, motivated by tools used by professional fund managers.  It can be used to manage and monitor the returns and risks of a portfolio of investments such as listed equities and fixed income securities.  Version 1.0 aims to be as user friendly as possible.  Nevertheless, experience in Python and django would be beneficial to the user.  Please contact the project authors if you would like to contribute to this project.  See :doc:`finance-concepts` for a user-friendly overview of financial concepts relevant to portfolio management. 
 
 Main Features
 --------------
