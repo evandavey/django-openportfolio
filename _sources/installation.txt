@@ -7,7 +7,7 @@ The easy way...
 ---------------
 
 
-1. Download the fabfile.py from `OpenPortfolio`
+1. Download the fabfile.py from `OpenPortfolio`_
 
 2. Modify the development settings to suit your requirements
 
