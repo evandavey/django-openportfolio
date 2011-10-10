@@ -32,7 +32,7 @@ The best way to perform the initial price data update is using fabric::
 
 	$ fab development openportfolio-update --initial
 
-See :doc:`installation` for more information on how this process can be automated to maintain price data on an ongoing basis.
+See :doc:`../installation` for more information on how this process can be automated to maintain price data on an ongoing basis.
 
 The openportfolio-update script will perform a number of tasks:
 
