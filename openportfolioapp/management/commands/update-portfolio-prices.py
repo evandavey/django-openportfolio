@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from financemanager.models import Portfolio
+from openportfolioapp.models import Portfolio
 
 from pandas.core.datetools import MonthEnd
 from datetime import datetime

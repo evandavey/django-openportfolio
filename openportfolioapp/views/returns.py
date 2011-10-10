@@ -2,11 +2,11 @@ from datetime import *
 from django.template import Context, loader
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from financemanager.models import Portfolio,Currency,Investment
+from openportfolioapp.models import Portfolio,Currency,Investment
 from pandas.core.datetools import MonthEnd
 from django.http import HttpResponse
 import numpy as np
-from financemanager.utils.returns import geometric_return
+from openportfolioapp.utils.returns import geometric_return
 from django.contrib.contenttypes.models import ContentType
 import pandas as ps
 
@@ -83,7 +83,7 @@ def returns_table(request,pk,ctpk,date_format=None):
 		'fields': avail_fields,
 	}
 
-	t = loader.get_template('financemanager/dataframe_table.html')
+	t = loader.get_template('openportfolioapp/dataframe_table.html')
 
 	return t.render(Context(ct))
 

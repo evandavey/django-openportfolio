@@ -1,6 +1,6 @@
 from django.db import models
-from financemanager.utils.ofx import *
-from financemanager.models import Trade
+from openportfolioapp.utils.ofx import *
+from openportfolioapp.models import Trade
 from datetime import *
 import csv
 
@@ -10,7 +10,7 @@ class DataDefinition(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Data Definitions" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 		
 		
 	

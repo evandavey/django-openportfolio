@@ -2,12 +2,12 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.db.models.query import QuerySet
 from datetime import *
-from financemanager.models.price import Price
-from financemanager.utils.returns import returns_dmy
+from openportfolioapp.models.price import Price
+from openportfolioapp.utils.returns import returns_dmy
 from pandas.core.datetools import MonthEnd,YearEnd
-from financemanager.utils.returns import returns
-from financemanager.utils.returns import geometric_return
-from financemanager.models.returns.investmentreturn import InvestmentReturn
+from openportfolioapp.utils.returns import returns
+from openportfolioapp.utils.returns import geometric_return
+from openportfolioapp.models.returns.investmentreturn import InvestmentReturn
 import pandas as ps
 from decimal import *
 import numpy as np
@@ -38,7 +38,7 @@ class Investment(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Investments" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 	
 
 	name = models.CharField(max_length=255)

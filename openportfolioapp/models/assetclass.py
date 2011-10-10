@@ -1,5 +1,5 @@
 from django.db import models
-from financemanager.utils import full_name
+from openportfolioapp.utils import full_name
 
 class AssetClass(models.Model):
 	""" An object to represent an investment AssetClass
@@ -8,7 +8,7 @@ class AssetClass(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Asset classes" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 
 	name = models.CharField(max_length=255)
 	parent = models.ForeignKey('self',blank=True,null=True,related_name='child')

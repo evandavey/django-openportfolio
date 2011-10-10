@@ -1,7 +1,7 @@
 from django.db import models
-from financemanager.models import Investment,InvestmentManager
-from financemanager.models.prices import ListedEquityPrice
-from financemanager.models import Trade,TradeAllocation
+from openportfolioapp.models import Investment,InvestmentManager
+from openportfolioapp.models.prices import ListedEquityPrice
+from openportfolioapp.models import Trade,TradeAllocation
 
 import matplotlib.mlab as mlab
 import numpy as np
@@ -19,7 +19,7 @@ class ListedEquity(Investment):
 	
 	class Meta:
 		verbose_name_plural = "Equities" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 		
 	
 	investment_type='ListedEquity'

@@ -1,7 +1,7 @@
 from django.db import models
-from financemanager.utils.ofx import *
-from financemanager.models import Trade,Portfolio,ListedEquity
-from financemanager.models.datafiles import DataDefinition
+from openportfolioapp.utils.ofx import *
+from openportfolioapp.models import Trade,Portfolio,ListedEquity
+from openportfolioapp.models.datafiles import DataDefinition
 from datetime import *
 import csv
 
@@ -13,7 +13,7 @@ class TradeDataFile(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Trade Data Files" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 		
 		
 	start_date = models.DateField(editable=False) #set from file

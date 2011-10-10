@@ -1,5 +1,5 @@
 from django.db import models
-from financemanager.models.price import Price,PriceManager
+from openportfolioapp.models.price import Price,PriceManager
 
 class SavingsAccountPrice(Price):
 	""" A listed Equity price object
@@ -10,7 +10,7 @@ class SavingsAccountPrice(Price):
 	
 	class Meta:
 		verbose_name_plural = "Savings Account Prices" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 	
 	objects = PriceManager()
 	

@@ -7,7 +7,7 @@ class InterestRate(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Interest Rates" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 
 
 	investment=models.ForeignKey("Investment")

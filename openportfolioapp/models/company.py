@@ -7,7 +7,7 @@ class Company(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Companies" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 		
 	
 	name = models.CharField(max_length=255)

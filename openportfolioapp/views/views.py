@@ -4,7 +4,7 @@ from django.template import Context, loader
 from django.contrib.auth.decorators import login_required
 	
 from django.views.generic.list_detail import object_detail
-from financemanager.models import Portfolio,Currency
+from openportfolioapp.models import Portfolio,Currency
 
 from django.template import Context, loader
 from django.shortcuts import render_to_response
@@ -74,17 +74,17 @@ def holdings_table(request,portfolio_id,currency='AUD',dt=None):
 		}
 		
 	
-		t = loader.get_template('financemanager/holdings_table.html')
+		t = loader.get_template('openportfolioapp/holdings_table.html')
 
 		
 		return t.render(Context(ct))
 
-@login_required(login_url='/financemanager/accounts/login')
+@login_required(login_url='/openportfolioapp/accounts/login')
 def limited_object_detail(*args, **kwargs):
     return object_detail(*args, **kwargs)
 
 
-@login_required(login_url='/financemanager/accounts/login')
+@login_required(login_url='/openportfolioapp/accounts/login')
 def portfolio_analysis(request,portfolio_id,currency='GBP',dt=None):
 	
 	portfolio=Portfolio.objects.get(pk=portfolio_id)
@@ -106,7 +106,7 @@ def portfolio_analysis(request,portfolio_id,currency='GBP',dt=None):
 	}
 
 
-	return render_to_response('financemanager/portfolio_analysis.html',ct,context_instance=RequestContext(request))
+	return render_to_response('openportfolioapp/portfolio_analysis.html',ct,context_instance=RequestContext(request))
 	
 
 def portfolio_barchart(request,portfolio_id,analysis_field,currency='AUD',dt=None):

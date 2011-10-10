@@ -1,5 +1,5 @@
 from django.db import models
-from financemanager.models.returnobj import Return,ReturnManager
+from openportfolioapp.models.returnobj import Return,ReturnManager
 
 class PortfolioReturn(Return):
 	""" An investment return object
@@ -15,7 +15,7 @@ class PortfolioReturn(Return):
 	
 	class Meta:
 		verbose_name_plural = "Investment Returns" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 		
 	def __unicode__(self):
 		""" Returns the custom output string for this object

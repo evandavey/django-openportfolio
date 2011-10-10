@@ -1,5 +1,5 @@
 from django.db import models
-from financemanager.utils import full_name
+from openportfolioapp.utils import full_name
 
 class GICSSector(models.Model):
 	""" An object to represent the S&P GICS sector structure
@@ -13,7 +13,7 @@ class GICSSector(models.Model):
 
 	class Meta:
 		verbose_name_plural = "GICS Sectors" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
         
 		
 

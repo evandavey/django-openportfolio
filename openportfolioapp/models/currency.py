@@ -1,7 +1,7 @@
 from django.db import models
-from financemanager.utils.currencyhistory import *
+from openportfolioapp.utils.currencyhistory import *
 import sys
-from financemanager.models.prices import CurrencyPrice
+from openportfolioapp.models.prices import CurrencyPrice
 import numpy as np
 
 class Currency(models.Model):
@@ -15,7 +15,7 @@ class Currency(models.Model):
 		
 	class Meta:
 		verbose_name_plural = "Currencies" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 
 	def fetch_price_frame(self,startdate,enddate):
 

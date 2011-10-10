@@ -6,7 +6,7 @@ class TradeAllocation(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Trade Allocations" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 			
 	buy_trade=models.ForeignKey("Trade",related_name='+')
 	sell_trade=models.ForeignKey("Trade")

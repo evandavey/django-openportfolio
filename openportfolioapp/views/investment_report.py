@@ -1,5 +1,5 @@
 from datetime import *
-from financemanager.models import Investment
+from openportfolioapp.models import Investment
 from pandas.core.datetools import MonthEnd
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
@@ -7,8 +7,8 @@ from django.template import RequestContext
 import pandas
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
-from financemanager.utils.charts import chart_technical_analysis
-from financemanager.views.returns import returns_table
+from openportfolioapp.utils.charts import chart_technical_analysis
+from openportfolioapp.views.returns import returns_table
 
 def investment_report(request,investment_id,enddate=None,startdate=None):
 	
@@ -36,7 +36,7 @@ def investment_report(request,investment_id,enddate=None,startdate=None):
 	}
 
 
-	return render_to_response('financemanager/investment_report.html',ct,context_instance=RequestContext(request))
+	return render_to_response('openportfolioapp/investment_report.html',ct,context_instance=RequestContext(request))
 	
 
 

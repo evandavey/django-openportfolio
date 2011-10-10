@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
-from financemanager.models import Investment
-from financemanager.models import Currency
+from openportfolioapp.models import Investment
+from openportfolioapp.models import Currency
 
 from datetime import datetime
 

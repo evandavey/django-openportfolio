@@ -25,7 +25,7 @@ class Return(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Returns" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 	
 	FREQ_TYPES=(
 		('d','Daily'),

@@ -2,11 +2,11 @@ from datetime import *
 from django.template import Context, loader
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from financemanager.models import Portfolio,Currency,Trade
+from openportfolioapp.models import Portfolio,Currency,Trade
 from pandas.core.datetools import MonthEnd,YearEnd
 from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
-from financemanager.views.returns import returns_table
+from openportfolioapp.views.returns import returns_table
 
 DEFAULT_CURRENCY='AUD'
 DEFAULT_ANALYSIS_FIELD='asset_class'
@@ -49,7 +49,7 @@ def portfolio_report(request,portfolio_id,currency='AUD',dt=None,startdate=None)
 	}
 
 
-	return render_to_response('financemanager/portfolio_report.html',ct,context_instance=RequestContext(request))
+	return render_to_response('openportfolioapp/portfolio_report.html',ct,context_instance=RequestContext(request))
 
 
 def trades_table(request,portfolio_id,startdate=None,enddate=None,portfolio=None):
@@ -69,7 +69,7 @@ def trades_table(request,portfolio_id,startdate=None,enddate=None,portfolio=None
 		ct={'trades': trds,
 		}
 
-		t = loader.get_template('financemanager/tradetable.html')
+		t = loader.get_template('openportfolioapp/tradetable.html')
 
 		return t.render(Context(ct))
 
@@ -112,7 +112,7 @@ def holdings_table(request,portfolio_id,currency='AUD',dt=None,portfolio=None):
 			'fields': fields,
 		}
 
-		t = loader.get_template('financemanager/holdingstable.html')
+		t = loader.get_template('openportfolioapp/holdingstable.html')
 
 		return t.render(Context(ct))
 		

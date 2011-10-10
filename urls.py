@@ -9,9 +9,9 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'django_cochranedavey.views.home', name='home'),
     
-	(r'^$',include('financemanager.urls')),
+	(r'^$',include('openportfolioapp.urls')),
 	
-url(r'^financemanager/', include('financemanager.urls')),
+url(r'^openportfolioapp/', include('openportfolioapp.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

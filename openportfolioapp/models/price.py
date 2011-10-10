@@ -24,7 +24,7 @@ class Price(models.Model):
 	
 	class Meta:
 		verbose_name_plural = "Prices" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 	
 
 	date = models.DateField()

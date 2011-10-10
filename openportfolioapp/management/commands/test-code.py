@@ -1,10 +1,10 @@
 from django.core.management.base import BaseCommand, CommandError
-from financemanager.models import *
+from openportfolioapp.models import *
 
 from pandas.core.datetools import MonthEnd
 from datetime import datetime
 import numpy as np
-from financemanager.utils.returns import geometric_return
+from openportfolioapp.utils.returns import geometric_return
 def return_agg(x):
 	
 	x=x+1

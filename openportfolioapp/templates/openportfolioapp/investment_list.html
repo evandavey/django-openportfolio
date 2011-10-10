@@ -1,5 +1,5 @@
-{% extends "financemanager/base.html" %}
-{% load financemanager_extras %}
+{% extends "openportfolioapp/base.html" %}
+{% load openportfolioapp_extras %}
 
 {% block title %}Investment Analysis{% endblock %}
 {% block content %}
@@ -21,7 +21,7 @@
 				<td>{{i.get_investment_type_display}}</td>
 				<td>{{i.latest_price}}</td>
 				<td>{{i.latest_price_date}}</td>
-				<td><a href="/admin/financemanager/{{i.content_type.model}}/{{ i.id }}">Edit</a> | <a href="/financemanager/investment/{{ i.id }}/report">Report</a></td>
+				<td><a href="/admin/openportfolioapp/{{i.content_type.model}}/{{ i.id }}">Edit</a> | <a href="/openportfolioapp/investment/{{ i.id }}/report">Report</a></td>
 			</tr>
 			{% endfor %}
 			

@@ -1,11 +1,11 @@
 from django.db import models
-from financemanager.models import Investment,InvestmentManager
+from openportfolioapp.models import Investment,InvestmentManager
 import pandas as ps
-from financemanager.models.interestrate import InterestRate
+from openportfolioapp.models.interestrate import InterestRate
 from datetime import *
 from pandas.core.datetools import bday,DateOffset
 from decimal import *
-from financemanager.models.prices import SavingsAccountPrice
+from openportfolioapp.models.prices import SavingsAccountPrice
 import numpy as np
 
 class SavingsAccount(Investment):
@@ -14,7 +14,7 @@ class SavingsAccount(Investment):
 	
 	class Meta:
 		verbose_name_plural = "Savings Accounts" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 			
 	investment_type='SavingsAccount'
 	objects=InvestmentManager()

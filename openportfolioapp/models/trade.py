@@ -1,6 +1,6 @@
 from django.db import models
-from financemanager.models.investment import Investment
-from financemanager.models.tradeallocation import TradeAllocation
+from openportfolioapp.models.investment import Investment
+from openportfolioapp.models.tradeallocation import TradeAllocation
 class Trade(models.Model):
 	""" An object to represent an investment AssetClass
 		Each Investment will belong to a single AssetClass
@@ -8,7 +8,7 @@ class Trade(models.Model):
 
 	class Meta:
 		verbose_name_plural = "Trades" #cleans up name in admin
-		app_label = "financemanager"
+		app_label = "openportfolioapp"
 
 	TRADE_TYPES=(
 		('BUY','Buy'),
