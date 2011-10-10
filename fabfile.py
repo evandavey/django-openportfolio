@@ -3,6 +3,17 @@ This fabfile automates the deployment of github hosted django projects
 
 Author: Evan Davey, evan.j.davey@gmail.com
 
+
+Instructions:
+
+Modify the environment variables in development,staging or production to
+reflect your working environment
+
+To run the project on a development or local machine.
+
+$ fab development bootstrap
+$ fab development runserver 
+
 """
 
 import os,sys
@@ -29,6 +40,7 @@ def _setup_path():
 
 
 def development():
+	""" Development settings.  Modify these to match your environment """
 	env.home = '/Users/evandavey/django-dev/'
 	env.environment = 'development'
 	env.hosts = ['localhost']
@@ -43,13 +55,17 @@ def staging():
 	env.user = 'evandavey'
 	env.environment = 'staging'
 	env.hosts = ['192.168.0.21']
-	env.servername = 'openportfolio.getoutsideandlive.com'
+	env.servername = 'openportfolio-staging.getoutsideandlive.com'
 	_setup_path()
 
 
 def production():
-	""" use production environment on remote host"""
-	utils.abort('Production deployment not yet implemented.')
+	env.home = '/usr/local/web/django'
+	env.user = 'evandavey'
+	env.environment = 'production'
+	env.hosts = ['192.168.0.21']
+	env.servername = 'openportfolio.getoutsideandlive.com'
+	_setup_path()
 
 
 def bootstrap():
@@ -61,7 +77,8 @@ def bootstrap():
 	create_virtualenv()
 	clone_remote()
 	update_requirements()
-	
+	syncdb()
+	migratedb()
 	
 def create_virtualenv():
 	""" creates a virtual environment """
@@ -78,6 +95,21 @@ def clone_remote():
 	run('rm -rf %s' % os.path.join(env.root,env.project))
 	run('git clone %s %s/%s' % (env.git_url,env.root,env.project))
 
+
+def update_remote():
+
+	pull_remote()
+	syncdb()
+	migratedb()
+
+
+def pull_remote():
+	
+	print(green("Pulling remote repo"))
+
+	with cd(env.code_root):
+		run('git pull origin master')
+	
 
 def update_requirements():
 	""" update external dependencies  """
