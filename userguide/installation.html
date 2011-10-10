@@ -1,0 +1,201 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation &mdash; OpenPortfolio v1.0 documentation</title>
+    <link rel="stylesheet" href="_static/agogo.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="OpenPortfolio v1.0 documentation" href="index.html" />
+    <link rel="next" title="User Guide" href="user_guide.html" />
+    <link rel="prev" title="Open Portfolio" href="index.html" /> 
+  </head>
+  <body>
+    <div class="header-wrapper">
+      <div class="header">
+        <h1><a href="index.html">OpenPortfolio v1.0 documentation</a></h1>
+        <div class="rel">
+          <a href="index.html" title="Open Portfolio"
+             accesskey="P">previous</a> |
+          <a href="user_guide.html" title="User Guide"
+             accesskey="N">next</a> |
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a>
+        </div>
+       </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="content">
+        <div class="document">
+            
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="the-easy-way">
+<h2>The easy way...<a class="headerlink" href="#the-easy-way" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Download the fabfile.py from <cite>OpenPortfolio</cite></p>
+</li>
+<li><p class="first">Modify the development settings to suit your requirements</p>
+</li>
+<li><p class="first">Bootstrap your system to create a new virtual environment, downloaded the latest stable version and install dependencies:</p>
+<div class="highlight-python"><pre>$ fab development bootstrap</pre>
+</div>
+</li>
+<li><p class="first">Sync then migrate the database:</p>
+<div class="highlight-python"><pre>$ fab development syncdb
+$ fab development migratedb</pre>
+</div>
+</li>
+<li><p class="first">Run the development server:</p>
+<div class="highlight-python"><pre>$ fab development runserver</pre>
+</div>
+</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This procedure requires python, pip, virtualenv, virtualenvwrapper and fabric.  See <a class="reference internal" href="#preparing-your-system">Preparing your system</a> for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)</p>
+</div>
+</div>
+<div class="section" id="the-long-way">
+<h2>The long way...<a class="headerlink" href="#the-long-way" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="download">
+<h3>Download<a class="headerlink" href="#download" title="Permalink to this headline">¶</a></h3>
+<p>Download the latest stable version from github</p>
+<pre class="literal-block">
+$ git clone git://github.com/evandavey/OpenPortfolio.git OpenPortfolio
+</pre>
+</div>
+<div class="section" id="running-on-a-local-development-server">
+<h3>Running on a local development server<a class="headerlink" href="#running-on-a-local-development-server" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic simple">
+<li>Install the requirements file using pip (a virtual environment is recommended)</li>
+</ol>
+<pre class="literal-block">
+$ cd OpenPortfolio
+$ pip install -r requirements/development.txt
+</pre>
+<ol class="arabic simple" start="2">
+<li>Create and sync the database</li>
+</ol>
+<pre class="literal-block">
+$ ./manage.py syncdb --settings= OpenPortfolio.settings_local
+$ ./manage.py schememigration financemanager --settings= OpenPortfolio.settings_local
+</pre>
+<ol class="arabic simple" start="3">
+<li>Run the development server</li>
+</ol>
+<pre class="literal-block">
+$ ./manage.py runserver 0.0.0.0:8080 --settings= OpenPortfolio.settings_local
+</pre>
+<p>The server can be accessed at: <a class="reference external" href="http://127.0.0.0.1:8080">http://127.0.0.0.1:8080</a></p>
+</div>
+</div>
+<div class="section" id="preparing-your-system">
+<h2>Preparing your system<a class="headerlink" href="#preparing-your-system" title="Permalink to this headline">¶</a></h2>
+<p>The easy installation procedure assumes a system installed with python, pip, virtualenv, virtualenvwrapper and fabric.</p>
+<div class="section" id="python">
+<h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
+<p>Python installation is beyond the scope of this document.  On unix based systems this should be straight-forward.  Mac OS X comes with Python pre-installed.  XCode is required and can be installed using the App store.  Windows users face a more challenging scenario and should see <a class="reference external" href="http://www.python.org">http://www.python.org</a> for installation instructions.</p>
+</div>
+<div class="section" id="pip-virtualenv-virtualenvwrapper-and-fabric">
+<h3>Pip, virtualenv, virtualenvwrapper and fabric<a class="headerlink" href="#pip-virtualenv-virtualenvwrapper-and-fabric" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Install easy_install by following instructions at <a class="reference external" href="http://pypi.python.org/pypi/setuptools">http://pypi.python.org/pypi/setuptools</a></p>
+</li>
+<li><p class="first">Install pip:</p>
+<div class="highlight-python"><pre>$ easy_install pip</pre>
+</div>
+</li>
+<li><p class="first">Use pip to install remaining dependencies:</p>
+<div class="highlight-python"><pre>$ pip install virtualenv
+$ pip install virtualenvwrapper
+$ pip install fabric</pre>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+        </div>
+        <div class="sidebar">
+          <h3>Table Of Contents</h3>
+          <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-easy-way">The easy way...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-long-way">The long way...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#preparing-your-system">Preparing your system</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="finance-concepts.html">Finance Concepts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Documentation</a></li>
+</ul>
+
+          <h3 style="margin-top: 1.5em;">Search</h3>
+          <form class="search" action="search.html" method="get">
+            <input type="text" name="q" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+          </form>
+          <p class="searchtip" style="font-size: 90%">
+            Enter search terms or a module, class or function name.
+          </p>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+    <div class="footer-wrapper">
+      <div class="footer">
+        <div class="left">
+          <a href="index.html" title="Open Portfolio"
+             >previous</a> |
+          <a href="user_guide.html" title="User Guide"
+             >next</a> |
+          <a href="genindex.html" title="General Index"
+             >index</a>
+            <br/>
+            <a href="_sources/installation.txt"
+               rel="nofollow">Show Source</a>
+        </div>
+
+        <div class="right">
+          
+    <div class="footer">
+        &copy; Copyright 2011, Evan Davey.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.8.
+    </div>
+        </div>
+        <div class="clearer"></div>
+      </div>
+    </div>
+
+  </body>
+</html>
