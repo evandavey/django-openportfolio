@@ -116,6 +116,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.staticfiles',
-    'openportfolio.financemanager',
+    'openportfolio.openportfolioapp',
     'south',
 )
