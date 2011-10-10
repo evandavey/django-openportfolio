@@ -71,7 +71,7 @@ The easy installation procedure assumes a system installed with python, pip, vir
 Git
 +++
 
-Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>` is recommended instead. 
+Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>`_ is recommended instead. 
 
 
 Python
