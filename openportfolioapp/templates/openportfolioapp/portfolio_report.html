@@ -1,0 +1,61 @@
+{% extends "financemanager/base.html" %}
+{% load financemanager_extras %}
+
+{% block title %}Portfolio Analysis{% endblock %}
+{% block content %}
+
+<h3>Portfolio Report as at {{end_dt|date:"d-M-Y"}}</h3>
+
+<b>Name:</b> {{ portfolio.name }}</br>
+<b>Benchmark:</b> {{ portfolio.bm.name }}
+
+<table id="portfoliostats">
+	<thead>
+		<th>&nbsp;</th>
+		<th>{{end_dt|date:"d-M-Y"}}</th>
+		<th>{{start_dt|date:"d-M-Y"}}</th>
+		
+	</thead>
+	<tbody>
+	<tr>
+		<td>Market Value</td>
+		<td>{{ portfolio|args:end_dt|args:report_currency_code|call:"market_value_as_at"|currency:report_currency}}</td>
+		<td>{{ portfolio|args:start_dt|args:report_currency_code|call:"market_value_as_at"|currency:report_currency}}</td>
+	</tr>
+	{% for c in portfolio.child.all %}
+	<tr>
+		<td>...{{c.name}}</td> 
+		<td>{{c|args:end_dt|args:report_currency_code|call:"market_value_as_at"|currency:report_currency}}</td>
+		<td>{{c|args:start_dt|args:report_currency_code|call:"market_value_as_at"|currency:report_currency}}</td>
+		</td>
+	</tr>
+	{%endfor%}	
+
+	</tbody>
+</table>
+
+
+
+<h3>Holdings</h3>
+
+{% autoescape off %}
+{{holdings_table}}
+{% endautoescape %}
+
+<h3>Returns</h3>
+{{returns_table}}
+
+
+<h3>Trades</h3>
+{{trades_table}}
+<center>
+<h3>Asset Allocation</h3>
+<img src="barchart.png/asset_class/">
+
+<h3>Sector Allocation</h3>
+<img src="barchart.png/gics_sector/">
+
+<h3>Company</h3>
+<img src="barchart.png/company/">
+</center>
+{% endblock %}

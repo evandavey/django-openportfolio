@@ -1,0 +1,34 @@
+{% extends "financemanager/base.html" %}
+{% load financemanager_extras %}
+
+{% block title %}Investment Analysis{% endblock %}
+{% block content %}
+
+{% if investment_list %}
+
+
+	<table>
+		<thead></thead>
+			<th>Investment</th>
+			<th>Type</th>
+			<th>Latest Price</th>
+			<th>Price Data Range</th>
+		<tbody>
+			{% for i in investment_list %}
+			
+			<tr>
+				<td>{{i.name}}</td>
+				<td>{{i.get_investment_type_display}}</td>
+				<td>{{i.latest_price}}</td>
+				<td>{{i.latest_price_date}}</td>
+				<td><a href="/admin/financemanager/{{i.content_type.model}}/{{ i.id }}">Edit</a> | <a href="/financemanager/investment/{{ i.id }}/report">Report</a></td>
+			</tr>
+			{% endfor %}
+			
+		</tbody>
+	</table>
+
+{% else %}
+	No entries
+{% endif %}
+{% endblock %}
