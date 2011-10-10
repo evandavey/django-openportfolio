@@ -1,0 +1,13 @@
+Getting Started
+===============
+
+* The financemanager app runs under django admin
+
+* Open http://<your django url>/admin/financemanager/
+
+* This will bring up the main menu.  From here, you can add data or generate reports by selecting the relevant models.
+
+.. image:: images/main_menu.png
+   :alt: Main Menu
+
+
