@@ -2,9 +2,9 @@ User Guide
 ==========
 
 ..  toctree::
-    :numbered:
+  :numbered:
 
-	userguide/getting started    
-	userguide/admin
+  userguide/getting started    
+  userguide/admin
 	
 	
