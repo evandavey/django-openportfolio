@@ -9,9 +9,9 @@ The easy way...
 
 1. Download the fabfile.py from `OpenPortfolio`_
 
-2. Modify the development settings to suit your requirements
+2. Modify the fabfile development settings to suit your requirements
 
-3. Bootstrap your system to create a new virtual environment, downloaded the latest stable version and install dependencies::
+3. Bootstrap your system to create a new virtual environment, download the latest stable version and install dependencies::
 
 	$ fab development bootstrap
 
@@ -24,7 +24,7 @@ The easy way...
 
 	$ fab development runserver
 
-.. note:: This procedure requires python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)
+.. note:: This procedure requires git,python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)
 
 The long way...
 ----------------
@@ -53,7 +53,7 @@ Running on a local development server
 .. parsed-literal:: 
 
 	$ ./manage.py syncdb --settings= |project-name|.settings_local
-	$ ./manage.py schememigration |app-name| --settings= |project-name|.settings_local
+	$ ./manage.py migrate --all --settings= |project-name|.settings_local
 
 3. Run the development server
 
@@ -67,6 +67,12 @@ Preparing your system
 ---------------------
 
 The easy installation procedure assumes a system installed with python, pip, virtualenv, virtualenvwrapper and fabric.
+
+Git
++++
+
+Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>' is recommended instead. 
+
 
 Python
 ++++++

@@ -56,9 +56,9 @@
 <ol class="arabic">
 <li><p class="first">Download the fabfile.py from <a class="reference external" href="http://github.com/evandavey/OpenPortfolio">OpenPortfolio</a></p>
 </li>
-<li><p class="first">Modify the development settings to suit your requirements</p>
+<li><p class="first">Modify the fabfile development settings to suit your requirements</p>
 </li>
-<li><p class="first">Bootstrap your system to create a new virtual environment, downloaded the latest stable version and install dependencies:</p>
+<li><p class="first">Bootstrap your system to create a new virtual environment, download the latest stable version and install dependencies:</p>
 <div class="highlight-python"><pre>$ fab development bootstrap</pre>
 </div>
 </li>
@@ -74,7 +74,7 @@ $ fab development migratedb</pre>
 </ol>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">This procedure requires python, pip, virtualenv, virtualenvwrapper and fabric.  See <a class="reference internal" href="#preparing-your-system">Preparing your system</a> for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)</p>
+<p class="last">This procedure requires git,python, pip, virtualenv, virtualenvwrapper and fabric.  See <a class="reference internal" href="#preparing-your-system">Preparing your system</a> for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)</p>
 </div>
 </div>
 <div class="section" id="the-long-way">
@@ -100,7 +100,7 @@ $ pip install -r requirements/development.txt
 </ol>
 <pre class="literal-block">
 $ ./manage.py syncdb --settings= OpenPortfolio.settings_local
-$ ./manage.py schememigration financemanager --settings= OpenPortfolio.settings_local
+$ ./manage.py migrate --all --settings= OpenPortfolio.settings_local
 </pre>
 <ol class="arabic simple" start="3">
 <li>Run the development server</li>
@@ -114,6 +114,10 @@ $ ./manage.py runserver 0.0.0.0:8080 --settings= OpenPortfolio.settings_local
 <div class="section" id="preparing-your-system">
 <h2>Preparing your system<a class="headerlink" href="#preparing-your-system" title="Permalink to this headline">¶</a></h2>
 <p>The easy installation procedure assumes a system installed with python, pip, virtualenv, virtualenvwrapper and fabric.</p>
+<div class="section" id="git">
+<h3>Git<a class="headerlink" href="#git" title="Permalink to this headline">¶</a></h3>
+<p>Follow installation instructions at <a class="reference external" href="http://git-scm.com/">http://git-scm.com/</a>.  For Mac OSX, using <a href="#id1"><span class="problematic" id="id2">`</span></a>HomeBrew &lt;<a class="reference external" href="http://mxcl.github.com/homebrew/">http://mxcl.github.com/homebrew/</a>&gt;&#8217; is recommended instead.</p>
+</div>
 <div class="section" id="python">
 <h3>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h3>
 <p>Python installation is beyond the scope of this document.  On unix based systems this should be straight-forward.  Mac OS X comes with Python pre-installed.  XCode is required and can be installed using the App store.  Windows users face a more challenging scenario and should see <a class="reference external" href="http://www.python.org">http://www.python.org</a> for installation instructions.</p>
