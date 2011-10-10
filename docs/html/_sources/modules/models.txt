@@ -1,6 +1,0 @@
-Models
-=================
-
-.. automodule:: financemanager.models
-   :members:
-
