@@ -2,7 +2,7 @@
 
 Open source django project for portfolio management.  Aims to open up asset management tools used by professional fund managers.
 
-More information at: [](http://evandavey.github.com/OpenPortfolio/)
+More information at: [project homepage](http://evandavey.github.com/OpenPortfolio/)
 
 
 #Installation
