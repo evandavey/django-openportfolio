@@ -24,7 +24,7 @@ The easy way...
 
 	$ fab development runserver
 
-.. note:: This procedure requires git,python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)
+.. note:: This procedure requires git, python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and passenger)
 
 The long way...
 ----------------
@@ -71,7 +71,7 @@ The easy installation procedure assumes a system installed with python, pip, vir
 Git
 +++
 
-Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>' is recommended instead. 
+Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>` is recommended instead. 
 
 
 Python
