@@ -10,7 +10,8 @@ BeautifulSoup
 #maths libraries
 numpy
 pandas
--e git://github.com/matplotlib/matplotlib.git#egg=matplotlib
+matplotlib
+#-e git://github.com/matplotlib/matplotlib.git#egg=matplotlib
 
 
 
