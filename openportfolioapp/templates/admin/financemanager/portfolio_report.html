@@ -1,0 +1,146 @@
+{% extends "admin/base_site.html" %}
+{% load openportfolioapp_extras %}
+
+{% block title %}Portfolio Holdings{% endblock %}
+{% block content %}
+
+<div id="content-main">
+{% if holdings %}
+
+<center>
+<h2>{{portfolio.name}}</h2>
+Report as at: {{end_dt}}<br/><br/>
+
+
+		
+
+
+<h3>Summary</h3>
+<table>
+	<thead>
+	<tr>
+		<th>&nbsp;</th>
+		<th>{{end_dt}}</th>
+		<th>{{start_dt}}</th>
+		<th>Change</th>
+	</tr>
+	<thead>
+	<tbody>
+	{% for s in summary_stats %}
+	<tr>
+		
+		<td>{{s.label}}</td>
+		<td>{{s.end_dt|currency:report_currency}}</td>
+		<td>{{s.start_dt|currency:report_currency}}</td>
+		<td>{{s.change|currency:report_currency}}</td>
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+
+<h3>Holdings</h3>
+
+<table>
+	<thead>
+	<tr>
+		<th>Asset Class</th>
+		<th>Industry</th>
+		<th>Investment</th>
+		<th>Holding</th>
+		<th>Market Value</th>
+		<th>Market Weight (%)</th>
+		<th>Price</th>
+		<th>Yield (%)</th>
+		<th>P/E</th>
+	</tr>
+	</thead>
+	<tbody>
+		
+{% for h in holdings %}
+
+{% if h.holding != 0 %}
+	<tr>
+		<td>{{h.investment.asset_class.name}}</td>
+		<td>{{h.industry_group}}</td>
+		<td>{{h.investment.name}}</td>
+		<td align="right">{{h.holding}}</td>
+		<td align="right">{{h.market_value|currency:h.investment.currency.locale_code}}</td>
+		<td align="right">{{h.market_weight}}</td>
+		<td align="right">{{h.investment.price|currency:h.investment.currency.locale_code}}</td>
+		<td align="right">{{h.investment.listedequity.dividend_yield}}</td>
+		<td align="right">{{h.investment.listedequity.pe}}</td>
+	</tr>
+{%endif%}
+{% if forloop.last %}
+	<tr>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td align="right"><b>&nbsp;</b></td>
+		<td>&nbsp;</td>
+	</tr>
+
+{%endif%}
+{%endfor%}
+	</tbody>
+</table>
+(*) yield,p/e are current not historical
+
+<br/>
+<h3>Asset Allocation</h3>
+{% autoescape off %}
+{{asset_class_breakdown_chart}}
+{% endautoescape %}
+<br/>
+<h3>Industry Breakdown</h3>
+{% autoescape off %}
+{{industry_breakdown_chart}}
+{% endautoescape %}
+
+
+<h3>Investment Charts</h3>
+
+{% for h in holding_charts %}
+{% autoescape off %}
+<h4>{{h.0}}</h4>
+{{h.1}}<br/>
+{% endautoescape %}
+{%endfor%}
+
+<h3>Transactions</h3>
+
+<table>
+	<thead>
+	<tr>
+		<th>Date</th>
+		<th>Investment</th>
+		<th>Type</th>
+		<th>Units</th>
+		<th>Price</th>
+		<th>Transaction Costs</th>
+		<th>Reason</th>
+	</tr>
+	</thead>
+	<tbody>
+	{% for t in transactions %}
+	<tr>
+		<td>{{t.date}}</td>
+		<td>{{t.investment.name}}</td>
+		<td>{{t.transaction_type}}</td>
+		<td align="right">{{t.volume}}</td>
+		<td align="right">{{t.price|currency:t.investment.currency.locale_code}}</td>
+		<td align="right">{{t.cost|currency:t.investment.currency.locale_code}}</td>
+		<td align="right">{{t.memo}} {{t.payee}}</td>
+	</tr>
+	{%endfor%}
+	</tbody>
+</table>
+
+
+{%else%}
+No items
+{%endif%}
+</center>
+</div>
+{% endblock %}

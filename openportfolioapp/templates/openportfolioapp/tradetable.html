@@ -1,0 +1,37 @@
+{% load openportfolioapp_extras %}
+
+<table id="holdings_table">
+	<thead>
+		<th>Investment</th>
+		<th>Type</th>
+		<th>Volume</th>
+		<th>Price</th>
+		<th>Cost</th>
+		<th>P&L</th>
+	</thead>
+	<tbody>
+		
+{% for t in trades %}
+
+	<tr>
+		<td class="leftcol">{{t.investment.name}}</td>
+		<td>{{t.trade_type}}</td>
+		<td>{{t.volume}}</td>
+		<td>{{t.price}}</td>
+		<td>{{t.cost}}</td>
+		<td>{{t.profit}}</td>
+	</tr>
+{%endfor%}
+	</tbody>
+
+
+
+	<tfoot>
+	<tr class="totalrow">
+	
+	</tr>
+	</tfoot>
+</table>
+
+
+
