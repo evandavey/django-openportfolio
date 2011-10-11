@@ -1,0 +1,92 @@
+.. include:: globals.inc
+
+Installation
+============
+
+The easy way...
+---------------
+
+
+1. Download the fabfile.py from `OpenPortfolio`_
+
+2. Modify the fabfile development settings to suit your requirements
+
+3. Bootstrap your system to create a new virtual environment, download the latest stable version, install dependencies and sync the database::
+
+	$ fab development bootstrap
+
+4. Run the development server::
+
+	$ fab development runserver
+
+.. note:: This procedure requires git, python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and mod_wsgi)
+
+The long way...
+----------------
+
+Download
+++++++++
+
+Download the latest stable version from github 
+
+.. parsed-literal:: 
+		
+	$ git clone |stable-git-url| |project-name|
+
+Running on a local development server
++++++++++++++++++++++++++++++++++++++
+	
+1. Install the requirements file using pip (a virtual environment is recommended)
+
+.. parsed-literal:: 
+
+	$ cd |project-name|
+	$ pip install -r requirements/development.txt
+	
+2. Create and sync the database
+
+.. parsed-literal:: 
+
+	$ ./manage.py syncdb --settings= |project-name|.settings_local
+	$ ./manage.py migrate --all --settings= |project-name|.settings_local
+
+3. Run the development server
+
+.. parsed-literal:: 
+
+	$ ./manage.py runserver 0.0.0.0:8080 --settings= |project-name|.settings_local
+
+The server can be accessed at: http://127.0.0.0.1:8080
+
+Preparing your system
+---------------------
+
+The easy installation procedure assumes a system installed with python, pip, virtualenv, virtualenvwrapper and fabric.
+
+Git
++++
+
+Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>`_ is recommended instead. 
+
+
+Python
+++++++
+
+Python installation is beyond the scope of this document.  On unix based systems this should be straight-forward.  Mac OS X comes with Python pre-installed.  XCode is required and can be installed using the App store.  Windows users face a more challenging scenario and should see http://www.python.org for installation instructions. 
+
+
+Pip, virtualenv, virtualenvwrapper and fabric
++++++++++++++++++++++++++++++++++++++++++++++
+
+1. Install easy_install by following instructions at http://pypi.python.org/pypi/setuptools
+
+2. Install pip::
+	
+	$ easy_install pip
+
+3. Use pip to install remaining dependencies::
+
+	$ pip install virtualenv
+	$ pip install virtualenvwrapper
+	$ pip install fabric
+

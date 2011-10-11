@@ -1,0 +1,24 @@
+.. include:: globals.inc
+
+Finance Concepts
+================
+
+Risk 
+----
+Uncertainty of outcome.  The greater the uncertainty, the higher the financial risk.  For example, an investment that could return +5 or +10 is considered more risky than an investment that is known to return -10.  Risks or unknowns are normally placed in buckets to allow for analysis.  For example, credit risk is the uncertainty of the future likelihood of a company to pay back its debts while market risk is the risk the price of an investment faces as it is traded.  Statistical concepts, like standard deviation, are typically used to quantify the uncertainty or risk.
+
+Return
+------
+The change in value over a set period of time, typically measured as a percentage.  Normally, returns are converted to a common time frame eg: annualised to allow for period to period comparison.  For example, an investment that was bought for 10 and sold for 20 in 10 years time has an overall return of 10 but could have returned 1 each year.  This could be considered worse than an investment that was bought for 5 and sold for 10 in 2 years time as here the investment returned 2.5 each year.  This would be even more noticeable if the returns were computed as percentages and compared on an annual basis.  
+
+Income, Capital, Total and After-Tax Returns
+--------------------------------------------
+Returns can be separated into capital and income returns.  Capital returns are those from a change in price while income are those from regular payments such as share dividends on interest earnings.  An astute investor should consider the total return (income and capital) on an after-tax basis.  After-tax basis means after tax payments are considered.  Tax could arise from capital gains (or offset by capital losses) or from income.  Typically, the tax rules for each form of investment are different.
+
+Local Currency and Foreign Currency Returns
+-------------------------------------------
+In a portfolio that holds investments in different currencies, returns need to be considered in the context of exchange rate movements.  Typically, an investor will have a base (usually their home) currency that is used to calculate their overall return.  The local currency return is the return of an investment in its own currency.  For example, if a USD investment is bought for 5USD and sold for 10USD it has a local currency return of 5USD.  The foreign currency return is the return of that same investment expressed in terms of the base currency.  For example, suppose a USD investment is bought for 5USD or 10AUD and then sold for 6USD or 7AUD.  The local currency return is 1USD but the foreign currency return is -3AUD. So even though the investment made 1USD, an AUD based investor will have actually lost 3AUD due to movements in the AUD/USD.  This currency movement can be quantified by taking the difference between the foreign currency return and the local currency (in percentage terms).
+
+Diversification
+---------------
+If you hold a portfolio of more than one investment, then the return pattern of those investments are likely to be different.  So if one investment returns +10, another may return -5 and so on.  This could be because the companies operate in different markets or for a variety of other reasons.  The way in which the investments typically move together is known as their correlation.  By including investments that don't move in similar ways to each other (or with low correlation), the overall portfolio uncertainty of outcome can be reduced.  This can result in a portfolio that has a high expected level of return for a given level of uncertainty.  This concept is known as the benefit of diversification.  A "well diversified" portfolio would typically only hold a maximum of 5% in any one investment and would also hold a range of investments across things like asset class (eg: equities, bonds, property,cash..), markets (eg: US,UK,Europe,Asia..), sectors (eg: Consumer,Finance Companies,Materials...) and companies.

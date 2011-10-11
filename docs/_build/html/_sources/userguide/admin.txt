@@ -1,0 +1,18 @@
+.. include:: ../globals.inc
+
+Administration
+===============
+
+Portfolios & Benchmarks
+-----------------------
+
+1. Open the Portfolio admin screen
+
+2. Select an existing Portfolio to edit it or click to add a new one
+
+3. Assign a name to your portfolio or benchmark
+
+4. If desired, assign a parent to allow for a portfolio tree
+
+5. If you are modifying a benchmark, leave benchmark blank
+

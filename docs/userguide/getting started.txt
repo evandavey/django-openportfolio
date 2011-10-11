@@ -1,0 +1,48 @@
+.. include:: ../globals.inc
+
+Getting Started
+===============
+
+To use |project-name|, you must first populate the database with some data.  
+
+Step 1 - Use the Admin interface to create some portfolio objects
+-----------------------------------------------------------------
+
+Detailed instructions on using this interface can be found here: :doc:`admin`.  At a minimum you will need to:
+
+1.  Create a benchmark portfolio
+
+2.  Create a portfolio to hold your investments
+
+3.  Create an asset class and assign it to the benchmark portfolio
+
+4.  Create a currency eg: GBP
+
+5.  Create a company
+
+6.  Create a savings account or listed equity investment and assign it to the company
+
+7.  Enter portfolio trades 
+
+8.  For savings accounts, you will also need to enter an Interest Rate
+
+
+Step 2 - Download price data
+----------------------------
+
+The best way to perform the initial price data update is using fabric::
+
+	$ fab development openportfolio-update --initial
+
+
+See :doc:`../installation` for more information on how this process can be automated to maintain price data on an ongoing basis.
+
+The openportfolio-update script will perform a number of tasks:
+
+* update investment prices an the day specified in Settings
+* calculate and save portfolio level data 
+	
+
+
+
+

@@ -1,0 +1,44 @@
+.. Open Financial Management documentation master file, created by
+   sphinx-quickstart on Tue Jul 19 13:37:51 2011.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+.. include:: globals.inc
+
+
+Open Portfolio
+==============
+
+|project-name| is a django-based portfolio management tool, motivated by tools used by professional fund managers.  It can be used to manage and monitor the returns and risks of a portfolio of investments such as listed equities and fixed income securities.  Version 1.0 aims to be as user friendly as possible.  Nevertheless, experience in Python and django would be beneficial to the user.  Please contact the project authors if you would like to contribute to this project.  See :doc:`finance-concepts` for a user-friendly overview of financial concepts relevant to portfolio management. 
+
+Main Features
+--------------
+
+* trade input from csv and ofx files
+* price downloads from online sources where possible (downloads can be scheduled)
+* investment analysis - return and risk statistics and plots
+* portfolio reporting - returns and risk analysis
+* cross currency capability
+* focus on portfolio cash flows
+* aims to be GIPS compliant
+
+Why?
+-----
+
+This project aims to make the tools of professional fund managers more open and accessible.  Such tools are typically closed source, expensive and inflexible.  As an open source platform, |project-name| offers the opportunity for everyday investors to better manage their portfolios - thereby being aware of their risks and having the ability to maximise their returns.
+
+
+The `OpenPortfolio`_ Project is hosted on github.
+
+
+Contents:
+
+.. toctree::
+   :maxdepth: 2
+ 
+   installation
+   user_guide
+   finance-concepts
+
+
+
