@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
   <key>Label</key>
-  <string>org.openportfolio.update</string>
+  <string>org.openportfolio-<environment>.update</string>
 
   <key>ProgramArguments</key>
   <array>
-    <string><CODE_ROOT>/manage.py openportfolio-update --settings=<PROJECT>.settings-<ENVIRONMENT></string>
+    <string><code_root>/manage.py openportfolio-update --settings=<project>.settings-<environment></string>
   </array>
 
   <key>Nice</key>
