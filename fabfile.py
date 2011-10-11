@@ -114,7 +114,7 @@ def pull_remote():
 def update_requirements():
 	""" update external dependencies  """
 	
-	print(green("Installing dependencies"))
+	print(green("Installing dependencies - this may take some time, please be patient"))
 	requirements = os.path.join(env.code_root, 'requirements')
 	with cd(requirements):
 		cmd = ['pip install']
@@ -168,7 +168,140 @@ def virtualenv():
 	    yield
 	
 
-
+def apache_setup():
 	
+	print(green('Updating apache settings'))
+	
+	create_apache_conf_files()
+	update_apache_conf()
+	apache_reload()
+	
+def update_apache_conf():
+	""" upload apache configuration to remote host """
+
+	print(red('Pushing conf files'))
+
+
+	require('root', provided_by=('staging', 'production'))
+	source = os.path.join('install', '%(environment)s.conf' % env)
+	dest = os.path.join(env.home, '../config/sites','%(servername)s.conf' % env)
+	put(source, dest, mode=0755)
+	apache_reload()
+
+
+def configtest():    
+    """ test Apache configuration """
+    require('root', provided_by=('staging', 'production'))
+    run('apachectl configtest')
+
+
+def apache_reload():    
+	""" reload Apache on remote host """
+
+	print(red('Reloading apache'))
+
+	require('root', provided_by=('staging', 'production'))
+	run('sudo apachectl restart')
+
+
+def osx_bootstrap():
+	""" Performs additional osx bootstrapping """
+	
+	print(red('Running additional osx bootstrapping'))
+	
+	create_osx_launchd_file()
+	update_osx_launchd_file()
+
+def create_apache_conf_files():
+	""" creates apache conf files from templates in ./install/ """
+
+	print(green('Creating apache conf files from templates'))
+	
+	conf_template=os.path.join(env.code_root,'install','template.conf')
+	conf=os.path.join(env.code_root,'install','%s.conf' % env.environment)
+	
+	wsgi_template=os.path.join(env.code_root,'install','template.wsgi')
+	wsgi=os.path.join(env.code_root,'install','%s.wsgi' % env.environment)
+	
+	r={ 'project':env.project,
+		'environment':env.environment,
+		'servername':env.servername,
+		'home':env.home,
+	}
+	
+	print(red('Replacing %s and saving as %s' % (conf_template,conf)))
+	_open_file_and_replace(conf_template,conf,r)
+	print(red('Replacing %s and saving as %s' % (conf_template,conf)))
+	_open_file_and_replace(wsgi_template,wsgi,r)
+	
+	
+
+def create_osx_launchd_file():
+	""" creates an osx launchd file from templates in ./install/ """
+
+	print(green('Creating launchd files from templates'))
+
+	conf_template=os.path.join(env.code_root,'install','launchd-template.plist')
+	conf=os.path.join(env.code_root,'install','org.%s-%s.update.plist' % (env.project,env.environment))
+
+	r={ 'project':env.project,
+		'environment':env.environment,
+		'code_root':env.code_root,
+	}
+
+	print(red('Replacing %s and saving as %s' % (conf_template,conf)))
+	_open_file_and_replace(conf_template,conf,r)
+	
+	
+def update_osx_launchd_file():
+	""" Moves project launchd file to /Library/LaunchDaemons """
+	
+	launchdf='org.%s-%s.update.plist' % (env.project,env.environment)
+	installdir=os.path.join(env.code_root,'install')
+	launchddir='/Library/LaunchDaemons/'
+	
+	src=os.path.join(installdir,launchdf)
+	dest=os.path.join(launchddir,launchdf)
+	
+	with cd(installdir):
+		sudo('cp %s %s' % (src,dest))
+		sudo('chown root %s' % dest)
+		sudo('launchctl load %s' % dest)
+		
+def remove_osx_launchd_file():
+	""" Removes launchd file from /Library/LaunchDaemons """
+
+	launchdf='org.%s-%s.update.plist' % (env.project,env.environment)
+	
+	launchddir='/Library/LaunchDaemons/'
+
+	dest=os.path.join(launchddir,launchdf)
+
+
+	sudo('launchctl unload %s' % dest)
+	sudo('rm %s' % (dest))
+	
+		
+		
+
+
+def _open_file_and_replace(src,dest,replace_dict):
+	""" replaces <key> in src with val from key,val of replace_dict with supplied values and saves as dest 
+	"""
+	
+	f=open(src,'r')
+	o=open(dest,'w')
+	
+	for line in f.readlines():
+		for k,r in replace_dict.iteritems():
+			line=line.replace('<%s>' % k,'%s' % r)
+			
+		o.write(line+"\n")
+		
+	f.close()
+	o.close()
+	
+	
+
 
 
