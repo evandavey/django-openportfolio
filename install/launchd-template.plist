@@ -7,7 +7,7 @@
 
   <key>ProgramArguments</key>
   <array>
-    <string><code_root>/manage.py openportfolio-update --settings=<project>.settings-<environment></string>
+    <string><code_root>/update.sh</string>
   </array>
 
   <key>Nice</key>
