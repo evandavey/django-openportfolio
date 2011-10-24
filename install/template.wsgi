@@ -9,5 +9,9 @@ sys.path.insert(0, PROJECT_ROOT)
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 os.environ['DJANGO_SETTINGS_MODULE'] = '<project>.settings_<environment>'
 
+
+#overcomes an issue with built in libraries being imported first
+sys.path.reverse()
+
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
