@@ -14,18 +14,13 @@
   {% block feeds %}{% endblock %}
   
   {% block extra_scripts %}{% endblock %}
-  <script type="text/javascript" language="javascript" src="{{ MEDIA_URL }}js/snippets.js"></script>
-  <script type="text/javascript" language="javascript">
-    $(function() {
-      var snippet_completion = new Snippets.SnippetCompletion()
-      snippet_completion.bind_listener('#id_q');
-      
-      if ($('#id_tags').length > 0) {
-        var tag_completion = new Snippets.TagCompletion()
-        tag_completion.bind_listener('#id_tags');
-      }
-    });
-  </script>
+{% url 'admin:jsi18n' as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../jsi18n/" }}"></script>
+<!-- start: two new lines for highcharts -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}Highcharts/js/highcharts.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}Highstock/js/highstock.js" type="text/javascript"></script>
+<!-- end: two new lines for highcharts -->
 </head>
 <body class="{% block bodyclass %}snippets{% endblock %}">
   <div id="header">
