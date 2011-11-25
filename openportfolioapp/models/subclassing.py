@@ -1,5 +1,10 @@
 from django.db.models.query import QuerySet
 from django.db import models
+import pandas as ps
+from pandas.core.datetools import MonthEnd
+import numpy as np
+
+
 
 class SubclassingQuerySet(QuerySet):
     def __getitem__(self, k):
@@ -12,3 +17,7 @@ class SubclassingQuerySet(QuerySet):
         for item in super(SubclassingQuerySet, self).__iter__():
             yield item.as_leaf_class()
             
+            
+
+        
+

@@ -1,0 +1,34 @@
+<script type="text/javascript">
+var chart;
+jQuery(document).ready(function() {
+	chart = new Highcharts.StockChart({
+		chart: {
+			renderTo: 'investment_container',
+		
+		},
+		
+		title: {
+			text: '{{name}}',
+			x: -20 //center
+		},
+		
+		subtitle: {
+			text: '',
+			x: -20
+		},
+		
+		xAxis: {
+			maxZoom : 14 * 24 * 3600000 // fourteen days
+	
+		},
+	
+		series: [{
+			name: 'Test',
+			//data: [1, 27, 34, 39, 46, 56]
+			data: [{{ data|join:"," }}]
+		},]
+	});
+
+});
+</script>
+<div id="investment_container" style="width: 700px;height: 500px"></div>

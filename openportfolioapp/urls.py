@@ -37,19 +37,25 @@ urlpatterns = patterns('',
 	None,
 	'portfolio_barchart'),
 
-(r'^investment/(?P<investment_id>\d+)/report/(?:(?P<enddate>\d+)/(?P<startdate>\d+)/)?$',
-		'openportfolioapp.views.investment_report',
-		None,
-		'investment_report'),
 
-(r'^investment/(?P<investment_id>\d+)/report/(?:(?P<enddate>\d+)/(?P<startdate>\d+)/)?investmentchart.png/$',
-	'openportfolioapp.views.investment_chart',
-	None,
-	'investment_chart'),
+
+
+
 
 (r'^test/$', 
 	'openportfolioapp.views.returns_table',
 	None,
 	'returns_table'),
 
+)
+
+
+"""
+URLS - Investment
+"""
+urlpatterns += patterns('openportfolioapp.views.investment',
+  (r'^investment/(?P<investment_id>\d+)/report/(?:(?P<enddate>\d+)/(?P<startdate>\d+)/)?$',
+		'report',
+		None,
+		'investment_report'),
 )

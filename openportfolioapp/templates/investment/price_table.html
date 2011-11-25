@@ -1,0 +1,21 @@
+{% load pyformat %}
+
+<div class="price-table">
+<table id='price-table'>
+	<thead>
+		<tr>
+			<th>Date</th>
+			<th>Price</th>
+			<th>Return</th>
+	
+		</tr>
+	</thead>
+	{% for p in prices %}
+	<tr>
+		<td>{{p.date|date:"M-Y"}}</td>
+		<td>{% pyformat p.price "{0:.2f}" %}</td>
+		<td>{% pyformat p.return format %}</td>
+	</tr>
+	{% endfor %}
+</table>
+</div>

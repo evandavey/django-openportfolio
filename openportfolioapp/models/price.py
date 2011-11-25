@@ -1,10 +1,34 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
-from openportfolioapp.models import SubclassingQuerySet
+from openportfolioapp.models.subclassing import SubclassingQuerySet
+import pandas as ps
+import numpy as np
+
+
+class PriceQuerySet(SubclassingQuerySet):
+    """
+    A queryset object that contains a date field for conversion into a pandas data frame
+    """
+    def dataframe(self):
+        
+        qs=self
+        
+        if len(qs)==0:
+            return []
+
+        dates=list(qs.dates('date','day'))
+        
+        vlqs = qs.values_list()
+        r = np.core.records.fromrecords(vlqs, names=[f.name for f in self.model._meta.fields])
+        
+        df=ps.DataFrame(r,index=dates)
+        
+        return df
 
 class PriceManager(models.Manager):
     def get_query_set(self):
-        return SubclassingQuerySet(self.model)
+        return PriceQuerySet(self.model)
+
 
 class Price(models.Model):
 	""" A base Price object

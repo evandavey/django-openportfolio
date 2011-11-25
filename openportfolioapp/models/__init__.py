@@ -14,4 +14,3 @@ from datafiles import *
 from interestrate import InterestRate
 from returnobj import Return
 from returns import *
-from SubclassingQuerySet import SubclassingQuerySet
