@@ -4,7 +4,7 @@ docs/doctrees/*
 docs/latex/*
 datafiles/*
 dirhtml/*
-financemanager/fixtures/*
+openportfolioapp/fixtures/*
 initial_data.yaml
 !media/admin/*
 build
