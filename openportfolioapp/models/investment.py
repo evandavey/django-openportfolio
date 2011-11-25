@@ -5,15 +5,17 @@ from django.template.loader import render_to_string
 from datetime import *
 import time
 from openportfolioapp.models.subclassing import SubclassingQuerySet
+import pandas as ps
 
 class InvestmentQuerySet(SubclassingQuerySet):
     """
     A queryset object that contains a date field for conversion into a pandas data frame
     """
-    def datapanel(self,startdate=None,enddate=None):
+    def datapanel(self,startdate=None,enddate=None,crosscurr=None):
         """
         Returns a panel of investment price data
         """
+
 
         qs=self
         
@@ -22,11 +24,14 @@ class InvestmentQuerySet(SubclassingQuerySet):
         
         data={}
         for i in qs:
+            
+            if crosscurr is None:
+                crosscurr=i.currency
+            
             #need a better way, probably and investment price object
-            try:
-                data[i]=i.listedequityprice_set.all().dataframe()
-            except:
-                data[i]=i.savingsaccountprice_set.all().dataframe()
+           
+            data[i]=i.investmentprice_set.all().dataframe(i.currency,crosscurr)
+          
         
         p=ps.Panel(data)
         
