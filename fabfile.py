@@ -78,3 +78,24 @@ def sync_staging_database():
     env.db_backup = '/usr/local/backup/db_dumps/openportfolio.txt'
     load_data()
     
+def load_fixtures():
+    fix='openportfolioapp/fixtures/'
+    
+    fixtures=['portfolio.yaml',
+            'assetclass.yaml',
+            'gicssector.yaml',
+            'company.yaml',
+            'currency.yaml',
+            'investment.yaml',
+            'listedequity.yaml',
+            'savingsaccount.yaml'
+            ]
+    
+    for f in fixtures:
+        manage('loaddata %s' % os.path.join(fix,f))
+    
+ 
+def fetch_prices():
+
+    manage('fetch-prices 20100101 20111031')
+    
