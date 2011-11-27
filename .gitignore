@@ -5,7 +5,7 @@ docs/latex/*
 datafiles/*
 dirhtml/*
 openportfolioapp/fixtures/*
-initial_data.yaml
+!initial_data.yaml
 !media/admin/*
 build
 dist
