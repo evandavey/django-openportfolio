@@ -33,6 +33,8 @@ def my_fetch_historical_yahoo(ticker, date1, date2, cachename=None,dividends=Fal
 
 	
     ticker = ticker.upper()
+    
+    ticker.replace('^','%5E')
 
 
     if iterable(date1):
