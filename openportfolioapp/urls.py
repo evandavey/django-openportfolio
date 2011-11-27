@@ -26,19 +26,6 @@ urlpatterns = patterns('',
             template_name='openportfolioapp/portfolio_list.html')),
 
 
-(r'^portfolio/(?P<portfolio_id>\d+)/report/(?:(?P<currency>\w+)/(?P<dt>\d+)/)?$', 
-	'openportfolioapp.views.portfolio_report',
-	None,
-	'portfolio_report'),
-
-
-(r'^portfolio/(?P<portfolio_id>\d+)/report/(?:(?P<currency>\w+)/(?P<dt>\d+)/)?barchart.png/(?P<analysis_field>\w+)/$',
-	'openportfolioapp.views.portfolio_barchart',
-	None,
-	'portfolio_barchart'),
-
-
-
 
 
 
@@ -48,6 +35,18 @@ urlpatterns = patterns('',
 	'returns_table'),
 
 )
+
+"""
+URLS - Portfolio
+"""
+urlpatterns += patterns('openportfolioapp.views.portfolio',
+  (r'^portfolio/(?P<portfolio_id>\d+)/report/(?:(?P<currency>\w+)/(?P<dt>\d+)/)?$', 
+  	'report',
+  	None,
+  	'portfolio_report'),
+  
+)
+
 
 
 """

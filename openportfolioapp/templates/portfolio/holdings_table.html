@@ -1,7 +1,7 @@
 {% load openportfolioapp_extras %}
 {% load pyformat %}
 
-<table id="holdings_table">
+<table id="holdings-table">
 	<thead>
 		<th>Name</th>
 		{% for f in fields %}
@@ -36,25 +36,4 @@
 	</tbody>
 
 
-
-	<tfoot>
-	<tr class="totalrow">
-		<td>TOTAL</td>
-		{% for f in fields %}
-		{% if f.total == None %}
-		<td>&nbsp;</td>
-		{%else%}
-		{% if f.format == 'rc' %}
-		<td>{{df|hash:f.key|call:f.total|currency:report_currency.locale_code}}</td>
-		{%else%}
-		<td>{% pyformat df|hash:f.key|call:f.total f.format %}</td>
-		{%endif%}
-		{%endif%}
-		{% endfor %}
-	
-	</tr>
-	</tfoot>
 </table>
-
-
-

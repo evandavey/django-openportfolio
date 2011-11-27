@@ -1,3 +1,3 @@
-from portfolio_report import *
-from investment_report import *
+from portfolio import *
+from investment import *
 from returns import *
