@@ -40,7 +40,6 @@ def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 	if startdate is None:
 		start_dt=end_dt-MonthEnd()
 	
-	ctpk = ContentType.objects.get_for_model(portfolio).id
 	
 	rc=Currency.objects.get(pk=currency)
 	
