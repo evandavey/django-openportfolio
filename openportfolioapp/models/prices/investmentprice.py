@@ -58,7 +58,7 @@ class InvestmentPrice(Price):
 		
 
 	def save(self, *args, **kwargs):
-		if(not self.content_type2):
+		if(not self.content_type):
 			self.content_type = ContentType.objects.get_for_model(self.__class__)
 			super(InvestmentPrice, self).save(*args, **kwargs)
 
