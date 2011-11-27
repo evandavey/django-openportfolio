@@ -8152,7 +8152,7 @@
 - fields: {name: Default Benchmark, parent: 1, bm: null}
   model: openportfolioapp.portfolio
   pk: 2
-  - fields: {name: Cash, parent: null, benchmark: 1}
+- fields: {name: Cash, parent: null, benchmark: 1}
   model: openportfolioapp.assetclass
   pk: 1
 - fields: {name: Listed Equities, parent: null, benchmark: 1}
