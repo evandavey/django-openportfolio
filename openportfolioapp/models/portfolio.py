@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.loader import render_to_string
+from django.contrib.contenttypes.models import ContentType
 
 import pandas as ps
 import numpy as np
