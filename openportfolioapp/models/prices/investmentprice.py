@@ -19,7 +19,7 @@ class InvestmentPriceQuerySet(PriceQuerySet):
         df=super(InvestmentPriceQuerySet,self).dataframe()
 
         if len(df)==0:
-        return []
+            return []
 
         base_df=basecurrency.priceframe
         cross_df=crosscurrency.priceframe
