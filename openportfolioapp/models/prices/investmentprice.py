@@ -63,14 +63,14 @@ class InvestmentPrice(Price):
 
         super(InvestmentPrice, self).save(*args, **kwargs)
 
-        def as_leaf_class(self):
-            content_type = self.content_type
-            model = content_type.model_class()
-            if (model == InvestmentPrice):
-                return self
-            return model.objects.get(id=self.id)
+    def as_leaf_class(self):
+        content_type = self.content_type
+        model = content_type.model_class()
+        if (model == InvestmentPrice):
+            return self
+        return model.objects.get(id=self.id)
 
-        def __unicode__(self):
-            """ Returns the custom output string for this object
-            """
-            return "%s - %s : %f" % (self.investment,self.date,self.price)
+    def __unicode__(self):
+        """ Returns the custom output string for this object
+        """
+        return "%s - %s : %f" % (self.investment,self.date,self.price)
