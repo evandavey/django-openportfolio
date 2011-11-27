@@ -8176,46 +8176,46 @@
 - fields: {name: World Equities, parent: 2, benchmark: 1}
   model: openportfolioapp.assetclass
   pk: 8
-- fields: {name: "ING Savings Maximiser",currency: AUD, company: 1071, content_type: 28, asset_class: 6}
+- fields: {name: "ING Savings Maximiser",currency: AUD, company: 1071, content_type: 29, asset_class: 6}
   model: openportfolioapp.investment
   pk: 1
-- fields: {name: "ING Savings Accelerator",currency: AUD, company: 1071, content_type: 28, asset_class: 6}
+- fields: {name: "ING Savings Accelerator",currency: AUD, company: 1071, content_type: 29, asset_class: 6}
   model: openportfolioapp.investment
   pk: 2
-- fields: {name: "Comsec Cash Management",currency: AUD, company: 559, content_type: 28, asset_class: 6}
+- fields: {name: "Comsec Cash Management",currency: AUD, company: 559, content_type: 29, asset_class: 6}
   model: openportfolioapp.investment
   pk: 3
-- fields: {name: "Raboplus Savings Account",currency: AUD, company: 2289, content_type: 28, asset_class: 6}
+- fields: {name: "Raboplus Savings Account",currency: AUD, company: 2289, content_type: 29, asset_class: 6}
   model: openportfolioapp.investment
   pk: 4
-- fields: {name: "Wesfarmers Ordinary Shares",currency: AUD, company: 2216, content_type: 28, asset_class: 6}
+- fields: {name: "Wesfarmers Ordinary Shares",currency: AUD, company: 2216, content_type: 27, asset_class: 6}
   model: openportfolioapp.investment
   pk: 50
-- fields: {name: "Wesfarmers Partially Protected Shares",currency: AUD, company: 2216, content_type: 26, asset_class: 7}
+- fields: {name: "Wesfarmers Partially Protected Shares",currency: AUD, company: 2216, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 51
-- fields: {name: "Suncorp Ordinary Shares",currency: AUD, company: 2000, content_type: 26, asset_class: 7}
+- fields: {name: "Suncorp Ordinary Shares",currency: AUD, company: 2000, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 52
-- fields: {name: "Singtel Ordinary Shares",currency: AUD, company: 1907, content_type: 26, asset_class: 7}
+- fields: {name: "Singtel Ordinary Shares",currency: AUD, company: 1907, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 53
-- fields: {name: "Telstra Ordinary Shares",currency: AUD, company: 2049, content_type: 26, asset_class: 7}
+- fields: {name: "Telstra Ordinary Shares",currency: AUD, company: 2049, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 54
-- fields: {name: "Bluescope Steel Ordinary Shares",currency: AUD, company: 354, content_type: 26, asset_class: 7}
+- fields: {name: "Bluescope Steel Ordinary Shares",currency: AUD, company: 354, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 55
-- fields: {name: "Alumina Ordinary Shares",currency: AUD, company: 94, content_type: 26, asset_class: 7}
+- fields: {name: "Alumina Ordinary Shares",currency: AUD, company: 94, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 56
-- fields: {name: "Woolworths",currency: AUD, company: 2253, content_type: 26, asset_class: 7}
+- fields: {name: "Woolworths",currency: AUD, company: 2253, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 57
-- fields: {name: "Commbank Ordinary Shares",currency: AUD, company: 559, content_type: 26, asset_class: 7}
+- fields: {name: "Commbank Ordinary Shares",currency: AUD, company: 559, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 58
-- fields: {name: "National Bank Ordinary Shares",currency: AUD, company: 1430, content_type: 26, asset_class: 7}
+- fields: {name: "National Bank Ordinary Shares",currency: AUD, company: 1430, content_type: 27, asset_class: 7}
   model: openportfolioapp.investment
   pk: 59
 - fields: {}
