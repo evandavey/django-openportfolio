@@ -8170,10 +8170,10 @@
 - fields: {name: Australian Cash, parent: 1, benchmark: 1}
   model: openportfolioapp.assetclass
   pk: 6
-- fields: {name: Australian Listed Equities, parent: 10, benchmark: 5}
+- fields: {name: Australian Listed Equities, parent: 2, benchmark: 1}
   model: openportfolioapp.assetclass
   pk: 7
-- fields: {name: World Equities, parent: 10, benchmark: 5}
+- fields: {name: World Equities, parent: 2, benchmark: 1}
   model: openportfolioapp.assetclass
   pk: 8
   
