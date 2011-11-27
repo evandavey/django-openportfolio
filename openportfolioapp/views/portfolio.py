@@ -4,9 +4,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from openportfolioapp.models import Portfolio,Currency,Trade
 from pandas.core.datetools import MonthEnd,YearEnd
-from django.http import HttpResponse
-from django.contrib.contenttypes.models import ContentType
-from openportfolioapp.views.returns import returns_table
+
 from django.contrib.auth.decorators import login_required
 
 DEFAULT_CURRENCY='AUD'
