@@ -8140,3 +8140,40 @@
 - fields: {gics_sector: '4010', name: HSBC UK.}
   model: openportfolioapp.company
   pk: 2290
+- fields: {code: AUD, locale_code: en_AU}
+  model: openportfolioapp.currency
+  pk: 1
+- fields: {code: GBP, locale_code: en_GB}
+  model: openportfolioapp.currency
+  pk: 2
+- fields: {name: Benchmarks, parent: null, bm: null}
+  model: openportfolioapp.portfolio
+  pk: 1
+- fields: {name: Default Benchmark, parent: 1, bm: null}
+  model: openportfolioapp.portfolio
+  pk: 2
+  - fields: {name: Cash, parent: null, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 1
+- fields: {name: Listed Equities, parent: null, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 2
+- fields: {name: Fixed Income, parent: null, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 3
+- fields: {name: Property, parent: null, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 4
+- fields: {name: Alternatives, parent: null, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 5
+- fields: {name: Australian Cash, parent: 1, benchmark: 1}
+  model: openportfolioapp.assetclass
+  pk: 6
+- fields: {name: Australian Listed Equities, parent: 10, benchmark: 5}
+  model: openportfolioapp.assetclass
+  pk: 7
+- fields: {name: World Equities, parent: 10, benchmark: 5}
+  model: openportfolioapp.assetclass
+  pk: 8
+  
