@@ -7,10 +7,22 @@ from pandas.core.datetools import MonthEnd,YearEnd
 from django.http import HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from openportfolioapp.views.returns import returns_table
+from django.contrib.auth.decorators import login_required
 
 DEFAULT_CURRENCY='AUD'
 DEFAULT_ANALYSIS_FIELD='asset_class'
 
+
+@login_required(login_url='/accounts/login')
+def list(request):
+ 
+
+    ct={'portfolio_list':Portfolio.objects.all()}
+
+
+    return render_to_response('portfolio/list.html',ct,context_instance=RequestContext(request))
+
+@login_required(login_url='/accounts/login')
 def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 	
 	portfolio=Portfolio.objects.get(pk=portfolio_id)
@@ -24,7 +36,6 @@ def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 	else:
 		dt=datetime.strptime(dt,'%Y%m%d')
 	
-	
 		
 	end_dt=datetime(dt.year,dt.month,1)+MonthEnd()
 	
@@ -32,10 +43,6 @@ def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 		start_dt=end_dt-MonthEnd()
 	
 	ctpk = ContentType.objects.get_for_model(portfolio).id
-	
-	#returns=returns_table(request,portfolio_id,ctpk,'m')
-	#holdings=holdings_table(request,portfolio_id,currency,end_dt.strftime('%Y%m%d'),portfolio)	
-	#trades=trades_table(request,portfolio_id,start_dt,end_dt,portfolio)
 	
 	rc=Currency.objects.get(pk=currency)
 	
@@ -46,9 +53,7 @@ def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 		'report_currency_code': rc.code,
 		'end_dt':end_dt,
 		'start_dt':start_dt,
-	#	'returns_table':returns,
-	#	'trades_table':trades,
-		
+
 	}
 
 

@@ -1,13 +1,24 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+
 
 from datetime import *
 
 from openportfolioapp.models import Investment
 from pandas.core.datetools import MonthEnd
 
+@login_required(login_url='/accounts/login')
+def list(request):
+ 
+
+    ct={'investment_list':Investment.objects.all()}
 
 
+    return render_to_response('investment/list.html',ct,context_instance=RequestContext(request))
+
+
+@login_required(login_url='/accounts/login')
 def report(request,investment_id,enddate=None,startdate=None):
 	
 	#workaround subclassing not working on objects.get()
@@ -29,7 +40,6 @@ def report(request,investment_id,enddate=None,startdate=None):
 	ct={'object':investment,
 		'end_dt':enddate,
 		'start_dt':startdate,
-		#'returns': returns_table(request,investment_id,investment.content_type.id),
 		
 	}
 

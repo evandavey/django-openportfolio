@@ -69,7 +69,7 @@ class PortfolioPriceAdmin(admin.ModelAdmin):
 
 class PortfolioAdmin(admin.ModelAdmin):
 	
-	list_display=['full_name','latest_price','latest_return']
+	list_display=['full_name']
 
 
 class InterestRateAdmin(admin.ModelAdmin):
