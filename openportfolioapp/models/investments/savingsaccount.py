@@ -55,51 +55,6 @@ class SavingsAccount(Investment):
 				
 		
 		
-	def load_price_frame(self,startdate,enddate,crosscurr='USD'):
-
-
-		
-		if startdate==enddate:
-			startdate=startdate-timedelta(days=5)
-		
-		if startdate==None:
-			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,investment=self).order_by('date')[:1]
-		else:
-			qs=SavingsAccountPrice.objects.filter(date__lte=enddate,date__gte=startdate,investment=self).order_by('date')[:1]
-
-		if len(qs)==0:
-			print "No prices found"
-			return None
-
-		vlqs = qs.values_list()
-		prices = np.core.records.fromrecords(vlqs, names=[f.name for f in SavingsAccountPrice._meta.fields])
-
-		
-		dates = [datetime.combine(d,time()) for d in prices.date]
-		crossrates=self.currency.load_price_frame(startdate,enddate,crosscurr)
-
-		crossrates=crossrates.reindex(dates)
-
-
-		data={
-			'close': prices.price,
-			'dividend': prices.dividend,
-			'crossrate': crossrates['crossrate'],
-			'price': prices.price,
-		}
-		
-		
-		
-		
-		pdf=ps.DataFrame(data,index=dates)	
-		pdf['price_fc']=pdf['price'].applymap(Decimal)*pdf['crossrate'].applymap(Decimal)
-	
-	
-
-		return pdf	
-		
-		
-		
 	def save_price_frame(self,df):
 		
 		if df is None:

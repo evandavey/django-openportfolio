@@ -1,4 +1,3 @@
-
 from portfolio import Portfolio
 from assetclass import AssetClass
 from gicssector import GICSSector
@@ -12,5 +11,4 @@ from prices import *
 from investments import *
 from datafiles import *
 from interestrate import InterestRate
-from returnobj import Return
-from returns import *
+

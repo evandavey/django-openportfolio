@@ -28,7 +28,7 @@ class Trade(models.Model):
 	payee = models.CharField(max_length=255,null=True,blank=True)
 	portfolio = models.ForeignKey("Portfolio")
 	investment = models.ForeignKey("Investment",editable=True)
-	transid = models.CharField(max_length=20, null=True,blank=True)
+	transid = models.CharField(max_length=255, null=True,blank=True)
 	
 	
 	def __unicode__(self):
