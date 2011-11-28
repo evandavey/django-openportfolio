@@ -41,10 +41,14 @@
 		{% if f.total == None %}
 		<td>&nbsp;</td>
 		{%else%}
+		{% if f.format == 'lc' %}
+			<td>{{xs|hash:f.key|currency:i.currency.locale_code}}</td>
+		{%else%}
 		{% if f.format == 'rc' %}
 		<td>{{df|hash:f.key|call:f.total|currency:report_currency.locale_code}}</td>
 		{%else%}
 		<td>{% pyformat df|hash:f.key|call:f.total f.format %}</td>
+		{%endif%}
 		{%endif%}
 		{%endif%}
 		{% endfor %}
