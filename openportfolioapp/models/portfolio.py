@@ -1,6 +1,5 @@
 from django.db import models
 from django.template.loader import render_to_string
-from django.contrib.contenttypes.models import ContentType
 
 import pandas as ps
 import numpy as np
@@ -12,10 +11,7 @@ from openportfolioapp.utils import full_name
 from openportfolioapp.models.trade import Trade
 from openportfolioapp.models.investment import Investment
 from pandas.core.datetools import DateOffset,MonthEnd,YearEnd
-from openportfolioapp.models.prices import PortfolioPrice
-from openportfolioapp.utils.returns import returns_dmy
-from openportfolioapp.utils.returns import geometric_return
-from openportfolioapp.models.returns import PortfolioReturn
+
 
 
 DEFAULT_CURRENCY='AUD'
@@ -175,8 +171,10 @@ class Portfolio(models.Model):
         
         #Returns calcs (will need to adjust for cash flows)
         df['MV2']=df['MV'].shift(1)
-        df['capital_return']=(df['MV']/df['MV2'])-1
+        df['Rp']=(df['MV']/df['MV2'])-1
        
+        df['MVb2']=df['MVb'].shift(1)
+        df['Rb']=(df['MVb']/df['MVb2'])-1
         
         lu={'prices':[]}
         
@@ -184,7 +182,16 @@ class Portfolio(models.Model):
         
         for dt in df.index:
             xs=df.xs(dt)
-            lu['prices'].append({"date":dt,"price":xs['MV'],"return":xs['capital_return']})
+            
+            data={"date":dt,
+                "MVp":xs['MV'],
+                "Rp":xs['Rp'],
+                "MVb":xs['MVb'],
+                "Rb":xs['Rb'],
+                "Ra":xs['Rp']-xs['Rb'],
+                }
+            
+            lu['prices'].append()
              
 
         lu['format']="{0:.2%}"
