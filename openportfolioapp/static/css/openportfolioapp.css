@@ -347,6 +347,60 @@ div.holdings-table {
 	border-bottom: 2px solid #6678b1;
 }
 
+###########
+General Table
+###########
 
+
+
+table
+{
+	#font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	background: #fff;
+	margin: 45px;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+table caption
+{
+	font-size: 18px;
+	font-weight: bold;
+	#color: #039;
+}
+
+table th
+{
+	font-size: 12px;
+	font-weight: normal;
+	color: #039;
+	padding: 10px 8px;
+	border-bottom: 2px solid #6678b1;
+	text-align: center;
+}
+table td
+{
+	border-bottom: 1px solid #ccc;
+	color: #669;
+	white-space:nowrap;
+	padding: 6px 8px;
+	text-align: center;
+}
+table tbody tr:hover td
+{
+	color: #009;
+}
+
+table tfoot
+{
+	font-weight: bold;
+	color: #039;
+	padding: 10px 8px;
+	border-top: 2px solid #6678b1;
+	border-bottom: 2px solid #6678b1;
+}
 
 
