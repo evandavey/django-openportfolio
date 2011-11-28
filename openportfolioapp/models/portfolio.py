@@ -225,7 +225,7 @@ class Portfolio(models.Model):
         lu['fields']=[
             {'label':'Hp','key':'Hp','total':'sum','format':'{0:.2f}'},
             {'label':'Wp','key':'Wp','total':'sum','format':'{0:.2%}'},
-            {'label':'Wa','key':'Wp','total':'sum','format':'{0:.2%}'},
+            {'label':'Wa','key':'Wa','total':'sum','format':'{0:.2%}'},
             {'label':'Market Value','key':'MV_fc','total':'sum','format':'rc'},
             {'label':'Market Value','key':'MV','total':'sum','format':'lc'},
             {'label':'Price','key':'P','total':'sum','format':'lc'},
