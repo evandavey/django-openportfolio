@@ -227,7 +227,7 @@ class Portfolio(models.Model):
             {'label':'Wp','key':'Wp','total':'sum','format':'{0:.2%}'},
             {'label':'Wa','key':'Wa','total':'sum','format':'{0:.2%}'},
             {'label':'Market Value','key':'MV_fc','total':'sum','format':'rc'},
-            {'label':'Market Value','key':'MV','total':'sum','format':'lc'},
+            {'label':'Market Value','key':'MV','total':None,'format':'lc'},
             {'label':'Price','key':'P','total':None,'format':'lc'},
             {'label':'Price','key':'P_fc','total':None,'format':'rc'},
             {'label':'Prev Price','key':'P2','total':None,'format':'lc'},
