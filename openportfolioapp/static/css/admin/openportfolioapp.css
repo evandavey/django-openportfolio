@@ -1,0 +1,22 @@
+#header {
+    background: #000000;
+    height: 50px;
+    overflow: auto;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+#header h1 {
+    float: left;
+    margin-left: 1em;
+	color: #fff;
+    display: inline;
+    height: 20px;
+    width: 236px;
+}
+
+#header h1 a {
+    display: block;
+    text-decoration: none;
+    color: #fff;
+   
+}
