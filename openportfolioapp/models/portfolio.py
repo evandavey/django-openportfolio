@@ -320,3 +320,26 @@ class Portfolio(models.Model):
         return trns
 
  
+    def market_value_as_at(self,dt=None,crosscurr=None):
+        
+        if self.p is None:
+            p=self.panel(crosscurr=crosscurr)
+            self.p=p
+        else:
+            p=self.p
+            
+        df=self.portfolio_stats(p)
+        
+        if dt is None:
+            df=df.xs(df.index[-1])
+        else:
+            df=df.xs(dt)
+        
+        return df['MV'].sum()
+            
+            
+    @property
+    def market_value(self):
+    
+        return self.market_value_as_at()
+       
