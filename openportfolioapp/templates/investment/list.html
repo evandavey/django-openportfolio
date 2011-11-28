@@ -10,7 +10,6 @@
 	<table>
 		<thead></thead>
 			<th>Investment</th>
-			<th>Type</th>
 			<th>Latest Price</th>
 			<th>Price Data Range</th>
 		<tbody>
@@ -18,7 +17,6 @@
 			
 			<tr>
 				<td>{{i.name}}</td>
-				<td>{{i.get_investment_type_display}}</td>
 				<td>{{i.latest_price}}</td>
 				<td>{{i.latest_price_date}}</td>
 				<td><a href="/admin/openportfolioapp/{{i.content_type.model}}/{{ i.id }}">Edit</a> | <a href="/openportfolioapp/investment/{{ i.id }}/report">Report</a></td>
