@@ -48,6 +48,7 @@ class ListedEquity(Investment):
 
         ticker=self.full_ticker
 
+        print ticker
 
         try:
             fh = finance.fetch_historical_yahoo(ticker, startdate, enddate,None,dividends)
