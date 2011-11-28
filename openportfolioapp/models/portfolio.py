@@ -191,7 +191,7 @@ class Portfolio(models.Model):
                 "Ra":xs['Rp']-xs['Rb'],
                 }
             
-            lu['prices'].append()
+            lu['prices'].append(data)
              
 
         lu['format']="{0:.2%}"
