@@ -8,7 +8,7 @@
 
 <b>Name:</b> {{ portfolio.name }}</br>
 <b>Benchmark:</b> {{ portfolio.bm.name }}</br>
-<b>Market Value:</b> {{portfolio|args:end_dt|args:report_currency|call:"market_value_as_at"||currency:report_currency.locale_code}}
+<b>Market Value:</b> {{portfolio|args:end_dt|args:report_currency|call:"market_value_as_at"|currency:report_currency.locale_code}}
 
 
 
