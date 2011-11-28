@@ -1,3 +1,16 @@
+@media only screen and (device-width: 768px) {
+  /* For general iPad layouts */
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+  /* For portrait layouts only */
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+  /* For landscape layouts only */
+}
+
+
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +23,7 @@ body {
 }
 
 a:link, a:visited, a:hover {
-    color: #316241;
+    color: #045FB4;
 }
 
 a:active {
@@ -30,9 +43,10 @@ input[type='submit'], input[type='button'] {
 input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
 
 #header {
-    background: #4D494A url(../img/header-bottom-border.gif) bottom left repeat-x;
-    height: 80px;
+    background: #000000;
+    height: 50px;
     overflow: auto;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 
 #header h1 {
@@ -40,17 +54,15 @@ input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
     margin-left: 1em;
 	color: #fff;
     display: inline;
-    height: 70px;
+    height: 20px;
     width: 236px;
 }
 
 #header h1 a {
     display: block;
     text-decoration: none;
-    text-indent: -5000px;
-    height: 70px;
-    width: 236px;
-    background: #4D494A url(../img/logo.gif) top left;
+    color: #fff;
+   
 }
 
 #header #nav-main {
@@ -58,27 +70,26 @@ input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
     text-align: right;
     color: #fff;
     font-weight: bold;
-    margin-top: 45px;
+    margin-top: 20px;
     margin-right: 1em;
     display: inline;
 }
 
 #header #nav-main a {
-    color: #fff;
+    color: #FA5858;
 }
 
 #header #nav-main span {
     float: left;
-    padding-top: 5px;
+    padding-top: 0px;
     margin-right: 0.75em;
 }
 
 #header #nav-main #logout {
     display: block;
     margin: 3px 0.75em 0 0.5em;
-    height: 19px;
+    height: 10px;
     width: 80px;
-    background: url(../img/sign_out.gif) top left no-repeat;
     text-align: center;
     padding-top: 2px;
 }
@@ -91,7 +102,7 @@ input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
 #header #nav-main ul {
     list-style-type: none;
     float: left;
-    padding-top: 3px;
+    padding-top: 0px;
 }
 
 #header #nav-main ul li {
@@ -99,37 +110,18 @@ input[type='submit'].small_button { padding: 2px; font-size: 10.5px; }
     float: left;
     display: inline;
     padding-bottom: 6px;
-    margin: 0 2px;
-    width: 80px;
-    background: url(../img/nav_tab_inactive.gif) top left no-repeat;
+    margin: 0 3px;
 }
 
-body.snippets #header #nav-main ul li#nav-snippets, body.account #header #nav-main ul li#nav-account, body.about #header #nav-main ul li#nav-about {
-    background: url(../img/nav_tab.gif) top left no-repeat;
-}
+
 
 #header #nav-main ul li a {
     text-decoration: none;
     font-weight: bold;
     font-size: 115%;
+    
 }
 
-#nav-secondary {
-    list-style-type: none;
-    float: right;
-    margin-right: 1em;
-    margin-top: 0.5em;
-    display: inline;
-}
-
-#nav-secondary li {
-    display: inline;
-    padding-right: 1em;
-}
-
-#nav-secondary li a {
-    font-weight: bold;
-}
 
 h2 {
     font-size: 1.7em;
@@ -138,45 +130,19 @@ h2 {
 }
 
 #content {
-    border-top: 1px solid #ccc;
+    #border-top: 1px solid #ccc;
     margin: 0 20px 2em 20px;
 }
 
 #content #main {
     width: 100%;
     float: left;
-    border-right: 1px solid #ccc;
     padding-bottom: 4em;
+    min-height:300px;
+   
 }
 
-#content #main table.highlighttable {
-    width: 90%;
-    overflow: auto;
-    padding: 0.5em;
-    font-family: "Andale Mono";
-}
 
-#content #main table.highlighttable pre {
-    font-family: "Bitstream Vera Sans Mono", "Andale Mono", "Courier New", monospace;
-}
-
-#content #main table.highlighttable div.highlight {
-    overflow: auto;
-}
-
-#content #main table.highlighttable div.highlight pre {
-    width: 540px;
-}
-
-#content #main table.highlighttable td.code {
-    vertical-align: top;
-    width: 100%;
-}
-
-#content #main table.highlighttable td.linenos {
-    vertical-align: top;
-    padding-right: 1em;
-}
 
 #content #main ul, #content #main ol {
     margin: 1em 0 1em 20px;
@@ -190,28 +156,7 @@ h2 {
     margin: 0.5em 1em 0.5em 0;
 }
 
-#content #main dl {
-    margin-top: 1em;
-}
 
-#content #main dt {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-}
-
-#content #main dt label {
-    font-weight: bold;
-}
-
-#content #main dd {
-    margin-top: 0.5em;
-    margin-bottom: 1em;
-}
-
-#content #main dd textarea {
-    width: 100%;
-    height: 200px;
-}
 
 #content #main h3 {
     margin: 1em 0;
@@ -221,115 +166,6 @@ h2 {
     margin: 1em 1em 1em 0;
 }
 
-#content #main .error {
-    color: red;
-}
-
-#content #main p.empty {
-    clear: both;
-}
-
-#content #main ul.snippet_list li {
-    clear: both;
-}
-
-#content #main li p.details {
-    float: right;
-    margin: 0;
-}
-
-#content #main li span.rating-positive {
-    color: #316241;
-    font-weight: bold;
-}
-#content #main li span.rating-negative {
-    color: #red;
-    font-weight: bold;
-}
-
-#content #main ul.snippet_filter {
-    margin: 1em 0 0 0;
-}
-
-#content #main ul.snippet_filter li {
-    float: left;
-    list-style-type: none;
-    margin: 0 12px 12px 0;
-}
-
-#content #main ul.snippet_filter li a {
-    display: block;
-    padding: 5px 20px;
-    background-color: #316241;
-    color: white;
-    font-weight: bold;
-    text-decoration: none;
-}
-#content #main ul.snippet_filter li.active a {
-    background-color: #92cc47;
-}
-#content #main ul.snippet_filter li a:hover {
-    background-color: #92cc47;
-}
-
-#content #sidebar {
-    width: 32%;
-    float: left;
-}
-
-#content #sidebar p {
-    margin: 0.5em 1em;
-}
-
-#content #sidebar dl {
-    margin: 0.5em 1em;
-}
-
-#content #sidebar h1, #content #sidebar h2 {
-    font-size: 100%;
-    margin: 0.5em 1em;
-}
-
-#content #sidebar pre, #content #sidebar blockquote {
-    margin: 1em 0 1em 40px;
-}
-
-#content #sidebar dl dt, #content #sidebar dl dd {
-    float: left;
-    margin-right: 0.5em;
-    margin-bottom: 0.5em;
-}
-
-#content #sidebar dl dt {
-    clear: left;
-    font-weight: bold;
-}
-
-#content #sidebar h3 {
-    clear: left;
-    font-size: 110%;
-    margin: 0.5em 1em;
-    padding-top: 1em;
-}
-
-#content #sidebar ul {
-    clear: left;
-    margin: 0.5em 1em;
-    list-style-type: none;
-}
-
-#content #sidebar ol {
-    clear: left;
-    margin-left: 4em;
-}
-
-#content #sidebar li {
-    margin-bottom: 0.5em;
-}
-
-#content .flag_form select {
-    width: auto;
-}
 
 .message {
     margin: 30px 20px 10px 20px;
@@ -344,66 +180,10 @@ h2 {
 .message_error { background-color: #ffecec; }
 .message_error h4 { color: #af4949; }
 
-#comments {
-    clear: left;
-}
-
-#comments h2 {
-    border-bottom: 1px solid #ccc;
-}
-
-#comments dl {
-    margin: 1em 0 1em 20px;
-    width: 40%;
-}
-
-#comments dl dt {
-    margin-bottom: 1em;
-}
-
-#comments dl dd {
-    margin-top: 1em;
-    padding-bottom: 1em;
-    margin-bottom: 1em;
-    border-bottom: 1px solid #ccc;
-}
-
-#comments dl dd p, #comments dl dd ul, #comments dl dd ol, #comments dl dd blockquote {
-    margin: 1em 0;
-}
-
-#comments dl dd li, #comments dl dd blockquote {
-    margin-left: 1em;
-}
-
-#comments dl dd ul li {
-    list-style-type: square;
-}
-
-#comments dl dd ol li {
-    list-style-type: decimal;
-}
-
-#comments form dl {
-    margin: 1em 0 1em 20px;
-}
-
-#comments form dl dt {
-    margin-bottom: 0;
-}
-
-#comments form dl dd {
-    margin-top: 0;
-    border-bottom: 0;
-}
-
-#comments form p {
-    margin: 1em 0 1em 20px;
-}
 
 #footer {
     clear: left;
-    background-color: #4D494A;
+    background-color: #000000;
     color: #fff;
     margin-top: 2em;
     width: 100%;
@@ -411,13 +191,13 @@ h2 {
 }
 
 #footer a:link, a:visited, a:hover, a:active {
-    color: #92c447;
+    color: #045FB4;
 }
 
 #footer div.chunk {
     margin-top: 1em;
     margin-left: 20px;
-    width: 15%;
+    width: 30%;
     float: left;
     margin-bottom: 2em;
 }
@@ -429,6 +209,16 @@ h2 {
 #footer div.chunk ul {
     list-style-type: none;
 }
+
+#footer ul {
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+
+#footer li { display: inline; }
+#footer li:after { content: " |"; } 
+#footer li:last-child:after { content: ""; }
 
 #footer #copyright {
     clear: left;
@@ -556,5 +346,7 @@ div.holdings-table {
 	border-top: 2px solid #6678b1;
 	border-bottom: 2px solid #6678b1;
 }
+
+
 
 
