@@ -20,3 +20,10 @@
     color: #fff;
    
 }
+
+table caption
+{
+	font-weight: bold;
+	color: #FFF;
+	background: #000;
+}
