@@ -151,7 +151,7 @@ pre.literal-block {
 }
 
 code strong {
-    color: #FA5858;
+    color: #930;
 }
 
 hr {
@@ -718,7 +718,7 @@ table#change-history tbody th {
 
 #header {
     background: #417690;
-    color: #ffc;
+    color: #FA5858;
     overflow: hidden;
 }
 
