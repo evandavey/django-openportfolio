@@ -22,5 +22,5 @@ class Command(BaseCommand):
 		self.stdout.write('Fetching prices between %s and %s\n' % (startdate,enddate))
 		
 		fetch_investment_prices(startdate,enddate)
-	
+		fetch_currency_prices(startdate,enddate)
 	
