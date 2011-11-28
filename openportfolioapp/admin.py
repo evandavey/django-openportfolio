@@ -62,10 +62,6 @@ class CurrencyPriceAdmin(admin.ModelAdmin):
 		list_display=['date','currency','price']
 		list_filter = ['currency']
 
-class PortfolioPriceAdmin(admin.ModelAdmin):
-
-	list_display=['date','portfolio','marketvalue','numholdings']
-	list_filter = ['portfolio']
 
 class PortfolioAdmin(admin.ModelAdmin):
 	
@@ -94,7 +90,6 @@ admin.site.register(TradeDataFile)
 admin.site.register(DataDefinition)
 admin.site.register(InterestRate,InterestRateAdmin)
 admin.site.register(SavingsAccountPrice,SavingsAccountPriceAdmin)
-admin.site.register(PortfolioPrice,PortfolioPriceAdmin)
 
 
 
