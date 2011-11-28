@@ -10,10 +10,8 @@ BeautifulSoup
 #maths libraries
 numpy
 pandas
-#matplotlib
 -e git://github.com/matplotlib/matplotlib.git#egg=matplotlib
 
-#pandas seems to need this library
-dateutils
+
 
 

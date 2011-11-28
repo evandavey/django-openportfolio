@@ -1,8 +1,13 @@
+#core libraries
 django
 PyYAML
 mysql-python
 south
+
+#html parsing for fx downloads
 BeautifulSoup
+
+#maths libraries
 numpy
 pandas
 -e git://github.com/matplotlib/matplotlib.git#egg=matplotlib
