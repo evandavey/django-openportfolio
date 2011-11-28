@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from openportfolioapp.models import Investment
-from openportfolioapp.models import Currency
+from openportfolioapp.utils.update_helpers import *
 
 from datetime import datetime
 
@@ -22,26 +21,6 @@ class Command(BaseCommand):
 		
 		self.stdout.write('Fetching prices between %s and %s\n' % (startdate,enddate))
 		
+		fetch_investment_prices(startdate,enddate)
 	
-		self.stdout.write('.Fetching investment prices\n')
-		for i in Investment.objects.all():
-		
-			pdf=i.fetch_price_frame(startdate,enddate)
-			
-			
-			if pdf is not None:
-				i.save_price_frame(pdf)
-				self.stdout.write('..successfully fetched prices for "%s"\n' % i)
-			
-			pdf=None
-
-		self.stdout.write('.Fetching currency prices\n')
-		for c in Currency.objects.all():
-			pdf=c.fetch_price_frame(startdate,enddate)
-			
-			#print pdf
-			if pdf is not None:
-				c.save_price_frame(pdf)
-				self.stdout.write('..successfully fetched prices for "%s"\n' % c)
-			
-			pdf=None
+	

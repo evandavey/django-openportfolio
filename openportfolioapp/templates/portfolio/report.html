@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load openportfolioapp_extras %}
+
+{% block title %}Portfolio Analysis{% endblock %}
+{% block content %}
+
+<h3>Portfolio Report as at {{end_dt|date:"d-M-Y"}}</h3>
+
+<b>Name:</b> {{ portfolio.name }}</br>
+<b>Benchmark:</b> {{ portfolio.bm.name }}</br>
+<b>Market Value:</b> {{portfolio|args:end_dt|args:report_currency|call:"market_value_as_at"|currency:report_currency.locale_code}}
+
+
+
+<h3>Holdings</h3>
+
+{{ holdings_table}}
+
+<h3>Price Chart</h3>
+{{portfolio.price_chart}}
+
+<h3>Price Table</h3>
+
+{{ price_table}}
+
+
+
+
+{% endblock %}

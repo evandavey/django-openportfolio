@@ -4,6 +4,25 @@ Open source django project for portfolio management.  Aims to open up asset mana
 
 More information at: [project homepage](http://evandavey.github.com/OpenPortfolio/)
 
+#Change History
+
+v0.1:
+
+* implements basic functionality
+	- create / edit objects through the django admin interface
+	- trades can be uploaded as csv or ofx
+	- portfolios can be grouped and assigned benchmarks
+	- handles investments and reporting in cross currencies
+	- management command to download prices, can be run as a scheduled task
+	- Highcharts price charts for portfolios and investments
+	- benchmark relative portfolio report showing holdings and returns over time
+	- investment report showing price chart and other pricing data
+	- pandas dataframes and panels used in backend giving substantial flexibility for future reporting enhancements (such as risk calculations, risk weighting analysis, gips compliant returns calcs...)
+	- fifo / lifo trade allocations for profit calculations
+	
+	
+	
+
 
 #Installation
 

@@ -1,0 +1,85 @@
+<script type="text/javascript">
+var chart;
+colors = Highcharts.getOptions().colors;
+yAxisOptions = [],
+
+jQuery(document).ready(function() {
+	
+	chart = new Highcharts.StockChart({
+		chart: {
+			renderTo: 'container',
+			defaultSeriesType: 'line',
+		},
+		
+		
+		title: {
+			text: '{{name}}',
+			x: -20 //center
+		},
+
+		subtitle: {
+			text: '',
+			x: -20
+		},
+
+		xAxis: {
+			maxZoom : 14 * 24 * 3600000 // fourteen days
+
+		},
+
+		rangeSelector: {
+	        selected: 4
+	    },
+		
+		yAxis: {
+			title: {
+				text: 'Return'
+			},
+			labels: {
+	    		formatter: function() {
+    			return (this.value > 0 ? '+' : '') + this.value + '%';
+    			}
+			},
+    		plotLines: [{
+	    		value: 0,
+	    		width: 2,
+	    		color: 'silver'
+	    	}]
+	    },
+		
+	
+		plotOptions: {
+		    	series: {
+		    		
+		    	}
+		},
+		
+		tooltip: {
+	    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}%</b><br/>',
+	    	yDecimals: 2
+	    },
+	
+		legend: {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'top',
+			x: -10,
+			y: 100,
+			borderWidth: 0
+		},
+	
+		series: [
+			{name: '{{portfolio}}',
+				//data: [1, 27, 34, 39, 46, 56]
+			data: [{{ data|join:"," }}]
+			},
+			{name: '{{benchmark}}',
+			//data: [1, 27, 34, 39, 46, 56]
+			data: [{{ bm_data|join:"," }}]
+			},
+		]
+	});
+
+});
+</script>
+<div id="container" style="width: 700px;height: 500px"></div>

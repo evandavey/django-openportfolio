@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Portfolios{% endblock %}
+{% block content %}
+
+{% if portfolio_list %}
+
+
+	<table>
+		<thead></thead>
+			<th>Portfolio</th>
+	
+		<tbody>
+			{% for p in portfolio_list %}
+			
+			<tr>
+				<td>{{p.full_name}}</td>
+				<td><a href="/admin/openportfolioapp/portfolio/{{ p.id }}">Edit</a> | <a href="/openportfolioapp/portfolio/{{ p.id }}/report">Report</a></td>
+			</tr>
+			{% endfor %}
+			
+		</tbody>
+	</table>
+
+{% else %}
+	No entries
+{% endif %}
+{% endblock %}

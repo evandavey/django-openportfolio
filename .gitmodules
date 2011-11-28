@@ -1,0 +1,3 @@
+[submodule "fabtools"]
+	path = fabtools
+	url = git@github.com:evandavey/FabTools.git

@@ -5,7 +5,11 @@ docs/latex/*
 datafiles/*
 dirhtml/*
 openportfolioapp/fixtures/*
+<<<<<<< HEAD
 initial_data.yaml
+=======
+!initial_data.yaml
+>>>>>>> develop
 !media/admin/*
 build
 dist

@@ -1,18 +1,17 @@
 from django.db import models
-from openportfolioapp.models.price import Price,PriceManager
+from openportfolioapp.models.prices.investmentprice import InvestmentPrice,InvestmentPriceManager
 
-class SavingsAccountPrice(Price):
+class SavingsAccountPrice(InvestmentPrice):
 	""" A listed Equity price object
 	"""
 	
-	investment=models.ForeignKey("Investment")
-	dividend=models.DecimalField(decimal_places=10,max_digits=20,default=-1)
+	
 	
 	class Meta:
 		verbose_name_plural = "Savings Account Prices" #cleans up name in admin
 		app_label = "openportfolioapp"
 	
-	objects = PriceManager()
+	objects = InvestmentPriceManager()
 	
 	
 	def __unicode__(self):

@@ -150,7 +150,10 @@ class OfxParser(object):
 
         name_tag = txn_ofx.find('name')
         if hasattr(name_tag, "contents"):
-            transaction.payee = name_tag.contents[0]
+            try:
+                transaction.payee = name_tag.contents[0]
+            except:
+                transaction.payee = ""
 
         memo_tag = txn_ofx.find('memo')
         if hasattr(memo_tag, "contents"):

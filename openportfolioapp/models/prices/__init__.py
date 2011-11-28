@@ -2,3 +2,4 @@ from listedequityprice import ListedEquityPrice
 from currencyprice import CurrencyPrice
 from savingsaccountprice import SavingsAccountPrice
 from portfolioprice import PortfolioPrice
+from investmentprice import InvestmentPrice
