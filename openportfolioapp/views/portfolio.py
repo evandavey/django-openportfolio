@@ -46,8 +46,7 @@ def report(request,portfolio_id,currency='AUD',dt=None,startdate=None):
 	ct={'portfolio':portfolio,
 		'holdings_table':portfolio.holdings_table(start_dt,end_dt,rc),
 		'price_table':portfolio.price_table(start_dt,end_dt,rc),
-		'report_currency': rc.locale_code,
-		'report_currency_code': rc.code,
+		'report_currency': rc,
 		'end_dt':end_dt,
 		'start_dt':start_dt,
 
