@@ -4,6 +4,7 @@ DEBUG = True
 
 
 STATIC_ROOT = '/usr/local/web/django/www/production/openportfolio/static'
+MEDIA_ROOT = '/usr/local/web/django/www/staging/openportfolio/media'
 
 DATABASE_ENGINE = 'mysql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'openportfolio'             # Or path to database file if using sqlite3.
