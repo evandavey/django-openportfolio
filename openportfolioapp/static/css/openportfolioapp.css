@@ -390,10 +390,11 @@ div.holdings-table {
 {
 	font-size: 12px;
 	font-weight: normal;
-	color: #000;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
+	color: #FFF;
+	padding: 6px 8px;
+	border-bottom: 2px solid #000;
 	text-align: center;
+	background-color: #000;
 }
 #holdings-table td
 {
