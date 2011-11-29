@@ -131,7 +131,7 @@ class Portfolio(models.Model):
         
         
         if len(df)==0:
-            return "Insufficient Pricing Data"
+            return "Insufficient pricing data"
 
         lu={'data':[],'bm_data':[]}
 
@@ -180,6 +180,10 @@ class Portfolio(models.Model):
         
         df=df.sort(ascending=False)
         
+        
+        if len(df)==0:
+            return "Insufficient pricing data"
+        
         for dt in df.index:
             xs=df.xs(dt)
             
@@ -215,12 +219,14 @@ class Portfolio(models.Model):
         
         lu={}
 
-        df=p.major_xs(enddate).T
-        prev_df=p.major_xs(startdate).T
-        df=self.dataframe_calcs(df)
-        prev_df=self.dataframe_calcs(prev_df)
-        df['P2']=prev_df['P']
-        
+        try:
+            df=p.major_xs(enddate).T
+            prev_df=p.major_xs(startdate).T
+            df=self.dataframe_calcs(df)
+            prev_df=self.dataframe_calcs(prev_df)
+            df['P2']=prev_df['P']
+        except:
+            return "Insufficient pricing data"
         
         lu['fields']=[
             {'label':'Hp','key':'Hp','total':'sum','format':'{0:.2f}'},
@@ -328,8 +334,12 @@ class Portfolio(models.Model):
         else:
             p=self.p
             
+        
         df=self.portfolio_stats(p)
         
+        if len(df)==0:
+            return 0
+            
         if dt is None:
             df=df.xs(df.index[-1])
         else:

@@ -7,17 +7,21 @@
 {% if investment_list %}
 
 
-	<table>
-		<thead></thead>
+	<table style="border-collapse: collapse;">
+		<thead>
+		<tr>
 			<th>Investment</th>
 			<th>Latest Price</th>
-			<th>Price Data Range</th>
+			<th>Price Date</th>
+			<th>&nbsp;</th>
+		</tr>
+		</thead>
 		<tbody>
 			{% for i in investment_list %}
 			
 			<tr>
 				<td>{{i.name}}</td>
-				<td>{{i.latest_price}}</td>
+				<td style="text-align: right;">{{i.latest_price}}</td>
 				<td>{{i.latest_price_date}}</td>
 				<td><a href="/admin/openportfolioapp/{{i.content_type.model}}/{{ i.id }}">Edit</a> | <a href="/openportfolioapp/investment/{{ i.id }}/report">Report</a></td>
 			</tr>

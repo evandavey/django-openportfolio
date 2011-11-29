@@ -1,34 +1,77 @@
 <script type="text/javascript">
 var chart;
+colors = Highcharts.getOptions().colors;
+yAxisOptions = [],
+
 jQuery(document).ready(function() {
+	
 	chart = new Highcharts.StockChart({
 		chart: {
-			renderTo: 'investment_container',
-		
+			renderTo: 'container',
+			defaultSeriesType: 'line',
 		},
+		
 		
 		title: {
-			text: '{{name}}',
+			text: '',
 			x: -20 //center
 		},
-		
+
 		subtitle: {
 			text: '',
 			x: -20
 		},
-		
+
 		xAxis: {
 			maxZoom : 14 * 24 * 3600000 // fourteen days
+
+		},
+
+		rangeSelector: {
+	        selected: 4
+	    },
+		
+		yAxis: {
+			title: {
+				text: 'Price'
+			},
+		
+    		plotLines: [{
+	    		value: 0,
+	    		width: 2,
+	    		color: 'silver'
+	    	}]
+	    },
+		
 	
+		plotOptions: {
+		    	series: {
+		    		
+		    	}
+		},
+		
+		tooltip: {
+	    	pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b>{point.y}</b><br/>',
+	    	yDecimals: 2
+	    },
+	
+		legend: {
+			layout: 'vertical',
+			align: 'right',
+			verticalAlign: 'top',
+			x: -10,
+			y: 100,
+			borderWidth: 0
 		},
 	
-		series: [{
-			name: 'Test',
-			//data: [1, 27, 34, 39, 46, 56]
+		series: [
+			{name: '{{name}}',
+				//data: [1, 27, 34, 39, 46, 56]
 			data: [{{ data|join:"," }}]
-		},]
+			},
+		]
 	});
 
 });
 </script>
-<div id="investment_container" style="width: 700px;height: 500px"></div>
+<div id="container" style="width: 700px;height: 500px"></div>

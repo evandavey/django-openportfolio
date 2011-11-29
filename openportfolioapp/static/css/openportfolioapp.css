@@ -11,6 +11,18 @@
 }
 
 
+/*
+
+
+red: #FA5858
+link blue: #045FB4
+grey: #666
+
+
+
+*/
+
+
 * {
     margin: 0;
     padding: 0;
@@ -227,7 +239,65 @@ h2 {
     margin-left: 20px;
 }
 
+###########
+General Table
+###########
 
+
+table
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	background: #fff;
+	margin: 45px;
+	width: 480px;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+
+
+table caption
+{
+	font-size: 18px;
+	font-weight: bold;
+	#color: #039;
+}
+
+
+table td
+{
+	border-bottom: 1px solid #ccc;
+	color: #666;
+	white-space:nowrap;
+	padding: 6px 8px;
+	text-align: center;
+}
+table tbody tr:hover td
+{
+	color: #FA5858;
+}
+
+table tfoot
+{
+	font-weight: bold;
+	color: #666;
+	padding: 10px 8px;
+	border-top: 2px solid #6678b1;
+	border-bottom: 2px solid #6678b1;
+}
+
+table thead tr th
+{
+  	font-size: 12px;
+	font-weight: normal;
+	color: #FFF;
+	padding: 5px 8px;
+	border-bottom: 2px solid #000;
+	text-align: center;
+	background: #000;
+    
+}
 
 ###########
 Price Table
@@ -261,22 +331,22 @@ div.price-table {
 {
 	font-size: 12px;
 	font-weight: normal;
-	color: #039;
+	color: #FFF;
 	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
+	border-bottom: 2px solid #000;
 	text-align: center;
 }
 #price-table td
 {
 	border-bottom: 1px solid #ccc;
-	color: #669;
+	color: #666;
 	white-space:nowrap;
 	padding: 6px 8px;
 	text-align: center;
 }
 #price-table tbody tr:hover td
 {
-	color: #009;
+	color: #FA5858;
 }
 
 #price-table tfoot
@@ -284,8 +354,8 @@ div.price-table {
 	font-weight: bold;
 	color: #039;
 	padding: 10px 8px;
-	border-top: 2px solid #6678b1;
-	border-bottom: 2px solid #6678b1;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
 }
 
 ###########
@@ -320,22 +390,23 @@ div.holdings-table {
 {
 	font-size: 12px;
 	font-weight: normal;
-	color: #039;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
+	color: #FFF;
+	padding: 6px 8px;
+	border-bottom: 2px solid #000;
 	text-align: center;
+	background-color: #000;
 }
 #holdings-table td
 {
 	border-bottom: 1px solid #ccc;
-	color: #669;
+	color: #666;
 	white-space:nowrap;
 	padding: 6px 8px;
 	text-align: center;
 }
 #holdings-table tbody tr:hover td
 {
-	color: #009;
+	color: #FA5858;
 }
 
 #holdings-table tfoot
@@ -343,64 +414,10 @@ div.holdings-table {
 	font-weight: bold;
 	color: #039;
 	padding: 10px 8px;
-	border-top: 2px solid #6678b1;
-	border-bottom: 2px solid #6678b1;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
 }
 
-###########
-General Table
-###########
 
-
-
-table
-{
-	#font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 12px;
-	background: #fff;
-	margin: 45px;
-	width: 480px;
-	border-collapse: collapse;
-	text-align: left;
-}
-
-table caption
-{
-	font-size: 18px;
-	font-weight: bold;
-	#color: #039;
-}
-
-table th
-{
-	font-size: 12px;
-	font-weight: normal;
-	color: #039;
-	padding: 10px 8px;
-	border-bottom: 2px solid #6678b1;
-	text-align: center;
-}
-table td
-{
-	border-bottom: 1px solid #ccc;
-	color: #669;
-	white-space:nowrap;
-	padding: 6px 8px;
-	text-align: center;
-}
-table tbody tr:hover td
-{
-	color: #009;
-}
-
-table tfoot
-{
-	font-weight: bold;
-	color: #039;
-	padding: 10px 8px;
-	border-top: 2px solid #6678b1;
-	border-bottom: 2px solid #6678b1;
-}
 
 
