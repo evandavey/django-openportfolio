@@ -5,41 +5,15 @@
 {% block content %}
 
 <h3>Summary</h3>
-<table>
-	<thead>
-	
-	</thead>
-	<tbody>
-	<tr>
-		<th>Name</th>
-		<td>{{ object.name }}</td>
-	</tr>
-	<tr>
-		<th>Asset Class</th>
-		<td>{{ object.asset_class.name }}</td>
-	</tr>
-	<tr>
-		<th>Currency</th>
-		<td>{{ object.currency.code }}</td>
-	</tr>
-	<tr>
-		<th>Company</th>
-		<td>{{ object.company.name }}</td>
-	</tr>
-	<tr>
-		<th>Sector</th>
-		<td>{{ object.company.gics_sector.name }}</td>
-	</tr>
-	<tr>
-		<th>Last Price</th>
-		<td>{{ object.latest_price|currency:object.currency.locale_code}} ({{object.latest_price_date|date:"d-M-Y"}})</td>
-	</tr>
-	<tr>
-		<th>Mean Price</th>
-		<td>{{ object.mean|currency:object.currency.locale_code }}</td>
-	</tr>
-	</tbody>
-</table>
+
+<b>Name: </b>{{ object.name }}<br/>
+<b>Company: </b>{{ object.company.name }}<br/>
+<b>Asset Class: </b>{{ object.asset_class.name }}<br/>
+<b>Sector: </b>{{ object.company.gics_sector.name }}<br/>
+<b>Currency: </b>{{ object.currency.code }}<br/>
+<b>Latest Price: </b>{{ object.latest_price|currency:object.currency.locale_code}} ({{object.latest_price_date|date:"d-M-Y"}})<br/>
+<b>Mean: </b>{{ object.mean|currency:object.currency.locale_code }}<br/>
+
 
 {% if object.content_type.model == 'listedequity' %}
 

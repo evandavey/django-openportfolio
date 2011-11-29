@@ -188,9 +188,14 @@ class Investment(models.Model):
 
         for dt in df.index:
             xs=df.xs(dt)
+            
+            data={}
+            
             lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(xs['price'])])
-
+           
+        
         lu['name']=self.name
+        
 
         return render_to_string('investment/price_chart.html', lu )
 
