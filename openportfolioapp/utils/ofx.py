@@ -13,15 +13,15 @@ def clean_ofx_str(str):
 def parse_ofx_date(dt):
 
 	#handle YYYYMMDD0000 format
-	print len(dt)
+	#print len(dt)
 	if len(dt) == 14:
-		print 'long date found'
+		#print 'long date found'
 		dt = datetime.strptime(dt, "%Y%m%d000000")
 	else:
 		dt = datetime.date(datetime.strptime(dt, "%Y%m%d"))
 
 
-	print dt
+	#print dt
 	#dt = time.strftime("%Y%m%d", dt)
 
 	return dt
