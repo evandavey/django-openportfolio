@@ -9,18 +9,21 @@
 Open Portfolio
 ==============
 
-|project-name| is a django-based portfolio management tool, motivated by tools used by professional fund managers.  It can be used to manage and monitor the returns and risks of a portfolio of investments such as listed equities and fixed income securities.  Version 1.0 aims to be as user friendly as possible.  Nevertheless, experience in Python and django would be beneficial to the user.  Please contact the project authors if you would like to contribute to this project.  See :doc:`finance-concepts` for a user-friendly overview of financial concepts relevant to portfolio management. 
+|project-name| is an open source portfolio management tool, motivated by tools used by professional fund managers.  It can be used to manage and monitor the returns and risks of a portfolio of investments such as listed equities and fixed income securities.    See :doc:`finance-concepts` for a user-friendly overview of the important concepts of portfolio management.
 
 Main Features
 --------------
 
-* trade input from csv and ofx files
-* price downloads from online sources where possible (downloads can be scheduled)
-* investment analysis - return and risk statistics and plots
-* portfolio reporting - returns and risk analysis
-* cross currency capability
-* focus on portfolio cash flows
-* aims to be GIPS compliant
+* vs benchmark portfolio reporting
+* portfolio grouping allowing for aggregate and sub-portfolio level reporting
+* multi-currency support
+* total return focus
+* fifo / lifo trade allocations for tax reporting
+* risk modelling across different risk buckets
+* charting using the Highcharts library
+* pricing data sourced from yahoo finance
+* trade import from csv or ofx files
+* powerful backend based on the Python maths libraries numpy and pandas
 
 Why?
 -----

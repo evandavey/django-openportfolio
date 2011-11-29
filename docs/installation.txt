@@ -3,90 +3,82 @@
 Installation
 ============
 
-The easy way...
----------------
+This document describes how to get a production-ready version of Open Portfolio running on Apache2 via mod_wsgi.
+
+The procedure has been successfully used on OSX 10.7.2 to install development, staging and production instances on a host server also running Apache2.  Files were hosted in /usr/local/web/django/ with Apache configuration located in /usr/local/web/config/.
 
 
-1. Download the fabfile.py from `OpenPortfolio`_
-
-2. Modify the fabfile development settings to suit your requirements
-
-3. Bootstrap your system to create a new virtual environment, download the latest stable version, install dependencies and sync the database::
-
-	$ fab development bootstrap
-
-4. Run the development server::
-
-	$ fab development runserver
-
-.. note:: This procedure requires git, python, pip, virtualenv, virtualenvwrapper and fabric.  See `Preparing your system`_ for further information.  The fabfile includes additional commands to deploy to a staging or production environment (running apache2 and mod_wsgi)
-
-The long way...
-----------------
-
-Download
-++++++++
-
-Download the latest stable version from github 
-
-.. parsed-literal:: 
-		
-	$ git clone |stable-git-url| |project-name|
-
-Running on a local development server
-+++++++++++++++++++++++++++++++++++++
-	
-1. Install the requirements file using pip (a virtual environment is recommended)
-
-.. parsed-literal:: 
-
-	$ cd |project-name|
-	$ pip install -r requirements/development.txt
-	
-2. Create and sync the database
-
-.. parsed-literal:: 
-
-	$ ./manage.py syncdb --settings= |project-name|.settings_local
-	$ ./manage.py migrate --all --settings= |project-name|.settings_local
-
-3. Run the development server
-
-.. parsed-literal:: 
-
-	$ ./manage.py runserver 0.0.0.0:8080 --settings= |project-name|.settings_local
-
-The server can be accessed at: http://127.0.0.0.1:8080
-
-Preparing your system
+Preparing Your System
 ---------------------
 
-The easy installation procedure assumes a system installed with python, pip, virtualenv, virtualenvwrapper and fabric.
+Before installing |project-name|, your system needs the following packages:  
 
-Git
-+++
-
-Follow installation instructions at http://git-scm.com/.  For Mac OSX, using `HomeBrew <http://mxcl.github.com/homebrew/>`_ is recommended instead. 
-
-
-Python
-++++++
-
-Python installation is beyond the scope of this document.  On unix based systems this should be straight-forward.  Mac OS X comes with Python pre-installed.  XCode is required and can be installed using the App store.  Windows users face a more challenging scenario and should see http://www.python.org for installation instructions. 
+* Python 
+* pip
+* fabric
+* virtualenvwrapper
+* Git
+* sqlite or mysql
+* Apache2 and mod_wsgi 
 
 
-Pip, virtualenv, virtualenvwrapper and fabric
-+++++++++++++++++++++++++++++++++++++++++++++
+Preparing OSX
++++++++++++++
 
-1. Install easy_install by following instructions at http://pypi.python.org/pypi/setuptools
-
-2. Install pip::
+1. OS X comes pre-installed with Python.  
+2. Install XCode using the App Store.
+3. Install easy_install by following instructions at http://pypi.python.org/pypi/setuptools
+4. Install pip::
 	
 	$ easy_install pip
 
-3. Use pip to install remaining dependencies::
+5. Use pip to install remaining dependencies::
 
 	$ pip install virtualenv
 	$ pip install virtualenvwrapper
 	$ pip install fabric
+
+6. Install `HomeBrew <http://mxcl.github.com/homebrew/>`_
+
+7. Install git
+
+	$ brew install git
+	
+8. Install mod_wsgi and following the instructions to get mod_wsgi working with Apache
+
+	$ brew install mod_wsgi
+	
+
+Installing |project-name|
+-------------------------
+
+
+1. Clone the git repository
+
+	$ git clone git://github.com/evandavey/OpenPortfolio.git openportfolio
+	
+2. Checkout the stable branch and update the fabtools submodule
+
+	$ git checkout stable
+	$ git submodule init
+	$ git submodule update
+	
+3. Modify the environment settings in fabfile.py
+
+4. Modify the Apache config templates in fabtools/install
+
+5. Setup your environment (creates virtual environment, installs dependencies and syncs the database)
+
+	$ fab <environment> setup
+
+6. Modify settings_<environment>.py to match your environment
+
+7. Populate the pricing database
+
+	$ fab <environment> fetch_prices
+
+8. Run the development server or access Open Portfolio using a web browser
+
+ 	$ fab <environment> runserver
+	
 
