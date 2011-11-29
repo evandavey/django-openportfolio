@@ -354,8 +354,8 @@ div.price-table {
 	font-weight: bold;
 	color: #039;
 	padding: 10px 8px;
-	border-top: 2px solid #6678b1;
-	border-bottom: 2px solid #6678b1;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
 }
 
 ###########
@@ -414,8 +414,8 @@ div.holdings-table {
 	font-weight: bold;
 	color: #039;
 	padding: 10px 8px;
-	border-top: 2px solid #6678b1;
-	border-bottom: 2px solid #6678b1;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #000;
 }
 
 
