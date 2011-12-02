@@ -41,23 +41,23 @@ class Trade(models.Model):
 		elif 'INTEREST' in self.memo.upper() or 'DIVIDEND' in self.memo.upper():
 			self.trade_type='DIV'
 		else:
-			self.trade_type='BUY'
+		   
+		    self.trade_type='BUY'
 	
 	def save(self, *args, **kwargs):
-	
-		self._set_trade_type()
-		
-	
-		super(Trade, self).save(*args, **kwargs) # Call the "real" save() method.	
-
-		#workaround code to trigger subclass process trade function
-		i=self.investment
-		content_type = i.content_type
-		model = content_type.model_class()
-		
-		i=model.objects.get(pk=i.id)
-		
-		i.process_trade(self)
+	    
+	    
+	    if self.trade_type is None:
+	        self._set_trade_type()
+	        
+	    super(Trade, self).save(*args, **kwargs) # Call the "real" save() method.	
+	    #workaround code to trigger subclass process trade function
+	    i=self.investment
+	    content_type = i.content_type
+	    model = content_type.model_class()
+	    i=model.objects.get(pk=i.id)
+	    i.process_trade(self)
+	    
 		
 	def profit(self):
 		
