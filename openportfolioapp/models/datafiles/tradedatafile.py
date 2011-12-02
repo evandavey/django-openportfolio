@@ -75,7 +75,7 @@ class TradeDataFile(models.Model):
 				if datadef.payee_col == -1:
 					payee=""
 				else:
-					print 'Payee:' + row[datadef.payee_col]
+					#print 'Payee:' + row[datadef.payee_col]
 					payee=str(row[datadef.payee_col])
 			
 				if datadef.memo_col == -1:
@@ -165,7 +165,8 @@ class TradeDataFile(models.Model):
 	
 		""" Function to populate the data[] variable by loading an ofx file
 		"""
-	
+		
+	    
 		ofx = OfxParser.parse(self.file_name)
 
 
@@ -239,7 +240,7 @@ class TradeDataFile(models.Model):
 
 		for d in self.data:
 		
-			print 'creating a trans...'
+			#print 'creating a trans...'
 	
 			t=Trade()
 
