@@ -36,13 +36,18 @@ class Trade(models.Model):
 		
 	def _set_trade_type(self):
 
-		if self.volume < 0.0:
-			self.trade_type='SEL'
-		elif 'INTEREST' in self.memo.upper() or 'DIVIDEND' in self.memo.upper():
+		
+		if 'INTEREST' in self.memo.upper() or 'DIVIDEND' in self.memo.upper():
 			self.trade_type='DIV'
+		elif 'LINKED BANK ACCOUNT' in self.memo.upper():
+		    if self.volume < 0.0:
+		        self.trade_type='OUT'
+		    else:
+		        self.trade_type='INF'
+		elif self.volume < 0.0:
+		    self.trade_type='SEL'
 		else:
-		   
-		    self.trade_type='BUY'
+		   self.trade_type='BUY'
 	
 	def save(self, *args, **kwargs):
 	    
