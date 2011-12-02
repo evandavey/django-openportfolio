@@ -1,0 +1,137 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% load adminmedia %}{% admin_media_prefix %}css/dashboard.css" />{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+		<div class="module">
+        <table summary="">
+        <caption>User Administration</caption>
+		<tr>
+			<th scope="row"><a href="auth/group">Groups</a></th>
+		</tr>
+		<tr>
+			<th scope="row"><a href="auth/user">Users</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+        </table>
+        </div>
+
+		<div class="module">
+        <table summary="">
+        <caption>Investment Admin</caption>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/portfolio">Portfolios & Benchmarks</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/listedequity">Equities</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/savingsaccount">Savings Accounts</a></th>
+		</tr>
+        </table>
+        </div>
+
+
+		<div class="module">
+        <table summary="">
+        <caption>Trading</caption>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/trade">Trades</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/tradedatafile">Data Uploads</a></th>
+		</tr>
+        </table>
+        </div>
+
+		<div class="module">
+        <table summary="">
+        <caption>FX</caption>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/currency">Currencies</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/currencyprice">Cross Rates</a></th>
+		</tr>
+        </table>
+        </div>
+
+
+		<div class="module">
+        <table summary="">
+        <caption>Pricing</caption>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/listedequityprice">Equity Prices</a></th><td>&nbsp;</td><td>&nbsp;</td>
+		</tr>
+		<tr>
+			<th scope="row"><a href="/admin/openportfolioapp/interestrate">Interest Rates</a></th>
+		</tr>
+        </table>
+        </div>
+
+			<div class="module">
+	        <table summary="">
+	        <caption>Related Data</caption>
+			<tr>
+				<th scope="row"><a href="/admin/openportfolioapp/company">Companies</a></th><td>&nbsp;</td><td>&nbsp;</td>
+			</tr>
+			<tr>
+				<th scope="row"><a href="/admin/openportfolioapp/gicssector">Sectors</a></th>
+			</tr>
+				<tr>
+					<th scope="row"><a href="/admin/openportfolioapp/assetclass">Asset Classes</a></th>
+				</tr>
+	        </table>
+	        </div>
+</div>
+{% endblock %}
+
+{% block sidebar %}
+
+<div id="content-related">
+	<div class="module" id="management-commands">
+		<h2>Management Commands</h2>
+		<ul class="actionlist">
+			<li><a href="/">Open Portfolio Home</a></li>
+			<li><a href="/openportfolioapp/admin/fetch-prices">Fetch Prices</a></li>
+			<li><a href="#">Bulk Import Trades</a></li>
+		</ul>
+	</div>
+    <div class="module" id="recent-actions-module">
+        <h2>{% trans 'Recent Actions' %}</h2>
+        <h3>{% trans 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p>{% trans 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}">
+                {% if entry.is_deletion or not entry.get_admin_url %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br/>
+                {% if entry.content_type %}
+                    <span class="mini quiet">{% filter capfirst %}{% trans entry.content_type.name %}{% endfilter %}</span>
+                {% else %}
+                    <span class="mini quiet">{% trans 'Unknown content' %}</span>
+                {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+	
+</div>
+{% endblock %}
