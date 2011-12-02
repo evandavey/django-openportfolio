@@ -5,11 +5,14 @@ from django.conf import settings
 from django.contrib import admin
 admin.autodiscover()
 
+I18JS_URL = getattr(settings, 'I18NJS_URL', "i18njs/")
+
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'django_cochranedavey.views.home', name='home'),
     
 	(r'^$',include('openportfolioapp.urls')),
+	(r'^%s' % I18JS_URL, 'django.views.i18n.javascript_catalog'),
 	
 url(r'^openportfolioapp/', include('openportfolioapp.urls')),
 
