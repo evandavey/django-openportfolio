@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 import os,shutil
 from openportfolioapp.models import Investment,Portfolio,TradeDataFile
 
@@ -14,13 +15,12 @@ class Command(BaseCommand):
 			raise CommandError('Requires arguments %s' % self.args)
         
         
-        MEDIA_ROOT='media' #how to set from code?
+        MEDIA_ROOT= options.get('media_root', settings.MEDIA_ROOT)
+        
         
         IMPORT_DIR=os.path.join(MEDIA_ROOT,args[0])
         DEST_DIR=os.path.join('datafiles','trades')
 
-
-        
         try:
             files=os.listdir(IMPORT_DIR)
         except:
