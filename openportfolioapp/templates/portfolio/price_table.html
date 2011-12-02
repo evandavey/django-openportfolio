@@ -10,6 +10,8 @@
 			<th>Benchmark</th>
 			<th>Return</th>
 			<th>Active Return</th>
+			<th>Net Cash Flow</th>
+			<th>Dividends</th>
 		</tr>
 	</thead>
 	{% for p in prices %}
@@ -20,6 +22,8 @@
 		<td>{% pyformat p.MVb "{0:.2f}" %}</td>
 		<td>{% pyformat p.Rb format %}</td>
 		<td>{% pyformat p.Ra format %}</td>
+		<td>{% pyformat p.CF "{0:.2f}" %}</td>
+		<td>{% pyformat p.D "{0:.2f}" %}</td>
 	</tr>
 	{% endfor %}
 </table>
