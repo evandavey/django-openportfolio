@@ -1,11 +1,10 @@
+
 <script type="text/javascript">
 var chart;
-colors = Highcharts.getOptions().colors;
-yAxisOptions = [],
 
-jQuery(document).ready(function() {
+
 	
-	chart = new Highcharts.StockChart({
+function makechart() {	chart = new Highcharts.StockChart({
 		chart: {
 			renderTo: 'container',
 			defaultSeriesType: 'line',
@@ -79,7 +78,7 @@ jQuery(document).ready(function() {
 			},
 		]
 	});
+};
 
-});
 </script>
 <div id="container" style="width: 700px;height: 500px"></div>

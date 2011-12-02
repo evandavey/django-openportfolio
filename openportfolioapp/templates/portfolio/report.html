@@ -1,7 +1,4 @@
-{% extends "base.html" %}
 {% load openportfolioapp_extras %}
-
-{% block title %}Portfolio Analysis{% endblock %}
 {% block content %}
 
 <h3>Portfolio Report as at {{end_dt|date:"d-M-Y"}}</h3>
@@ -23,7 +20,4 @@
 
 {{ price_table}}
 
-
-
-
-{% endblock %}
+{%endblock%}
