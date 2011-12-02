@@ -1,8 +1,9 @@
 #!/bin/sh
 
 env_root=$1
-settings=$2
+manage_root=$2
+settings=$3
 
-source "$1/bin/activate"
+source "$env_root/bin/activate"
 cd ..
-./manage.py openportfolio-daily --settings="$2"
+"$manage_root"/manage.py openportfolio-daily --settings="$settings"
