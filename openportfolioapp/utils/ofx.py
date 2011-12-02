@@ -59,6 +59,8 @@ class OfxParser(object):
     @classmethod
     def parse(cls_, file_handle):
         ofx_obj = Ofx()
+        
+        
         ofx = BeautifulStoneSoup(file_handle)
         stmtrs_ofx = ofx.find('stmtrs')
         if stmtrs_ofx:
@@ -79,14 +81,24 @@ class OfxParser(object):
         account = Account()
         acctid_tag = stmtrs_ofx.find('acctid')
         if hasattr(acctid_tag, 'contents'):
-            account.number = acctid_tag.contents[0]
+            try:
+                account.number = acctid_tag.contents[0]
+            except:
+                account.number=""
+                
         bankid_tag = stmtrs_ofx.find('bankid')
         if hasattr(bankid_tag, 'contents'):
-            account.routing_number = bankid_tag.contents[0]
+            try:
+                account.routing_number = bankid_tag.contents[0]
+            except:
+                account.routing_number=""
 
         curr_tag = stmtrs_ofx.find('curdef')
         if hasattr(curr_tag, 'contents'):
-            account.currency = curr_tag.contents[0]
+            try:
+                account.currency = curr_tag.contents[0]
+            except:
+                account.currency = ""
 
         if stmtrs_ofx:
             account.statement = cls_.parseStatement(stmtrs_ofx)
