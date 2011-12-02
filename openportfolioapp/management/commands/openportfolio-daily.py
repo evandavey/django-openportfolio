@@ -1,5 +1,4 @@
 from django.core.management.base import BaseCommand, CommandError
-from openportfolioapp.app_settings import PRICE_DOWNLOAD_DAY
 from openportfolioapp.utils.update_helpers import *
 
 from datetime import *
@@ -12,9 +11,9 @@ class Command(BaseCommand):
 		
 		today=datetime.today()
 		
-		startdate=today
-		enddate=today-timedelta(days=1)
 		
+		enddate=today-timedelta(days=1)
+		startdate=enddate-timedelta(days=5)
 		
 		fetch_investment_prices(startdate,enddate)
-		
+		fetch_currency_prices(startdate,enddate)
