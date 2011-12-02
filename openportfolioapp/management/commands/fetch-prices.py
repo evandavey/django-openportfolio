@@ -8,6 +8,7 @@ class Command(BaseCommand):
 	help = 'Fetches investment prices'
 
 	def handle(self, *args, **options):
+
 		
 		if len(args) < 2:
 			raise CommandError('Requires arguments %s' % self.args)
