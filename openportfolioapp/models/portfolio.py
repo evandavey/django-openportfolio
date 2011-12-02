@@ -343,7 +343,10 @@ class Portfolio(models.Model):
         if dt is None:
             df=df.xs(df.index[-1])
         else:
-            df=df.xs(dt)
+            try:
+                df=df.xs(dt)
+            except:
+                return 0
         
         return df['MV'].sum()
             
