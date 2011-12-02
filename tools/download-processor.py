@@ -161,7 +161,7 @@ def main(argv=None):
         
         
     c.close()
-    #db.commit()
+    db.commit()
     db.close()
    
     return 0
