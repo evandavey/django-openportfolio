@@ -1,16 +1,33 @@
 from django.core.management.base import BaseCommand, CommandError
-import os
+import os,shutil
 from openportfolioapp.models import Investment,Portfolio,TradeDataFile
 
 class Command(BaseCommand):
-    args = ''
+    args = 'import dir'
     help = 'Imports trade files from the import dir for bulk processing'
 
     def handle(self, *args, **options):
 
-        IMPORT_DIR='import'
+        verbosity = options.get('verbosity', 1)
+    
+        if len(args) < 1:
+			raise CommandError('Requires arguments %s' % self.args)
+        
+        
+        MEDIA_ROOT='media' #how to set from code?
+        
+        IMPORT_DIR=os.path.join(MEDIA_ROOT,args[0])
+        DEST_DIR=os.path.join('datafiles','trades')
 
-        files=os.listdir(IMPORT_DIR)
+
+        
+        try:
+            files=os.listdir(IMPORT_DIR)
+        except:
+            raise CommandError('Failed to access %s' % IMPORT_DIR)
+            
+        if verbosity > 0:
+            self.stdout.write('Importing %d files from %s to {{MEDIA_ROOT}}\%s' % (len(files),IMPORT_DIR,DEST_DIR))
 
         for f in files:
             
@@ -41,25 +58,36 @@ class Command(BaseCommand):
 		    
 		        
             self.stdout.write('File %s has data for %s, investment %s\n' % (f,p,i))
-            
+           
+           
+            oldf=os.path.join(IMPORT_DIR,f)
+            newf=os.path.join(DEST_DIR,f)
+
             #delete old trade files 
             try:
-                tf=TradeDataFile.objects.filter(file_name=os.path.join(IMPORT_DIR,f)).delete()
+                tf=TradeDataFile.objects.filter(file_name=newf).delete()
             except:
                 pass
+           
             
-            tf=TradeDataFile()
-            tf.portfolio=p
-            tf.investment=i
-            tf.file_name=os.path.join(IMPORT_DIR,f)
+            try: 
+                shutil.move(oldf,os.path.join(MEDIA_ROOT,newf))
             
-            try:
+                tf=TradeDataFile()
+                tf.portfolio=p
+                tf.investment=i
+                tf.file_name=newf
+            
+            
+                tf.file_name.open()
+                print tf.file_name
                 tf.save()
                 self.stdout.write('..successfully saved the trade file\n')
-                
-            except:
-                self.stdout.write('..error saving the trade file\n')
             
+            except:
+                import traceback
+                self.stdout.write('..error saving %s, skipping\n' % oldf)
+                self.stdout.write('%s' % traceback.print_exc())
             
             
             
