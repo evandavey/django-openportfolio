@@ -73,20 +73,40 @@ class InterestRateAdmin(admin.ModelAdmin):
 
 	list_display=['date','investment','annualrate']
 	list_filter = ['investment']
+	
+class TradeDataFileAdmin(admin.ModelAdmin):
+    
+    list_display=['file_name','start_date','end_date','portfolio','investment','bulkfile']
+    
+class ListedEquityAdmin(admin.ModelAdmin):
+    
+    list_display=['name','full_ticker']
+    
+class SavingsAccountAdmin(admin.ModelAdmin):
+    
+    list_display=['name']
+    
+class CompanyAdmin(admin.ModelAdmin):
+    
+    list_display=['name','gics_sector']
+    
+class CurrencyAdmin(admin.ModelAdmin):
+    
+    list_display=['code','locale_code']
 
 admin.site.register(AssetClass,AssetClassAdmin)	
 admin.site.register(GICSSector,GICSSectorAdmin)	
-admin.site.register(Company)	
+admin.site.register(Company,CompanyAdmin)	
 admin.site.register(Portfolio,PortfolioAdmin)
 admin.site.register(Investment,InvestmentAdmin)
-admin.site.register(ListedEquity)
-admin.site.register(SavingsAccount)
-admin.site.register(Currency)
+admin.site.register(ListedEquity,ListedEquityAdmin)
+admin.site.register(SavingsAccount,SavingsAccountAdmin)
+admin.site.register(Currency,CurrencyAdmin)
 admin.site.register(Trade,TradeAdmin)
 admin.site.register(ListedEquityPrice,ListedEquityPriceAdmin)
 admin.site.register(CurrencyPrice,CurrencyPriceAdmin)
 admin.site.register(TradeAllocation,TradeAllocationAdmin)
-admin.site.register(TradeDataFile)
+admin.site.register(TradeDataFile,TradeDataFileAdmin)
 admin.site.register(DataDefinition)
 admin.site.register(InterestRate,InterestRateAdmin)
 admin.site.register(SavingsAccountPrice,SavingsAccountPriceAdmin)
