@@ -11,9 +11,21 @@ urlpatterns = patterns('',
             queryset=Investment.objects.all,
             context_object_name='investment_list',
             template_name='index.html')),
+            
+            
+
 
 )
 
+"""
+URLS - Admin
+"""
+urlpatterns += patterns('openportfolioapp.views.admin',
+  (r'^admin/daily$', 
+  	'daily',
+  	None,
+  	'daily'),
+)
 
 
 """

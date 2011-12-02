@@ -95,7 +95,16 @@
 {% endblock %}
 
 {% block sidebar %}
+
 <div id="content-related">
+	<div class="module" id="management-commands">
+		<h2>Management Commands</h2>
+		<ul class="actionlist">
+			<li><a href="/">Open Portfolio Home</a></li>
+			<li><a href="/openportfolioapp/admin/daily">Run Daily Processes</a></li>
+			<li><a href="#">Bulk Import Trades</a></li>
+		</ul>
+	</div>
     <div class="module" id="recent-actions-module">
         <h2>{% trans 'Recent Actions' %}</h2>
         <h3>{% trans 'My Actions' %}</h3>
@@ -123,5 +132,6 @@
             </ul>
             {% endif %}
     </div>
+	
 </div>
 {% endblock %}
