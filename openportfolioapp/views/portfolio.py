@@ -29,7 +29,7 @@ class PortfolioReportThread(threading.Thread):
         self.portfolio_id=portfolio_id
         self.currency=currency
         self.dt=dt
-        self.startdate=startdate
+        self.start_dt=start_dt
         self.request=request
                
         
@@ -38,7 +38,7 @@ class PortfolioReportThread(threading.Thread):
         portfolio_id=self.portfolio_id
         currency=self.currency
         dt=self.dt
-        startdate=self.startdate
+        start_dt=self.start_dt
         request=self.request
         
         cache_key=self.cache_key
