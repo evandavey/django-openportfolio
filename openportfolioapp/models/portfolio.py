@@ -58,20 +58,7 @@ class Portfolio(models.Model):
         df['CF']=df['inflows'].apply(float)-df['outflows'].apply(float)
         df['D']=df['dividends'].apply(float)
    
-        """
-        Weights
-        """
-        try:
-            df['Wp']=df['Hp']/df['Hp'].sum()
-        except:
-            df['Wp']=0
         
-        try:
-            df['Wb']=df['Hb']/df['Hb'].sum()
-        except:
-            df['Wb']=0
-        
-        df['Wa']=(df['Wp']-df['Wb'])
         
         """
         Market Values
@@ -79,6 +66,22 @@ class Portfolio(models.Model):
         df['MV']=df['Hp']*df['P']
         df['MVb']=df['Hb']*df['P']
         df['MV_fc']=df['MV']*df['xrate']
+        
+        
+        """
+        Weights
+        """
+        try:
+            df['Wp']=df['MV']/df['MV'].sum()
+        except:
+            df['Wp']=0
+        
+        try:
+            df['Wb']=df['MVb']/df['MVb'].sum()
+        except:
+            df['Wb']=0
+        
+        df['Wa']=(df['Wp']-df['Wb'])
         
         """
         Returns
