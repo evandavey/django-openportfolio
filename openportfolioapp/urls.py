@@ -32,7 +32,7 @@ urlpatterns += patterns('openportfolioapp.views.admin',
 URLS - Portfolio
 """
 urlpatterns += patterns('openportfolioapp.views.portfolio',
-  (r'^portfolio/(?P<portfolio_id>\d+)/report/(?:(?P<currency>\w+)/(?P<dt>\d+)/)?$', 
+  (r'^portfolio/(?P<portfolio_id>\d+)/report/(?:(?P<currency>\w+)/(?P<dt>\d+)/(?P<startdate>\d+)/)?$', 
   	'report',
   	None,
   	'portfolio_report'),
