@@ -6,6 +6,7 @@
 		<tr>
 			<th>Date</th>
 			<th>Portfolio</th>
+			<th>Prev Portfolio</th>
 			<th>Return</th>
 			<th>Benchmark</th>
 			<th>Return</th>
@@ -18,6 +19,7 @@
 	<tr>
 		<td>{{p.date|date:"M-Y"}}</td>
 		<td>{% pyformat p.MVp "{0:.2f}" %}</td>
+		<td>{% pyformat p.PMV "{0:.2f}" %}</td>
 		<td>{% pyformat p.Rp format %}</td>
 		<td>{% pyformat p.MVb "{0:.2f}" %}</td>
 		<td>{% pyformat p.Rb format %}</td>

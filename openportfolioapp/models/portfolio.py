@@ -123,158 +123,6 @@ class Portfolio(models.Model):
         
         return df
 
-    def price_chart(self):
-        
-        """
-        Renders a price chart vs benchmark
-        """
-
-        from pandas.core.datetools import MonthEnd
-
-
-        if self.p is None:
-            p=self.panel(crosscurr=currency)
-            self.p=p
-        else:
-            p=self.p
-            
-
-        df=self.portfolio_stats(p)
-       
-        #Convert to monthly only for now
-        df=df.asfreq(MonthEnd(),method='pad')
-        
-       
-        
-      
-        
-        
-        if len(df)==0:
-            return "Insufficient pricing data"
-
-        lu={'data':[],'bm_data':[]}
-
-        for dt in df.index:
-            xs=df.xs(dt)
-            lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['R'])*100)])
-            lu['bm_data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['Rb'])*100)])
-        
-        lu['portfolio']=self.name
-        lu['benchmark']=self.bm.name
-        lu['name']="Portfolio vs Benchmark"
-
-        return render_to_string('portfolio/price_chart.html', lu )
-
-    price_chart.allow_tags = True
-   
-    def price_table(self,startdate,enddate,currency):
-        
-        """
-        Renders a price table
-        """
-        
-        from pandas.core.datetools import MonthEnd
-
-
-        if self.p is None:
-            p=self.panel(crosscurr=currency)
-            self.p=p
-        else:
-            p=self.p
-            
-
-        df=self.portfolio_stats(p)
-        df=df.sort()
-        agg={
-            'CF': np.sum,
-            'D': np.sum,
-            'R': lambda x: ((x+1).prod())-1,
-            'MV': lambda x: x[0],
-            'PMV': lambda x: x[0],
-            'MVb': lambda x: x[0],
-            'Rb': lambda x: ((x+1).prod()-1),
-        
-        }
-        
-        
-        
-        df=df.groupby(lambda x: datetime(x.year,x.month,1)).agg(agg)
-        
-        
-        lu={'prices':[]}
-        
-        df=df.sort(ascending=False)
-        
-        
-        if len(df)==0:
-            return "Insufficient pricing data"
-        
-        for dt in df.index:
-            xs=df.xs(dt)
-            
-            data={"date":dt,
-                "MVp":xs['MV'],
-                "PMV":xs['PMV'],
-                "Rp":xs['R'],
-                "MVb":xs['MVb'],
-                "Rb":xs['Rb'],
-                "Ra":xs['R']-xs['Rb'],
-                "CF":xs['CF'],
-                "D":xs['D'],
-                }
-            
-            lu['prices'].append(data)
-             
-
-        lu['format']="{0:.2%}"
-
-
-        return render_to_string('portfolio/price_table.html', lu )
-
-    price_table.allow_tags = True
-    
-    
-    def holdings_table(self,startdate,enddate,currency):
-
-        #should be passed as arg
-        
-
-        if self.p is None:
-            p=self.panel(crosscurr=currency)
-            self.p=p
-        else:
-            p=self.p
-        
-        lu={}
-
-        try:
-            df=p.major_xs(enddate).T
-            prev_df=p.major_xs(startdate).T
-            df=self.dataframe_calcs(df)
-            prev_df=self.dataframe_calcs(prev_df)
-            df['P2']=prev_df['P']
-        except:
-            return "Insufficient pricing data"
-        
-        lu['fields']=[
-            {'label':'Hp','key':'Hp','total':'sum','format':'{0:.2f}'},
-            {'label':'Wp','key':'Wp','total':'sum','format':'{0:.2%}'},
-            {'label':'Wa','key':'Wa','total':'sum','format':'{0:.2%}'},
-            {'label':'Market Value','key':'MV_fc','total':'sum','format':'rc'},
-            {'label':'Market Value','key':'MV','total':None,'format':'lc'},
-            {'label':'Price','key':'P','total':None,'format':'lc'},
-            {'label':'Price','key':'P_fc','total':None,'format':'rc'},
-            {'label':'Prev Price','key':'P2','total':None,'format':'lc'},
-            ]
-			
-        lu['df']=df
-        lu['report_currency']=currency
-        
-
-        return render_to_string('portfolio/holdings_table.html', lu )
-
-    holdings_table.allow_tags = True
-
     def panel(self,crosscurr=None):
         
         from datetime import datetime
@@ -436,4 +284,213 @@ class Portfolio(models.Model):
     def market_value(self):
     
         return self.market_value_as_at()
-       
+        
+        
+
+    """
+    
+    OUTPUT CODE
+    
+    """
+
+
+    def price_chart(self):
+
+        """
+        Renders a price chart vs benchmark
+        """
+
+        from pandas.core.datetools import MonthEnd
+
+
+        if self.p is None:
+            p=self.panel(crosscurr=currency)
+            self.p=p
+        else:
+            p=self.p
+
+
+        df=self.portfolio_stats(p)
+
+        #Convert to monthly only for now
+        df=df.asfreq(MonthEnd(),method='pad')
+
+
+        if len(df)==0:
+            return "Insufficient pricing data"
+
+        lu={'data':[],'bm_data':[]}
+
+        for dt in df.index:
+            xs=df.xs(dt)
+            lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['R'])*100)])
+            lu['bm_data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['Rb'])*100)])
+
+        lu['portfolio']=self.name
+        lu['benchmark']=self.bm.name
+        lu['name']="Portfolio vs Benchmark"
+
+        return render_to_string('portfolio/price_chart.html', lu )
+
+    price_chart.allow_tags = True
+
+    def price_table(self,startdate,enddate,currency):
+
+        """
+        Renders a price table
+        """
+
+        from pandas.core.datetools import MonthEnd
+
+
+        if self.p is None:
+            p=self.panel(crosscurr=currency)
+            self.p=p
+        else:
+            p=self.p
+
+
+        df=self.portfolio_stats(p)
+        df=df.sort()
+        agg={
+            'CF': np.sum,
+            'D': np.sum,
+            'R': lambda x: ((x+1).prod())-1,
+            'MV': lambda x: x[0],
+            'PMV': lambda x: x[0],
+            'MVb': lambda x: x[0],
+            'Rb': lambda x: ((x+1).prod()-1),
+
+        }
+
+
+
+        df=df.groupby(lambda x: datetime(x.year,x.month,1)).agg(agg)
+
+
+        lu={'prices':[]}
+
+        df=df.sort(ascending=False)
+
+
+        if len(df)==0:
+            return "Insufficient pricing data"
+
+        for dt in df.index:
+            xs=df.xs(dt)
+
+            data={"date":dt,
+                "MVp":xs['MV'],
+                "PMV":xs['PMV'],
+                "Rp":xs['R'],
+                "MVb":xs['MVb'],
+                "Rb":xs['Rb'],
+                "Ra":xs['R']-xs['Rb'],
+                "CF":xs['CF'],
+                "D":xs['D'],
+                }
+
+            lu['prices'].append(data)
+
+
+        lu['format']="{0:.2%}"
+
+
+        return render_to_string('portfolio/price_table.html', lu )
+
+    price_table.allow_tags = True
+
+
+    def holdings_table(self,startdate,enddate,currency):
+
+        #should be passed as arg
+
+
+        if self.p is None:
+            p=self.panel(crosscurr=currency)
+            self.p=p
+        else:
+            p=self.p
+
+        lu={}
+
+        try:
+            df=p.major_xs(enddate).T
+            prev_df=p.major_xs(startdate).T
+            df=self.dataframe_calcs(df)
+            prev_df=self.dataframe_calcs(prev_df)
+            df['P2']=prev_df['P']
+        except:
+            return "Insufficient pricing data"
+
+        lu['fields']=[
+            {'label':'Hp','key':'Hp','total':'sum','format':'{0:.2f}'},
+            {'label':'Wp','key':'Wp','total':'sum','format':'{0:.2%}'},
+            {'label':'Wa','key':'Wa','total':'sum','format':'{0:.2%}'},
+            {'label':'Market Value','key':'MV_fc','total':'sum','format':'rc'},
+            {'label':'Market Value','key':'MV','total':None,'format':'lc'},
+            {'label':'Price','key':'P','total':None,'format':'lc'},
+            {'label':'Price','key':'P_fc','total':None,'format':'rc'},
+            {'label':'Prev Price','key':'P2','total':None,'format':'lc'},
+            ]
+
+        lu['df']=df
+        lu['report_currency']=currency
+
+
+        return render_to_string('portfolio/holdings_table.html', lu )
+
+    holdings_table.allow_tags = True
+
+
+    def riskbucket_table(self,startdate,enddate,currency,bucket):
+        
+        if self.p is None:
+            p=self.panel(crosscurr=currency)
+            self.p=p
+        else:
+            p=self.p
+
+        lu={}
+        
+        try:
+            df=p.major_xs(enddate).T
+            prev_df=p.major_xs(startdate).T
+            df=self.dataframe_calcs(df)
+            prev_df=self.dataframe_calcs(prev_df)
+            
+            
+        except:
+            return "Insufficient pricing data"
+            
+            
+        group=df.groupby(bucket)
+        
+        data={}
+        for label,gdf in group:
+            data[label]={}
+            data[label]["w"]=gdf['Wp'].sum()
+            data[label]["mv"]=gdf['MV'].sum()
+        
+        group2=prev_df.groupby(bucket)
+
+        for label,gdf2 in group2:
+            data[label]["p_w"]=gdf2['Wp'].sum()
+            data[label]["p_mv"]=gdf2['MV'].sum()
+            
+        lu['startdate']=startdate
+        lu['enddate']=enddate
+        lu['data']=data
+        lu['format']="{0:.2%}"
+        
+           
+        return render_to_string('portfolio/riskbucket_table.html', lu )
+
+    riskbucket_table.allow_tags = True          
+            
+        
+
+        
+        
+        
+        

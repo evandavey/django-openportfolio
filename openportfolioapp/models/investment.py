@@ -39,6 +39,7 @@ class InvestmentQuerySet(SubclassingQuerySet):
             Returns
             """
             
+            df['assetclass']=i.asset_class.name
             df['P']=df['price'].apply(float)
             df['P_fc']=df['P']*df['xrate']
             df['PP']=df['P'].shift(1)

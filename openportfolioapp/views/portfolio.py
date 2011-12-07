@@ -71,6 +71,9 @@ class PortfolioReportThread(threading.Thread):
         pt=portfolio.price_table(start_dt,end_dt,rc)
         data['pct_progress']=0.75
         cache.set(cache_key,data)
+        rt1=portfolio.riskbucket_table(start_dt,end_dt,rc,'assetclass')
+        data['pct_progress']=0.80
+        cache.set(cache_key,data)
 
         ct={'portfolio':portfolio,
                 'holdings_table':ht,
@@ -78,6 +81,7 @@ class PortfolioReportThread(threading.Thread):
                 'report_currency': rc,
                 'end_dt':end_dt,
                 'start_dt':start_dt,
+                'risk_table1': rt1,
 
         }
 
