@@ -21,7 +21,7 @@ import threading
 
 class PortfolioReportThread(threading.Thread):
     
-    def __init__(self,cache_key,request,portfolio_id,currency,dt,startdate):
+    def __init__(self,cache_key,request,portfolio_id,currency,dt,start_dt):
         threading.Thread.__init__(self)
         self.max_count=10
         self.count=0.0
@@ -59,7 +59,7 @@ class PortfolioReportThread(threading.Thread):
 
         end_dt=datetime(dt.year,dt.month,1)+MonthEnd()
 
-        if startdate is None:
+        if start_dt is None:
             start_dt=end_dt-MonthEnd()
             
         print "Lading report for %s,%s" % (start_dt,end_dt)
