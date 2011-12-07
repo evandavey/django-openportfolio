@@ -431,7 +431,9 @@ class Portfolio(models.Model):
             {'label':'Market Value','key':'MV','total':None,'format':'lc'},
             {'label':'Price','key':'P','total':None,'format':'lc'},
             {'label':'Price','key':'P_fc','total':None,'format':'rc'},
-            {'label':'Prev Price','key':'P2','total':None,'format':'lc'},
+            {'label':'Prev Price','key':'PP','total':None,'format':'lc'},
+            {'label':'Return','key':'R','total':None,'format':'{0:.2%}'},
+            {'label':'R contrib','key':'WRp','total':None,'format':'{0:.4%}'},
             ]
 
         lu['df']=df
