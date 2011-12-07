@@ -61,6 +61,8 @@ class PortfolioReportThread(threading.Thread):
 
         if start_dt is None:
             start_dt=end_dt-MonthEnd()
+        else:
+            start_dt=datetime.strptime(start_dt,'%Y%m%d')
             
         print "Lading report for %s,%s" % (start_dt,end_dt)
 
