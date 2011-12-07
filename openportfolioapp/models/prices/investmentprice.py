@@ -34,7 +34,8 @@ class InvestmentPriceQuerySet(PriceQuerySet):
         curr_df['xrate']=curr_df['base_currency']/curr_df['cross_currency']
 
         df=df.join(curr_df['xrate'])
-
+    
+        
         return df
 
 class InvestmentPriceManager(models.Manager):

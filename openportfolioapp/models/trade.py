@@ -1,6 +1,61 @@
 from django.db import models
 from openportfolioapp.models.investment import Investment
 from openportfolioapp.models.tradeallocation import TradeAllocation
+from django.db.models.query import QuerySet
+import pandas as ps
+import numpy as np
+from datetime import *
+
+class TradeQuerySet(QuerySet):
+    """
+    A queryset object that contains a date field for conversion into a pandas data frame
+    """
+    def dataframe(self):
+        
+        qs=self
+        
+        if len(qs)==0:
+            return []
+
+        dates=list(qs.dates('date','day'))
+   
+        
+        vlqs = qs.values_list()
+       
+        r = np.core.records.fromrecords(vlqs, names=[f.name for f in self.model._meta.fields])
+        
+        #note: this can contain duplicate dates
+        df=ps.DataFrame(r,index=r.date)
+        
+        #group by date,investment and portfolio to aggregate  **remove portfolio to overcome group portfolio issues
+        grouped=df.groupby(['investment',lambda x: datetime(x.year,x.month,x.day)])
+        
+        #create a multi-index data frame
+        idx=[]
+        volume=[]
+        for g,gdf in grouped:
+            
+          
+            
+            idx.append(g)
+            volume.append(gdf['volume'].sum())
+            
+            
+        index=ps.MultiIndex.from_tuples(idx, names=['investment','date'])
+        
+        
+        #refer to a trade time series as df.idx[<investment_id>,<portfolio_id>]
+        df=ps.DataFrame({'volume':volume},index=index)
+        
+        return df
+
+class TradeManager(models.Manager):
+    def get_query_set(self):
+        return TradeQuerySet(self.model)
+
+
+
+
 class Trade(models.Model):
 	""" An object to represent an investment AssetClass
 		Each Investment will belong to a single AssetClass
@@ -29,7 +84,7 @@ class Trade(models.Model):
 	portfolio = models.ForeignKey("Portfolio")
 	investment = models.ForeignKey("Investment",editable=True)
 	transid = models.CharField(max_length=255, null=True,blank=True)
-	
+	objects=TradeManager()
 	
 	def __unicode__(self):
 		return str(self.date) + ":" + self.investment.name + ":" + str(self.volume) + ":" + str(self.price)

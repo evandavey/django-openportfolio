@@ -50,12 +50,13 @@ class Portfolio(models.Model):
         """
         Price & Holdings
         """
-        df['P']=df['price'].apply(float)
-        df['P_fc']=df['P']*df['xrate']
-        df['Hp']=df['portfolio']
-        df['Hb']=df['benchmark']
-        df['CF']=df['inflows']-df['outflows']
-        df['D']=df['dividends']
+        
+        df=df.fillna(0)
+    
+        df['Hp']=df['portfolio'].apply(float)
+        df['Hb']=df['benchmark'].apply(float)
+        df['CF']=df['inflows'].apply(float)-df['outflows'].apply(float)
+        df['D']=df['dividends'].apply(float)
    
         """
         Weights
@@ -70,7 +71,7 @@ class Portfolio(models.Model):
         except:
             df['Wb']=0
         
-        df['Wa']=df['Wp']-df['Wb']
+        df['Wa']=(df['Wp']-df['Wb'])
         
         """
         Market Values
@@ -79,8 +80,15 @@ class Portfolio(models.Model):
         df['MVb']=df['Hb']*df['P']
         df['MV_fc']=df['MV']*df['xrate']
         
+        """
+        Returns
+        """
         
         
+        df['WRp']=df['Wp']*df['R']
+        df['WRp_fc']=df['Wp']*df['R_fc']
+        df['WRb']=df['Wb']*df['R']
+        df['WRb_fc']=df['Wb']*df['R_fc']
         return df
     
     
@@ -99,9 +107,19 @@ class Portfolio(models.Model):
              data['MVb'].append(df['MVb'].sum())
              data['D'].append(df['D'].sum())
              data['CF'].append(df['CF'].sum())
-             
+            
 
         df=ps.DataFrame(data,index=p.major_axis)
+        df['PCF']=df['CF'].shift(1)
+        df['PMV']=df['MV'].shift(1)
+        df['PMVb']=df['MVb'].shift(1)
+        
+        df['R']=((df['MV']-df['CF'])/df['PMV'])-1
+        
+        df['Rb']=(df['MVb']/df['PMVb'])-1
+        
+    
+        
         
         return df
 
@@ -126,13 +144,9 @@ class Portfolio(models.Model):
         #Convert to monthly only for now
         df=df.asfreq(MonthEnd(),method='pad')
         
-        df['MV2']=df['MV'].shift(1)
-        df['MV2b']=df['MVb'].shift(1)
+       
         
-        df['Rp']=(df['MV']/df['MV2'])-1
-        df['Rb']=(df['MVb']/df['MV2b'])-1
-        
-        
+      
         
         
         if len(df)==0:
@@ -142,7 +156,7 @@ class Portfolio(models.Model):
 
         for dt in df.index:
             xs=df.xs(dt)
-            lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['Rp'])*100)])
+            lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['R'])*100)])
             lu['bm_data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['Rb'])*100)])
         
         lu['portfolio']=self.name
@@ -170,30 +184,22 @@ class Portfolio(models.Model):
             
 
         df=self.portfolio_stats(p)
-       
-       
-        
-        #create daily returns series
-        df['MV2']=df['MV'].shift(1)
-        df['Rp']=((df['MV']-df['CF'])/df['MV2'])-1
-               
-        df['MVb2']=df['MVb'].shift(1)
-        df['Rb']=(df['MVb']/df['MVb2'])-1
-        
-        
+        df=df.sort()
         agg={
             'CF': np.sum,
             'D': np.sum,
-            'Rp': lambda x: ((x+1).prod()-1),
+            'R': lambda x: ((x+1).prod())-1,
             'MV': lambda x: x[0],
+            'PMV': lambda x: x[0],
             'MVb': lambda x: x[0],
             'Rb': lambda x: ((x+1).prod()-1),
         
         }
         
+        
+        
         df=df.groupby(lambda x: datetime(x.year,x.month,1)).agg(agg)
         
-        print df
         
         lu={'prices':[]}
         
@@ -208,10 +214,11 @@ class Portfolio(models.Model):
             
             data={"date":dt,
                 "MVp":xs['MV'],
-                "Rp":xs['Rp'],
+                "PMV":xs['PMV'],
+                "Rp":xs['R'],
                 "MVb":xs['MVb'],
                 "Rb":xs['Rb'],
-                "Ra":xs['Rp']-xs['Rb'],
+                "Ra":xs['R']-xs['Rb'],
                 "CF":xs['CF'],
                 "D":xs['D'],
                 }
@@ -283,6 +290,11 @@ class Portfolio(models.Model):
         p_trns=self.trades(dt)
         b_trns=bm.trades(dt)
         combined_trns = p_trns | b_trns
+        
+        #convert trades to dataframes for faster holdings calcs
+        pdf=p_trns.dataframe()
+        bdf=b_trns.dataframe()
+        
 
         #unique investments in either the benchmark or portfolio
         unique_i = Investment.objects.filter(pk__in=combined_trns.values_list('investment').distinct())
@@ -290,7 +302,7 @@ class Portfolio(models.Model):
         #creates a panel of investment data
         print "loading investment data"
         p=unique_i.datapanel(crosscurr=crosscurr)
-        from django.db.models import Sum
+      
         
         #hack to load holdings and create a new combined panel
         pdata={}
@@ -299,54 +311,78 @@ class Portfolio(models.Model):
             print "...%s" % i
             dates=p.major_axis
             data={'portfolio':[],'benchmark':[],'inflows':[],'outflows':[],'dividends':[]}
-            for dt in dates:
-                #p_trns=self.trades(dt)
-                #b_trns=bm.trades(dt)
-                ph=p_trns.filter(investment=i,date__lte=dt).aggregate(Sum('volume'))['volume__sum']
-                bh=b_trns.filter(investment=i,date__lte=dt).aggregate(Sum('volume'))['volume__sum']
-                
-                
-                inflows=p_trns.filter(investment=i,date=dt,trade_type='INF').aggregate(Sum('volume'))['volume__sum']
-                outflows=p_trns.filter(investment=i,date=dt,trade_type='OUT').aggregate(Sum('volume'))['volume__sum']
-                dividends=p_trns.filter(investment=i,date=dt,trade_type='DIV').aggregate(Sum('volume'))['volume__sum']
-                    
-                    
-                if ph is None:
-                    ph=0
-                    
-                if bh is None:
-                    bh=0
-                    
-                if inflows is None:
-                    inflows=0
-                    
-                if outflows is None:
-                    outflows=0
-                    
-                if dividends is None:
-                    dividends=0
-             
-                
-                data['inflows'].append(inflows)
-                data['outflows'].append(outflows)
-                data['dividends'].append(dividends)
-                data['portfolio'].append(ph)
-                data['benchmark'].append(bh)
-        
-        
-            df=ps.DataFrame(data,index=dates)
-            df=df.applymap(float)
+            
+            #break out this investments dataframe of the panel
             tdf=p[i]
-            #tdf['price']=tdf['price'].applymap(float)
+            
+            """
+            Faster holdings code - uses pandas and cumsum rather than a date loop
+            """
+            #portfolio holdings
+            if len(pdf)>0:
+                df=pdf.ix[i.id]
+                df['portfolio']=df['volume'].cumsum()
+            else:
+                df=ps.DataFrame({'portfolio':[0]},index=[tdf.index[0]])
+            
+            df=df.reindex(tdf.index,method='ffill')
+            
+            #benchmark holdings
+            if len(bdf)>0: 
+                df2=bdf.ix[i.id]
+                df2['benchmark']=df2['volume'].cumsum()
+                
+            else:
+                df2=ps.DataFrame({'benchmark':[0]},index=[tdf.index[0]])
+            
+            df2=df2.reindex(tdf.index,method='ffill')
+            
+            #inflows
+            inflows=p_trns.filter(investment=i,trade_type='INF').dataframe()
+            
+            if len(inflows)>0:
+                inflows=inflows.ix[i.id]
+                inflows['inflows']=inflows['volume']
+            else:
+                inflows=ps.DataFrame({'inflows':[0]},index=[tdf.index[0]])
+            
+            inflows=inflows.reindex(tdf.index)
+
+            #outflows
+            outflows=p_trns.filter(investment=i,trade_type='OUT').dataframe()
+
+            if len(outflows)>0:
+                outflows=outflows.ix[i.id]
+                outflows['outflows']=outflows['volume']
+            else:
+                outflows=ps.DataFrame({'outflows':[0]},index=[tdf.index[0]])
+
+            outflows=outflows.reindex(tdf.index)
         
+            #dividends
+            divs=p_trns.filter(investment=i,trade_type='DIV').dataframe()
+
+            if len(divs)>0:
+                divs=divs.ix[i.id]
+                divs['dividends']=divs['volume']
+                
+            else:
+                divs=ps.DataFrame({'dividends':[0]},index=[tdf.index[0]])
+
+            divs=divs.reindex(tdf.index)
+            
+            
+            #combine into a new dataframe
             tdf=tdf.join(df['portfolio'])
-            tdf=tdf.join(df['benchmark'])
-            tdf=tdf.join(df['inflows'])
-            tdf=tdf.join(df['outflows'])
-            tdf=tdf.join(df['dividends'])
+            tdf=tdf.join(df2['benchmark'])
+            tdf=tdf.join(inflows['inflows'])
+            tdf=tdf.join(outflows['outflows'])
+            tdf=tdf.join(divs['dividends'])
             pdata[i]=tdf
         
+        #reassmble the panel
         x=ps.Panel(pdata)
+        
         
         return x
 

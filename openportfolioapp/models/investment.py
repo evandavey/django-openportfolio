@@ -23,17 +23,57 @@ class InvestmentQuerySet(SubclassingQuerySet):
             return []
         
         data={}
+       
         for i in qs:
             
             if crosscurr is None:
                 crosscurr=i.currency
             
             #need a better way, probably and investment price object
-           
-            data[i]=i.investmentprice_set.all().dataframe(i.currency,crosscurr)
+            
+            df=i.investmentprice_set.all().dataframe(i.currency,crosscurr)
+            
+            
+            
+            """
+            Returns
+            """
+            
+            df['P']=df['price'].apply(float)
+            df['P_fc']=df['P']*df['xrate']
+            df['PP']=df['P'].shift(1)
+            df['PP_fc']=df['P_fc'].shift(1)
+
+            df['R']=(df['P']/df['PP'])-1
+            df['R_fc']=(df['P_fc']/df['PP_fc'])-1
+
+              
+            data[i]=df
           
+    
+        """
+        These two loop align investment prices by dates.  More efficient way?
+        """
         
-        p=ps.Panel(data)
+        min_date=None
+        max_date=None
+        #loop one - find date range
+        for i,df in data.iteritems():
+            df=df.sort()
+            if min_date is None or df.index[0]<min_date:
+                min_date=df.index[0]
+            
+            if max_date is None or df.index[-1]>max_date:
+                max_date=df.index[-1]
+            
+        #loop two - reindex data to common date range
+        dates = ps.DateRange(min_date,max_date,offset=ps.core.datetools.DateOffset(days=1))    
+        for i,df in data.iteritems():
+            df=df.reindex(dates,method='bfill')
+            data[i]=df
+            
+    
+        p=ps.Panel(data,major_axis=dates)
         
         return p
 
