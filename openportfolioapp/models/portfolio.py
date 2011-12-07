@@ -167,20 +167,20 @@ class Portfolio(models.Model):
             Faster holdings code - uses pandas and cumsum rather than a date loop
             """
             #portfolio holdings
-            if len(pdf)>0:
+            try:
                 df=pdf.ix[i.id]
                 df['portfolio']=df['volume'].cumsum()
-            else:
+            except:
                 df=ps.DataFrame({'portfolio':[0]},index=[tdf.index[0]])
             
             df=df.reindex(tdf.index,method='ffill')
             
             #benchmark holdings
-            if len(bdf)>0: 
+            try: 
                 df2=bdf.ix[i.id]
                 df2['benchmark']=df2['volume'].cumsum()
                 
-            else:
+            except:
                 df2=ps.DataFrame({'benchmark':[0]},index=[tdf.index[0]])
             
             df2=df2.reindex(tdf.index,method='ffill')
@@ -188,10 +188,10 @@ class Portfolio(models.Model):
             #inflows
             inflows=p_trns.filter(investment=i,trade_type='INF').dataframe()
             
-            if len(inflows)>0:
+            try:
                 inflows=inflows.ix[i.id]
                 inflows['inflows']=inflows['volume']
-            else:
+            except:
                 inflows=ps.DataFrame({'inflows':[0]},index=[tdf.index[0]])
             
             inflows=inflows.reindex(tdf.index)
@@ -199,10 +199,10 @@ class Portfolio(models.Model):
             #outflows
             outflows=p_trns.filter(investment=i,trade_type='OUT').dataframe()
 
-            if len(outflows)>0:
+            try:
                 outflows=outflows.ix[i.id]
                 outflows['outflows']=outflows['volume']
-            else:
+            except:
                 outflows=ps.DataFrame({'outflows':[0]},index=[tdf.index[0]])
 
             outflows=outflows.reindex(tdf.index)
