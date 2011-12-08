@@ -229,11 +229,10 @@ class Investment(models.Model):
         
        
     @property 
-    def bm_priceframe(self):
+    def benchmark(self):
         
-        df=self.asset_class.benchmark.priceframe()
         
-        return df
+        return self.asset_class.benchmark
         
     @property    
     def beta(self):
@@ -243,13 +242,13 @@ class Investment(models.Model):
         
         df=self.bc_priceframe
         
-        bdf=self.bm_priceframe
+        bdf=self.benchmark.priceframe()
+        
+        df=df.reindex(bdf.index,method='bfill')
         
         bm_rets=bdf['R']
         rets=df['price']/df['price'].shift(1)-1
-    
-        (bm_rets,rets)=rets.align(bm_rets)
-        
+            
         std_b=bm_rets.std()
         std_i=rets.std()
         
@@ -278,11 +277,11 @@ class Investment(models.Model):
 
         for dt in df.index:
             xs=df.xs(dt)
+            bm_xs=bm_df.xs(dt)
             
             data={}
             
             lu['data'].append([time.mktime(dt.utctimetuple())*1000,float(xs['price'])])
-           
         
         lu['name']=self.name
         
