@@ -125,6 +125,21 @@ class Portfolio(models.Model):
         
         
         return df
+      
+  
+    def priceframe(self,crosscurr=None):
+        
+        if self.p is None:
+            p=self.panel(crosscurr=crosscurr)
+            self.p=p
+        else:
+            p=self.p
+            
+        pf=self.portfolio_stats(p)
+        
+        return pf
+        
+        
 
     def panel(self,crosscurr=None):
         

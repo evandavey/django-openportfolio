@@ -216,6 +216,55 @@ class Investment(models.Model):
         df=self.bc_priceframe
 
         return df['price'].mean()
+        
+    @property
+    def stdev(self):
+        """
+        Returns the stdev of the investment 
+        """
+
+        df=self.bc_priceframe
+
+        return df['price'].std()
+        
+       
+    @property 
+    def bm_priceframe(self):
+        
+        df=self.asset_class.benchmark.priceframe()
+        
+        return df
+        
+    @property    
+    def beta(self):
+        """
+        Returns the beta of the investment 
+        """
+        
+        df=self.bc_priceframe
+        
+        bdf=self.bm_priceframe
+        
+        bm_rets=bdf['R']
+        rets=df['price']/df['price'].shift(1)-1
+    
+        (bm_rets,rets)=rets.align(bm_rets)
+        
+        std_b=bm_rets.std()
+        std_i=rets.std()
+        
+        
+        cov=rets.corr(bm_rets)*std_b*std_i
+                
+        
+        beta=cov/(std_b*std_b)
+        
+        
+        
+        
+        return beta
+        
+        
 
 
     def investment_chart(self):

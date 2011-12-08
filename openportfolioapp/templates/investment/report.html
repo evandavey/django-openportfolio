@@ -13,6 +13,7 @@
 <b>Currency: </b>{{ object.currency.code }}<br/>
 <b>Latest Price: </b>{{ object.latest_price|currency:object.currency.locale_code}} ({{object.latest_price_date|date:"d-M-Y"}})<br/>
 <b>Mean: </b>{{ object.mean|currency:object.currency.locale_code }}<br/>
+<b>Beta: </b>{{ object.beta }}<br/>
 
 
 {% if object.content_type.model == 'listedequity' %}
