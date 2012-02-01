@@ -269,7 +269,7 @@ class Investment(models.Model):
     def investment_chart(self):
 
         df=self.bc_priceframe
-        bm_df=self.benchmark.bc_priceframe
+        bm_df=self.benchmark.priceframe()
        
         if len(df)==0:
             return "Insufficient Pricing Data"
