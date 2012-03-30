@@ -286,7 +286,7 @@ class Investment(models.Model):
         lu['name']=self.name
         
 
-        return render_to_string('investment/price_chart.html', lu )
+        return render_to_string('openportfolioapp/investment/price_chart.html', lu )
 
     investment_chart.allow_tags = True
     
@@ -320,6 +320,6 @@ class Investment(models.Model):
         lu['format']="{0:.2%}"
     
 
-        return render_to_string('investment/price_table.html', lu )
+        return render_to_string('openportfolioapp/investment/price_table.html', lu )
 
     price_table.allow_tags = True

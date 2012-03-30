@@ -105,7 +105,7 @@ class PortfolioReportThread(threading.Thread):
 
 
             data['message']="rendering"
-            result=render_to_string('portfolio/report.html',ct,context_instance=RequestContext(request))
+            result=render_to_string('openportfolioapp/portfolio/report.html',ct,context_instance=RequestContext(request))
             data['portfolio']=portfolio
             
         except:
@@ -132,7 +132,7 @@ def list(request):
     ct={'portfolio_list':Portfolio.objects.all()}
 
 
-    return render_to_response('portfolio/list.html',ct,context_instance=RequestContext(request))
+    return render_to_response('openportfolioapp/portfolio/list.html',ct,context_instance=RequestContext(request))
 
 
 
@@ -213,4 +213,4 @@ def report(request,portfolio_id,currency=None,dt=None,startdate=None):
         ct={'progress_url':progress_url
         
         }
-        return render_to_response('progress-wrapper.html',ct,context_instance=RequestContext(request))
+        return render_to_response('openportfolioapp/progress-wrapper.html',ct,context_instance=RequestContext(request))

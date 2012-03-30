@@ -373,7 +373,7 @@ class Portfolio(models.Model):
             
         lu['name']="Portfolio vs Benchmark"
 
-        return render_to_string('portfolio/price_chart.html', lu )
+        return render_to_string('openportfolioapp/portfolio/price_chart.html', lu )
 
     price_chart.allow_tags = True
 
@@ -439,7 +439,7 @@ class Portfolio(models.Model):
         lu['format']="{0:.2%}"
 
 
-        return render_to_string('portfolio/price_table.html', lu )
+        return render_to_string('openportfolioapp/portfolio/price_table.html', lu )
 
     price_table.allow_tags = True
 
@@ -494,7 +494,7 @@ class Portfolio(models.Model):
         lu['report_currency']=currency
 
 
-        return render_to_string('portfolio/holdings_table.html', lu )
+        return render_to_string('openportfolioapp/portfolio/holdings_table.html', lu )
 
     holdings_table.allow_tags = True
 
@@ -554,7 +554,7 @@ class Portfolio(models.Model):
         lu['format']="{0:.2%}"
         
            
-        return render_to_string('portfolio/riskbucket_table.html', lu )
+        return render_to_string('openportfolioapp/portfolio/riskbucket_table.html', lu )
 
     riskbucket_table.allow_tags = True          
             

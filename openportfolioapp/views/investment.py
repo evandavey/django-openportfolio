@@ -15,7 +15,7 @@ def list(request):
     ct={'investment_list':Investment.objects.all()}
 
 
-    return render_to_response('investment/list.html',ct,context_instance=RequestContext(request))
+    return render_to_response('openportfolioapp/investment/list.html',ct,context_instance=RequestContext(request))
 
 
 @login_required(login_url='/accounts/login')
@@ -44,5 +44,5 @@ def report(request,investment_id,enddate=None,startdate=None):
 	}
 
 
-	return render_to_response('investment/report.html',ct,context_instance=RequestContext(request))
+	return render_to_response('openportfolioapp/investment/report.html',ct,context_instance=RequestContext(request))
 	
