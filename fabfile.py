@@ -97,5 +97,5 @@ def load_fixtures():
  
 def fetch_prices():
 
-    manage('fetch-prices 20100101 20111031')
+    manage('fetch-prices 20091231 20120320')
     

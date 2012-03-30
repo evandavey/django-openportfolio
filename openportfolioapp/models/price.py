@@ -14,7 +14,7 @@ class PriceQuerySet(SubclassingQuerySet):
         qs=self
         
         if len(qs)==0:
-            return []
+            return None
 
         dates=list(qs.dates('date','day'))
         

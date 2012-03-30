@@ -7,15 +7,19 @@
 	<thead>
 		<tr>
 			<th>Label</th>
-			<th colspan="2">{{enddate|date:"M-Y"}}</th>
-			<th colspan="2">{{startdate|date:"M-Y"}}</th>
+			<th colspan="4">{{enddate|date:"M-Y"}}</th>
+			<th colspan="4">{{startdate|date:"M-Y"}}</th>
 		</tr>
 		<tr>
 			<th>&nbsp;</th>
 			<th>Wp</th>
+			<th>Wb</th>
 			<th>MV</th>
+			<th>R</th>
 			<th>Wp</th>
+			<th>Wb</th>
 			<th>MV</th>
+			<th>R</th>
 		</tr>
 		
 	</thead>
@@ -25,9 +29,14 @@
 		<tr>
 			<td>{{l}}</td>
 			<td>{% pyformat d.w format %}</td>
+			<td>{% pyformat d.wb format %}</td>
 			<td>{% pyformat d.mv "{0:.2f}" %}</td>
+			<td>{% pyformat d.rb format %}</td>
 			<td>{% pyformat d.p_w format %}</td>
+			<td>{% pyformat d.p_wb format %}</td>
 			<td>{% pyformat d.p_mv "{0:.2f}" %}</td>
+			<td>{% pyformat d.p_rb format %}</td>
+			
 		</tr>
 		
 		{%endfor%}

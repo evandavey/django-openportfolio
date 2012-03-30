@@ -31,25 +31,26 @@ class InvestmentQuerySet(SubclassingQuerySet):
             
             #need a better way, probably and investment price object
             
+            print '...loading %s' % i.name
             df=i.investmentprice_set.all().dataframe(i.currency,crosscurr)
             
-            
-            
+        
             """
             Returns
             """
             
-            df['assetclass']=i.asset_class.name
-            df['P']=df['price'].apply(float)
-            df['P_fc']=df['P']*df['xrate']
-            df['PP']=df['P'].shift(1)
-            df['PP_fc']=df['P_fc'].shift(1)
+            if df:
+                df['assetclass']=i.asset_class.name
+                df['P']=df['price'].apply(float)
+                df['P_fc']=df['P']*df['xrate']
+                df['PP']=df['P'].shift(1)
+                df['PP_fc']=df['P_fc'].shift(1)
 
-            df['R']=(df['P']/df['PP'])-1
-            df['R_fc']=(df['P_fc']/df['PP_fc'])-1
+                df['R']=(df['P']/df['PP'])-1
+                df['R_fc']=(df['P_fc']/df['PP_fc'])-1
 
-              
-            data[i]=df
+          
+                data[i]=df
           
     
         """
@@ -75,7 +76,7 @@ class InvestmentQuerySet(SubclassingQuerySet):
             
     
         p=ps.Panel(data,major_axis=dates)
-        
+        print '...panel loaded'
         return p
 
 class InvestmentManager(models.Manager):

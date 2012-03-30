@@ -52,6 +52,7 @@ class Portfolio(models.Model):
         """
         
         df=df.fillna(0)
+        
     
         df['Hp']=df['portfolio'].apply(float)
         df['Hb']=df['benchmark'].apply(float)
@@ -122,15 +123,16 @@ class Portfolio(models.Model):
         df['Rb']=(df['MVb']/df['PMVb'])-1
         
     
+        df=df.fillna(0)
         
         
         return df
       
   
-    def priceframe(self,crosscurr=None):
+    def priceframe(self,dt,crosscurr=None):
         
         if self.p is None:
-            p=self.panel(crosscurr=crosscurr)
+            p=self.panel(dt,crosscurr=crosscurr)
             self.p=p
         else:
             p=self.p
@@ -141,10 +143,9 @@ class Portfolio(models.Model):
         
         
 
-    def panel(self,crosscurr=None):
+    def panel(self,dt,crosscurr=None):
         
         from datetime import datetime
-        dt=datetime(2011,10,31)
         bm=self.bm
 
         #we're dealing with a benchmark
@@ -249,6 +250,9 @@ class Portfolio(models.Model):
         #reassmble the panel
         x=ps.Panel(pdata)
         
+        print "Panel built"
+        
+        self.p=x
         
         return x
 
@@ -276,7 +280,7 @@ class Portfolio(models.Model):
     def market_value_as_at(self,dt=None,crosscurr=None):
         
         if self.p is None:
-            p=self.panel(crosscurr=crosscurr)
+            p=self.panel(dt,crosscurr=crosscurr)
             self.p=p
         else:
             p=self.p
@@ -312,7 +316,7 @@ class Portfolio(models.Model):
     """
 
 
-    def price_chart(self):
+    def price_chart(self,dt):
 
         """
         Renders a price chart vs benchmark
@@ -320,18 +324,34 @@ class Portfolio(models.Model):
 
         from pandas.core.datetools import MonthEnd
 
+        print "building chart"
+
 
         if self.p is None:
-            p=self.panel(crosscurr=currency)
+            p=self.panel(dt,crosscurr=currency)
             self.p=p
         else:
             p=self.p
 
-
+        print "....calculating stats"
         df=self.portfolio_stats(p)
 
+        agg={
+             'CF': np.sum,
+             'D': np.sum,
+             'R': lambda x: ((x+1).prod())-1,
+             'MV': lambda x: x[0],
+             'PMV': lambda x: x[0],
+             'MVb': lambda x: x[0],
+             'Rb': lambda x: ((x+1).prod()-1),
+
+         }
+
+
         #Convert to monthly only for now
-        df=df.asfreq(MonthEnd(),method='pad')
+        df=df.groupby(lambda x: datetime(x.year,x.month,1)).agg(agg)
+        
+        #df=df.asfreq(MonthEnd(),method='pad')
 
 
         if len(df)==0:
@@ -345,7 +365,12 @@ class Portfolio(models.Model):
             lu['bm_data'].append([time.mktime(dt.utctimetuple())*1000,float(np.nan_to_num(xs['Rb'])*100)])
 
         lu['portfolio']=self.name
-        lu['benchmark']=self.bm.name
+        if self.bm:
+            lu['benchmark']=self.bm.name
+        else:
+            lu['benchmark']=self.name
+            
+            
         lu['name']="Portfolio vs Benchmark"
 
         return render_to_string('portfolio/price_chart.html', lu )
@@ -362,7 +387,7 @@ class Portfolio(models.Model):
 
 
         if self.p is None:
-            p=self.panel(crosscurr=currency)
+            p=self.panel(enddate,crosscurr=currency)
             self.p=p
         else:
             p=self.p
@@ -425,7 +450,7 @@ class Portfolio(models.Model):
 
 
         if self.p is None:
-            p=self.panel(crosscurr=currency)
+            p=self.panel(enddate,crosscurr=currency)
             self.p=p
         else:
             p=self.p
@@ -445,6 +470,7 @@ class Portfolio(models.Model):
             df['P2']=prev_df['P']
             df['R2']=(df['P']/df['P2'])-1
             df['WR2']=df['Wp']*df['R2']
+            df['WRb2']=df['Wb']*df['R2']
         
         except:
             return "Insufficient pricing data"
@@ -460,6 +486,8 @@ class Portfolio(models.Model):
             {'label':'Prev Price','key':'P2','total':None,'format':'lc'},
             {'label':'Return','key':'R2','total':None,'format':'{0:.2%}'},
             {'label':'R contrib','key':'WR2','total':None,'format':'{0:.4%}'},
+            {'label':'Rb contrib','key':'WRb2','total':None,'format':'{0:.4%}'},
+
             ]
 
         lu['df']=df
@@ -487,7 +515,15 @@ class Portfolio(models.Model):
             df=self.dataframe_calcs(df)
             prev_df=self.dataframe_calcs(prev_df)
             
-            
+            """
+            Period returns
+            """
+
+            df['P2']=prev_df['P']
+            df['R2']=(df['P']/df['P2'])-1
+            df['WR2']=df['Wp']*df['R2']
+            df['WRb2']=df['Wb']*df['R2']
+        
         except:
             return "Insufficient pricing data"
             
@@ -498,13 +534,19 @@ class Portfolio(models.Model):
         for label,gdf in group:
             data[label]={}
             data[label]["w"]=gdf['Wp'].sum()
+            data[label]["wb"]=gdf['Wb'].sum()
+            data[label]["rb"]=gdf['WRb2'].sum()  #just a daily return
             data[label]["mv"]=gdf['MV'].sum()
         
         group2=prev_df.groupby(bucket)
 
         for label,gdf2 in group2:
             data[label]["p_w"]=gdf2['Wp'].sum()
+            data[label]["p_wb"]=gdf2['Wb'].sum()
             data[label]["p_mv"]=gdf2['MV'].sum()
+            data[label]["p_rb"]=0.  #just a daily return
+            
+
             
         lu['startdate']=startdate
         lu['enddate']=enddate

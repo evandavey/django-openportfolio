@@ -13,7 +13,7 @@ from django.contrib.auth.decorators import login_required
 DEFAULT_CURRENCY='AUD'
 DEFAULT_ANALYSIS_FIELD='asset_class'
 
-
+import sys
 from django.core.cache import cache
 from django.http import HttpResponse, HttpResponseServerError 
 
@@ -45,6 +45,8 @@ class PortfolioReportThread(threading.Thread):
         data = cache.get(cache_key)
 
         data['pct_progress']=0.05
+        data['message']="loading holdings table"
+        
         cache.set(cache_key,data)
         portfolio=Portfolio.objects.get(pk=portfolio_id)
 
@@ -66,33 +68,59 @@ class PortfolioReportThread(threading.Thread):
             
         print "Lading report for %s,%s" % (start_dt,end_dt)
 
-        rc=Currency.objects.get(code=currency)
-        ht=portfolio.holdings_table(start_dt,end_dt,rc)
-        data['pct_progress']=0.5
-        cache.set(cache_key,data)
-        pt=portfolio.price_table(start_dt,end_dt,rc)
-        data['pct_progress']=0.75
-        cache.set(cache_key,data)
-        rt1=portfolio.riskbucket_table(start_dt,end_dt,rc,'assetclass')
-        data['pct_progress']=0.80
-        cache.set(cache_key,data)
+        ht=None
+        rt1=None
+        pc=None
+        
+        try:
+            rc=Currency.objects.get(code=currency)
+            ht=portfolio.holdings_table(start_dt,end_dt,rc)
+            print 'holdings table loaded'
+            data['pct_progress']=0.5
+            data['message']="loading price table"
+            cache.set(cache_key,data)
+            pt=portfolio.price_table(start_dt,end_dt,rc)
+            print 'price table loaded'
+            
+            data['pct_progress']=0.75
+            data['message']="loading risk table"
+            
+            cache.set(cache_key,data)
+            rt1=portfolio.riskbucket_table(start_dt,end_dt,rc,'assetclass')
+            data['message']="loading price chart"
+            
+            data['pct_progress']=0.80
+            cache.set(cache_key,data)
+            pc=portfolio.price_chart(end_dt)
+            ct={'portfolio':portfolio,
+                    'holdings_table':ht,
+                    'price_table':pt,
+                    'report_currency': rc,
+                    'end_dt':end_dt,
+                    'start_dt':start_dt,
+                    'risk_table1': rt1,
+                    'price_chart': pc,
 
-        ct={'portfolio':portfolio,
-                'holdings_table':ht,
-                'price_table':pt,
-                'report_currency': rc,
-                'end_dt':end_dt,
-                'start_dt':start_dt,
-                'risk_table1': rt1,
-
-        }
+            }
 
 
-        result=render_to_string('portfolio/report.html',ct,context_instance=RequestContext(request))
-        data['portfolio']=portfolio
+            data['message']="rendering"
+            result=render_to_string('portfolio/report.html',ct,context_instance=RequestContext(request))
+            data['portfolio']=portfolio
+            
+        except:
+            data['message']="Caught an error %s:%s" % (sys.exc_info()[0],sys.exc_info()[1])
+            print data['message']
+            result="ERROR: %s:%s" % (sys.exc_info()[0],sys.exc_info()[1])
+            
+            data['pct_progress']=0.9
+            
+
+        
         data['result']=result
         data['pct_progress']=1.0
         cache.set(cache_key,data)
+        print 'rendering done'
         
 
 
@@ -137,7 +165,8 @@ def report(request,portfolio_id,currency=None,dt=None,startdate=None):
             cache_key = "%s_%s" % (request.META['REMOTE_ADDR'], progress_id)
             data={
                    'pct_progress': 0.0,
-                   'done': 0
+                   'done': 0,
+                   'msg':'starting load',
             }
             cache.set(cache_key, data)
             t = PortfolioReportThread(cache_key,request,portfolio_id,currency,dt,startdate)

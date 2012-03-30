@@ -18,8 +18,8 @@ class InvestmentPriceQuerySet(PriceQuerySet):
 
         df=super(InvestmentPriceQuerySet,self).dataframe()
 
-        if len(df)==0:
-            return []
+        if not df:
+            return None
 
         base_df=basecurrency.priceframe
         cross_df=crosscurrency.priceframe

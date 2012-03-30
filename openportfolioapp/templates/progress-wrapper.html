@@ -69,6 +69,7 @@ function update_progress_info() {
          if (data) {
 			 
 			 var done = data.done
+			 var msg = data.message
 			 //
 			 if (done == 1) {
 				$progress.find('.progress-info').text('done')
@@ -83,7 +84,7 @@ function update_progress_info() {
 	             var width = $progress.find('.progress-container').width()
 	             var progress_width = width * progress;
 	             $progress.find('.progress-bar').width(progress_width);
-	             $progress.find('.progress-info').text('loading ' + parseInt(progress*100) + '%');
+	             $progress.find('.progress-info').text('loading ' + parseInt(progress*100) + '%' + ' ' + msg);
 			}
 			
             
