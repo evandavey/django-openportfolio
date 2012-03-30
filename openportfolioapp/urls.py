@@ -10,7 +10,7 @@ urlpatterns = patterns('',
         ListView.as_view(
             queryset=Investment.objects.all,
             context_object_name='investment_list',
-            template_name='index.html')),
+            template_name='openportfolioapp/index.html')),
             
             
 
