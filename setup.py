@@ -79,7 +79,7 @@ setup(
     license="CC-SA-NC",
     packages = packages,
     data_files = data_files,
-    install_requires=['pandas','django-tastypie','beautifulsoup','matplotlib'],
+    install_requires=['numpy','pandas','django-tastypie','beautifulsoup','matplotlib'],
     classifiers = ['Development Status :: 3 - Alpha',
                    'Environment :: Web Environment',
                    'Framework :: Django',
