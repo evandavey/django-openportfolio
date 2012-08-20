@@ -4,6 +4,11 @@ Open source django project for portfolio management.  Aims to open up asset mana
 
 More information at: [project homepage](http://evandavey.github.com/OpenPortfolio/)
 
+
+# License
+
+[Creative Commons Share Alike Non-Commercial](http://creativecommons.org/licenses/by-nc-sa/2.0/uk/deed.en_GB)
+
 #Change History
 
 v0.1:
