@@ -2,7 +2,7 @@
 
 Open source django project for portfolio management.  Aims to open up asset management tools used by professional fund managers.
 
-More information at: [project homepage](http://evandavey.github.com/OpenPortfolio/)
+More information at: [project homepage](http://evandavey.github.io/django-openportfolio/)
 
 
 # License
@@ -31,11 +31,11 @@ v0.1:
 
 #Installation
 
-See [installation](http://evandavey.github.com/OpenPortfolio/installation.html)
+See [installation](http://evandavey.github.io/django-openportfolio/installation.html)
 
 #Project documentation 
 
-See [project docs](http://evandavey.github.com/OpenPortfolio/)
+See [project docs](http://evandavey.github.io/django-openportfolio/)
 
 
 #Author
